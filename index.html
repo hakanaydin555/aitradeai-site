@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hakan Aydın — AI Transformation & Growth Advisory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#16233D;
+    --paper:#EAE6D9;
+    --stamp:#A63A2E;
+    --brass:#A8875A;
+    --slate:#5C6B7A;
+    --card:#F4F1E6;
+    --line: rgba(22,35,61,0.16);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 20% 10%, rgba(168,135,90,0.06), transparent 40%),
+      radial-gradient(circle at 80% 60%, rgba(22,35,61,0.05), transparent 45%);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{font-family:'Newsreader', serif; font-weight:600; letter-spacing:-0.01em;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  a{color:inherit;}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 28px;}
+
+  header{position:sticky; top:0; z-index:50; background:rgba(234,230,217,0.92); backdrop-filter: blur(6px); border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .brandmark{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .seal{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--ink);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; flex-shrink:0;}
+  .brand-text{font-family:'Newsreader',serif; font-weight:600; font-size:18px; line-height:1.2;}
+  .brand-text small{display:block;font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10px;letter-spacing:0.1em;color:var(--slate);text-transform:uppercase;}
+  .navlinks{display:flex; align-items:center; gap:26px;}
+  .navlinks a.navlink{font-size:14px; text-decoration:none; color:var(--slate);}
+  .navlinks a.navlink:hover{color:var(--ink);}
+  .langtoggle{display:flex; border:1px solid var(--ink); border-radius:999px; overflow:hidden; font-family:'IBM Plex Mono',monospace; font-size:12px;}
+  .langtoggle button{background:none;border:none;padding:7px 14px;cursor:pointer;color:var(--ink);font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.04em;}
+  .langtoggle button.active{background:var(--ink);color:var(--paper);}
+
+  .hero{padding:80px 0 56px;}
+  .routeline{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em; color:var(--stamp); text-transform:uppercase; margin-bottom:22px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+  .routeline .dash{flex:0 0 28px;height:1px;background:var(--stamp);}
+  .hero h1{font-size:clamp(32px,4.6vw,52px); line-height:1.08; margin:0 0 22px; max-width:840px;}
+  .hero p.lede{font-size:17.5px; line-height:1.65; color:var(--slate); max-width:600px; margin:0 0 30px;}
+  .stat-strip{display:flex; gap:36px; flex-wrap:wrap; margin-top:36px; padding-top:28px; border-top:1px dashed var(--line);}
+  .stat b{display:block; font-family:'IBM Plex Mono',monospace; font-size:26px; color:var(--ink);}
+  .stat span{font-size:11.5px; color:var(--slate); text-transform:uppercase; letter-spacing:0.06em;}
+  .cta-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .btn-stamp{display:inline-flex; align-items:center; gap:10px; background:var(--stamp); color:var(--card); text-decoration:none; padding:14px 24px; border-radius:3px; font-weight:500; font-size:15px; border:1px solid var(--stamp); transition:transform .2s ease, box-shadow .2s ease;}
+  .btn-stamp:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(166,58,46,0.25);}
+  .btn-ghost{display:inline-flex;align-items:center; padding:14px 22px; border:1px solid var(--ink); border-radius:3px; text-decoration:none; font-size:15px; color:var(--ink);}
+
+  section{padding:60px 0;}
+  .section-head{margin-bottom:38px;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.14em; text-transform:uppercase; color:var(--brass); margin-bottom:10px; display:block;}
+  .section-head h2{font-size:clamp(24px,3.2vw,34px); margin:0;}
+  .section-head p{color:var(--slate); font-size:15.5px; max-width:640px; margin:12px 0 0;}
+  hr.hairline{border:none;border-top:1px solid var(--line); margin:0;}
+
+  /* FLAGSHIP PROJECTS */
+  .clearance-grid{display:grid; grid-template-columns:1fr 1fr 1fr; gap:22px;}
+  .clearance-card{position:relative; background:var(--card); border:1px solid var(--line); border-radius:4px; padding:26px 24px; display:flex; flex-direction:column;}
+  .clearance-card .file-no{font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--brass); letter-spacing:0.07em; margin-bottom:12px; display:block;}
+  .clearance-card h3{font-size:19px; margin:0 0 4px;}
+  .clearance-card .role{font-size:12.5px; color:var(--slate); margin-bottom:14px; font-family:'IBM Plex Mono',monospace;}
+  .clearance-card p{color:var(--slate); font-size:14px; line-height:1.6; margin:0 0 18px; flex:1;}
+  .metrics{display:flex; gap:18px; flex-wrap:wrap; border-top:1px dashed var(--line); padding-top:14px; margin-top:auto;}
+  .metric b{display:block; font-family:'IBM Plex Mono',monospace; font-size:18px; color:var(--ink);}
+  .metric span{font-size:10.5px; color:var(--slate); text-transform:uppercase; letter-spacing:0.05em;}
+
+  /* CAREER TIMELINE */
+  .timeline{border:1px solid var(--ink); border-radius:4px; overflow:hidden; background:var(--card);}
+  .tl-row{display:grid; grid-template-columns:160px 1fr; gap:22px; padding:22px 28px;}
+  .tl-row + .tl-row{border-top:1px dashed var(--line);}
+  .tl-years{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--brass); font-weight:600; padding-top:2px;}
+  .tl-role h3{margin:0 0 4px; font-size:16.5px;}
+  .tl-role .co{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--slate); margin-bottom:8px; display:block;}
+  .tl-role p{margin:0; font-size:14px; color:var(--slate); line-height:1.55;}
+
+  .about-row{display:grid; grid-template-columns:1.1fr 0.9fr; gap:48px; align-items:start;}
+  .about-row p{font-size:16px; line-height:1.7; color:var(--slate); margin:0 0 16px;}
+  .badge-list{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:14px;}
+  .badge-list li{display:flex; gap:12px; align-items:baseline; font-size:14.5px; border-bottom:1px dashed var(--line); padding-bottom:12px;}
+  .badge-list b{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--brass); min-width:110px;}
+
+  /* SERVICE MANIFEST */
+  .manifest{border:1px solid var(--ink); border-radius:4px; overflow:hidden; background:var(--card);}
+  .manifest-row{display:grid; grid-template-columns:56px 1fr 170px; gap:20px; padding:24px 28px; align-items:start;}
+  .manifest-row + .manifest-row{border-top:1px dashed var(--line);}
+  .manifest-num{font-family:'IBM Plex Mono',monospace; font-size:20px; color:var(--brass); font-weight:600;}
+  .manifest-row h3{margin:0 0 6px; font-size:18px;}
+  .manifest-row p{margin:0; color:var(--slate); font-size:14.5px; line-height:1.55;}
+  .manifest-tag{font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--slate); text-transform:uppercase; letter-spacing:0.07em; text-align:right; align-self:center;}
+
+  .lading{border:1px solid var(--ink); border-radius:4px; background:var(--card); padding:38px; position:relative;}
+  .lading::before{content:'';position:absolute; inset:8px; border:1px dashed var(--line); border-radius:2px; pointer-events:none;}
+  .lading h2{margin:0 0 8px;}
+  .lading .sub{color:var(--slate); margin:0 0 26px; font-size:15px;}
+  .lading-grid{display:grid; grid-template-columns:1fr 1fr; gap:22px; font-size:14px;}
+  .lading-field{border-top:1px solid var(--line); padding-top:10px;}
+  .lading-field span{display:block; font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.07em; color:var(--slate); margin-bottom:4px;}
+  .lading-field a{font-size:16px; font-weight:500; text-decoration:none;}
+
+  footer{padding:34px 0; text-align:center; color:var(--slate); font-size:13px;}
+
+  @media (max-width:800px){
+    .clearance-grid{grid-template-columns:1fr;}
+    .manifest-row{grid-template-columns:36px 1fr;}
+    .manifest-tag{grid-column:2; text-align:left; margin-top:6px;}
+    .tl-row{grid-template-columns:1fr;}
+    .about-row{grid-template-columns:1fr;}
+    .lading-grid{grid-template-columns:1fr;}
+    .navlinks{display:none;}
+  }
+  [data-lang="tr"]{display:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#top" class="brandmark">
+      <div class="seal">HA</div>
+      <div class="brand-text">Hakan Aydın<small data-lang="en">AI Transformation Advisory</small><small data-lang="tr">AI Dönüşüm Danışmanlığı</small></div>
+    </a>
+    <div style="display:flex; align-items:center; gap:28px;">
+      <div class="navlinks">
+        <a class="navlink" href="#projects"><span data-lang="en">Track Record</span><span data-lang="tr">Sicil</span></a>
+        <a class="navlink" href="#career"><span data-lang="en">Career</span><span data-lang="tr">Kariyer</span></a>
+        <a class="navlink" href="#services"><span data-lang="en">Engagement Model</span><span data-lang="tr">Çalışma Modeli</span></a>
+        <a class="navlink" href="#contact"><span data-lang="en">Contact</span><span data-lang="tr">İletişim</span></a>
+      </div>
+      <div class="langtoggle">
+        <button id="btn-en" class="active">EN</button>
+        <button id="btn-tr">TR</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="wrap">
+      <div class="routeline">
+        <span data-lang="en">ISTANBUL</span><span data-lang="tr">İSTANBUL</span>
+        <span class="dash"></span>
+        <span data-lang="en">MENA · TURKEY · CIS</span><span data-lang="tr">MENA · TÜRKİYE · BDT</span>
+        <span class="dash"></span>
+        <span data-lang="en">15+ YEARS</span><span data-lang="tr">15+ YIL</span>
+      </div>
+      <h1 data-lang="en">AI-driven transformation and growth leadership for e-commerce and omnichannel retail.</h1>
+      <h1 data-lang="tr">E-ticaret ve omnichannel perakendede AI odaklı dönüşüm ve büyüme liderliği.</h1>
+      <p class="lede" data-lang="en">15+ years designing and executing scalable AI-powered growth across marketing, demand forecasting, pricing, and customer lifecycle — for marketplaces, omnichannel retailers, and cross-border commerce platforms across MENA, Turkey, and the CIS.</p>
+      <p class="lede" data-lang="tr">Pazar yerleri, omnichannel perakendeciler ve sınır ötesi ticaret platformları için 15+ yıldır pazarlama, talep tahmini, fiyatlandırma ve müşteri yaşam döngüsü alanlarında ölçeklenebilir AI odaklı büyüme tasarlıyor ve uyguluyorum.</p>
+
+      <div class="cta-row">
+        <a href="#contact" class="btn-stamp"><span data-lang="en">Start a Conversation</span><span data-lang="tr">İletişime Geç</span></a>
+        <a href="#projects" class="btn-ghost"><span data-lang="en">See Track Record</span><span data-lang="tr">Sicili Gör</span></a>
+      </div>
+
+      <div class="stat-strip">
+        <div class="stat"><b>15+</b><span data-lang="en">Years in E-Commerce & Retail</span><span data-lang="tr">Yıl E-ticaret & Perakende</span></div>
+        <div class="stat"><b>6x</b><span data-lang="en">Order Growth in 5 Months*</span><span data-lang="tr">5 Ayda Sipariş Artışı*</span></div>
+        <div class="stat"><b>750+</b><span data-lang="en">Suppliers Managed</span><span data-lang="tr">Yönetilen Tedarikçi</span></div>
+        <div class="stat"><b>4</b><span data-lang="en">Marketplaces Operated</span><span data-lang="tr">Yönetilen Pazar Yeri</span></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- FLAGSHIP PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" data-lang="en">Track Record</span><span class="eyebrow" data-lang="tr">Sicil</span>
+        <h2 data-lang="en">Flagship engagements</h2>
+        <h2 data-lang="tr">Öne çıkan projeler</h2>
+      </div>
+      <div class="clearance-grid">
+
+        <div class="clearance-card">
+          <span class="file-no">BAGHDAD · 2025</span>
+          <h3>Miraaya</h3>
+          <div class="role" data-lang="en">Omnichannel Beauty Platform — Growth & Transformation Lead</div>
+          <div class="role" data-lang="tr">Omnichannel Güzellik Platformu — Büyüme & Dönüşüm Lideri</div>
+          <p data-lang="en">Designed and executed an AI-enabled end-to-end growth strategy across acquisition, retention, and lifetime value for an Iraq-based omnichannel beauty and lifestyle platform.</p>
+          <p data-lang="tr">Irak merkezli omnichannel güzellik ve yaşam tarzı platformu için müşteri kazanımı, elde tutma ve yaşam boyu değer alanlarında uçtan uca, AI destekli bir büyüme stratejisi tasarladım ve uyguladım.</p>
+          <div class="metrics">
+            <div class="metric"><b>6x</b><span data-lang="en">Order Growth / 5mo</span><span data-lang="tr">Sipariş Artışı / 5 Ay</span></div>
+            <div class="metric"><b>5x</b><span data-lang="en">Revenue Growth</span><span data-lang="tr">Gelir Artışı</span></div>
+            <div class="metric"><b>-80%</b><span data-lang="en">CAC Reduction</span><span data-lang="tr">CAC Azalması</span></div>
+            <div class="metric"><b>4x</b><span data-lang="en">ROAS Improvement</span><span data-lang="tr">ROAS Artışı</span></div>
+          </div>
+        </div>
+
+        <div class="clearance-card">
+          <span class="file-no">ISTANBUL · 2022–2024</span>
+          <h3>Citybrand.store</h3>
+          <div class="role" data-lang="en">Cross-Border Commerce Platform — Multi-Market Operations</div>
+          <div class="role" data-lang="tr">Sınır Ötesi Ticaret Platformu — Çok Pazarlı Operasyon</div>
+          <p data-lang="en">Built and scaled multi-country commerce operations across Europe, CIS, and MENA in fashion, beauty, and FMCG — spanning Ozon, Amazon, Wildberries, and Jumia.</p>
+          <p data-lang="tr">Moda, güzellik ve FMCG kategorilerinde Avrupa, BDT ve MENA genelinde çok ülkeli ticaret operasyonları kurdum ve büyüttüm — Ozon, Amazon, Wildberries ve Jumia dahil.</p>
+          <div class="metrics">
+            <div class="metric"><b>750+</b><span data-lang="en">Supplier Ecosystem</span><span data-lang="tr">Tedarikçi Ekosistemi</span></div>
+            <div class="metric"><b>4</b><span data-lang="en">Marketplaces</span><span data-lang="tr">Pazar Yeri</span></div>
+            <div class="metric"><b>3</b><span data-lang="en">Regions</span><span data-lang="tr">Bölge</span></div>
+          </div>
+        </div>
+
+        <div class="clearance-card">
+          <span class="file-no">ISTANBUL · 2026–PRESENT</span>
+          <h3 data-lang="en">Golden Rose <span style="font-weight:400; font-size:13px; color:var(--slate);">(Erkul Kozmetik)</span></h3>
+          <h3 data-lang="tr">Golden Rose <span style="font-weight:400; font-size:13px; color:var(--slate);">(Erkul Kozmetik)</span></h3>
+          <div class="role" data-lang="en">Global Cosmetics Brand — AI Transformation Advisory</div>
+          <div class="role" data-lang="tr">Global Kozmetik Markası — AI Dönüşüm Danışmanlığı</div>
+          <p data-lang="en">Leading AI transformation across marketing, retail operations, and supply chain for a brand present in 50 retail stores plus marketplace and e-commerce channels — from demand forecasting to AI-based content generation.</p>
+          <p data-lang="tr">50 mağaza artı pazar yeri ve e-ticaret kanallarında yer alan bir marka için pazarlama, mağaza operasyonları ve tedarik zincirinde AI dönüşümüne öncülük ediyorum — talep tahmininden AI destekli içerik üretimine kadar.</p>
+          <div class="metrics">
+            <div class="metric"><b>50</b><span data-lang="en">Retail Stores</span><span data-lang="tr">Mağaza</span></div>
+            <div class="metric"><b>3</b><span data-lang="en">Functions Transformed</span><span data-lang="tr">Dönüştürülen Fonksiyon</span></div>
+          </div>
+        </div>
+
+      </div>
+      <p style="font-size:12px; color:var(--slate); margin-top:18px;" data-lang="en">*Miraaya engagement, 5-month period.</p>
+      <p style="font-size:12px; color:var(--slate); margin-top:18px;" data-lang="tr">*Miraaya projesi, 5 aylık dönem.</p>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- CAREER TIMELINE -->
+  <section id="career">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" data-lang="en">15 Years in Marketplaces & Retail</span><span class="eyebrow" data-lang="tr">Pazar Yerlerinde ve Perakendede 15 Yıl</span>
+        <h2 data-lang="en">Career record</h2>
+        <h2 data-lang="tr">Kariyer geçmişi</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-row">
+          <div class="tl-years">2021 – 2022</div>
+          <div class="tl-role">
+            <h3>gittigidiyor (eBay)</h3>
+            <span class="co" data-lang="en">Head of Fashion & Beauty Categories — Istanbul</span>
+            <span class="co" data-lang="tr">Moda & Güzellik Kategorileri Direktörü — İstanbul</span>
+            <p data-lang="en">Owned category P&L, pricing, and commercial strategy across fashion & beauty; led campaigns, assortment, and monetization strategy in a marketplace environment.</p>
+            <p data-lang="tr">Moda & güzellik kategorilerinde P&L, fiyatlandırma ve ticari stratejiden sorumlu oldum; pazar yeri ortamında kampanya, çeşitlendirme ve monetizasyon stratejisine öncülük ettim.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-years">2012 – 2021</div>
+          <div class="tl-role">
+            <h3>n11.com</h3>
+            <span class="co" data-lang="en">Fashion & Beauty Category Group Manager — Istanbul</span>
+            <span class="co" data-lang="tr">Moda & Güzellik Kategori Grup Müdürü — İstanbul</span>
+            <p data-lang="en">Nine years managing multi-category operations with retail-like commercial and supplier structures; led CRM and conversion optimization initiatives, and built supplier partnerships and category growth strategies.</p>
+            <p data-lang="tr">Dokuz yıl boyunca perakende benzeri ticari ve tedarikçi yapılarıyla çok kategorili operasyonları yönettim; CRM ve dönüşüm optimizasyonu girişimlerine öncülük ettim, tedarikçi ortaklıkları ve kategori büyüme stratejileri kurdum.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-years">2011 – 2012</div>
+          <div class="tl-role">
+            <h3>Rocket Internet Turkey</h3>
+            <span class="co" data-lang="en">Senior Buyer — Istanbul</span>
+            <span class="co" data-lang="tr">Kıdemli Satın Alma Uzmanı — İstanbul</span>
+            <p data-lang="en">Managed supplier relationships, purchasing budgets, and stock planning; optimized inventory turnover and category profitability.</p>
+            <p data-lang="tr">Tedarikçi ilişkilerini, satın alma bütçelerini ve stok planlamasını yönettim; envanter devir hızını ve kategori kârlılığını optimize ettim.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-years">2005 – 2011</div>
+          <div class="tl-role">
+            <h3>Aydın Cosmetics Ltd.</h3>
+            <span class="co" data-lang="en">Co-Founder — Istanbul</span>
+            <span class="co" data-lang="tr">Kurucu Ortak — İstanbul</span>
+            <p data-lang="en">Built and scaled a cosmetics wholesale and distribution business; managed supplier network, sales operations, and retail channel relationships through to a successful exit.</p>
+            <p data-lang="tr">Bir kozmetik toptan satış ve dağıtım işini kurdum ve büyüttüm; tedarikçi ağını, satış operasyonlarını ve perakende kanal ilişkilerini başarılı bir çıkışa kadar yönettim.</p>
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-years">2004 – 2005</div>
+          <div class="tl-role">
+            <h3>Aypa Cosmetics <span style="font-weight:400; font-size:12px;">(Unilever Ecosystem)</span></h3>
+            <span class="co" data-lang="en">Sales Consultant — Istanbul</span>
+            <span class="co" data-lang="tr">Satış Danışmanı — İstanbul</span>
+            <p data-lang="en">Supported sales operations and performance reporting for personal care brands, collaborating with Unilever-aligned distribution and audit teams.</p>
+            <p data-lang="tr">Kişisel bakım markaları için satış operasyonları ve performans raporlamasını destekledim; Unilever'e bağlı dağıtım ve denetim ekipleriyle çalıştım.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- ABOUT / HOW I WORK -->
+  <section id="about">
+    <div class="wrap about-row">
+      <div>
+        <span class="eyebrow" data-lang="en">Approach</span><span class="eyebrow" data-lang="tr">Yaklaşım</span>
+        <h2 style="margin-bottom:18px;" data-lang="en">How I work</h2>
+        <h2 style="margin-bottom:18px;" data-lang="tr">Nasıl çalışıyorum</h2>
+        <p data-lang="en">I bridge business units and technology teams — translating commercial problems into scalable, data-driven products and systems. My background spans unit economics, retail-like operations, and martech-enabled growth, with hands-on execution across web and mobile platforms.</p>
+        <p data-lang="tr">İş birimleri ile teknoloji ekipleri arasında köprü kurarım — ticari problemleri ölçeklenebilir, veri odaklı ürün ve sistemlere dönüştürürüm. Geçmişim; birim ekonomisi, perakende benzeri operasyonlar ve martech destekli büyümeyi, web ve mobil platformlarda uçtan uca uygulama deneyimiyle birleştiriyor.</p>
+        <p data-lang="en">I work remotely and take on engagements on a project basis — typically structured across three months, from discovery to a working pilot to a measurable handover — so I can bring this experience to multiple organizations rather than a single seat.</p>
+        <p data-lang="tr">Uzaktan çalışıyorum ve projeleri proje bazlı üstleniyorum — genellikle üç ay boyunca keşiften çalışan bir pilota, ölçülebilir bir devire kadar yapılandırılmış şekilde — böylece bu deneyimi tek bir koltuğa değil, birden fazla organizasyona taşıyabiliyorum.</p>
+      </div>
+      <ul class="badge-list">
+        <li><b data-lang="en">FORMAT</b><b data-lang="tr">FORMAT</b><span data-lang="en">Remote, project-based (3 months)</span><span data-lang="tr">Uzaktan, proje bazlı (3 ay)</span></li>
+        <li><b data-lang="en">SCOPE</b><b data-lang="tr">KAPSAM</b><span data-lang="en">AI transformation, growth & retail ops</span><span data-lang="tr">AI dönüşümü, büyüme & perakende operasyonları</span></li>
+        <li><b data-lang="en">MARKETS</b><b data-lang="tr">PAZARLAR</b><span data-lang="en">Turkey, MENA, CIS, emerging markets</span><span data-lang="tr">Türkiye, MENA, BDT, gelişen pazarlar</span></li>
+        <li><b data-lang="en">TOOLS</b><b data-lang="tr">ARAÇLAR</b><span data-lang="en">GA4, Adjust, MoEngage, Algolia, PowerBI</span><span data-lang="tr">GA4, Adjust, MoEngage, Algolia, PowerBI</span></li>
+        <li><b data-lang="en">LANGUAGES</b><b data-lang="tr">DİLLER</b><span data-lang="en">English (C2), Turkish (Native)</span><span data-lang="tr">İngilizce (C2), Türkçe (Anadil)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- ENGAGEMENT MODEL -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" data-lang="en">Engagement Model</span><span class="eyebrow" data-lang="tr">Çalışma Modeli</span>
+        <h2 data-lang="en">A three-month transformation cycle</h2>
+        <h2 data-lang="tr">Üç aylık dönüşüm döngüsü</h2>
+      </div>
+      <div class="manifest">
+        <div class="manifest-row">
+          <div class="manifest-num">01</div>
+          <div>
+            <h3 data-lang="en">Discovery & Analysis</h3>
+            <h3 data-lang="tr">Keşif & Analiz</h3>
+            <p data-lang="en">Process mapping, data and infrastructure assessment, and identification of the highest-impact AI use cases.</p>
+            <p data-lang="tr">Süreç haritalama, veri/altyapı değerlendirmesi ve en yüksek etkili AI kullanım senaryolarının tespiti.</p>
+          </div>
+          <div class="manifest-tag" data-lang="en">Month 1</div>
+          <div class="manifest-tag" data-lang="tr">Ay 1</div>
+        </div>
+        <div class="manifest-row">
+          <div class="manifest-num">02</div>
+          <div>
+            <h3 data-lang="en">Pilot Implementation</h3>
+            <h3 data-lang="tr">Pilot Uygulama</h3>
+            <p data-lang="en">Deploying a working AI automation in 1–2 high-impact areas: marketing, forecasting, pricing, or customer operations.</p>
+            <p data-lang="tr">Pazarlama, talep tahmini, fiyatlandırma veya müşteri operasyonlarından 1-2 yüksek etkili alanda çalışan bir AI otomasyonunun kurulumu.</p>
+          </div>
+          <div class="manifest-tag" data-lang="en">Month 2</div>
+          <div class="manifest-tag" data-lang="tr">Ay 2</div>
+        </div>
+        <div class="manifest-row">
+          <div class="manifest-num">03</div>
+          <div>
+            <h3 data-lang="en">Scale & Handover</h3>
+            <h3 data-lang="tr">Ölçekleme & Devir</h3>
+            <p data-lang="en">Measuring results, training the team, and documenting a roadmap for sustainable, ongoing use.</p>
+            <p data-lang="tr">Sonuç ölçümü, ekip eğitimi ve sürdürülebilir kullanım için bir yol haritasının dokümantasyonu.</p>
+          </div>
+          <div class="manifest-tag" data-lang="en">Month 3</div>
+          <div class="manifest-tag" data-lang="tr">Ay 3</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="hairline">
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="lading">
+        <span class="eyebrow" data-lang="en">Contact</span><span class="eyebrow" data-lang="tr">İletişim</span>
+        <h2 data-lang="en">Let's discuss your next transformation</h2>
+        <h2 data-lang="tr">Bir sonraki dönüşüm için konuşalım</h2>
+        <p class="sub" data-lang="en">Send a short note about what you need — I'll reply within 1–2 business days.</p>
+        <p class="sub" data-lang="tr">Kısaca ihtiyacını yaz, 1-2 iş günü içinde dönüş yapayım.</p>
+        <div class="lading-grid">
+          <div class="lading-field">
+            <span data-lang="en">EMAIL</span><span data-lang="tr">E-POSTA</span>
+            <a href="mailto:hakan.aydin@aitradeai.net">hakan.aydin@aitradeai.net</a>
+          </div>
+          <div class="lading-field">
+            <span data-lang="en">PHONE</span><span data-lang="tr">TELEFON</span>
+            <a href="tel:+905334755284">+90 533 475 52 84</a>
+          </div>
+          <div class="lading-field">
+            <span data-lang="en">LINKEDIN</span><span data-lang="tr">LINKEDIN</span>
+            <a href="https://linkedin.com/in/hakanaydin55/" target="_blank" rel="noopener">linkedin.com/in/hakanaydin55</a>
+          </div>
+          <div class="lading-field">
+            <span data-lang="en">LOCATION</span><span data-lang="tr">KONUM</span>
+            <span style="font-size:16px;font-weight:500;">Istanbul, Türkiye</span>
+          </div>
+          <div class="lading-field" style="grid-column: 1 / -1;">
+            <span data-lang="en">STATUS</span><span data-lang="tr">DURUM</span>
+            <span style="font-size:16px;font-weight:500;" data-lang="en">Available for new engagements</span>
+            <span style="font-size:16px;font-weight:500;" data-lang="tr">Yeni projeler için müsait</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span data-lang="en">© 2026 Hakan Aydın — AI Transformation & Growth Advisory</span>
+  <span data-lang="tr">© 2026 Hakan Aydın — AI Dönüşüm & Büyüme Danışmanlığı</span>
+</footer>
+
+<script>
+  const btnTr = document.getElementById('btn-tr');
+  const btnEn = document.getElementById('btn-en');
+  function setLang(lang){
+    document.querySelectorAll('[data-lang="tr"]').forEach(el => el.style.display = lang==='tr' ? '' : 'none');
+    document.querySelectorAll('[data-lang="en"]').forEach(el => el.style.display = lang==='en' ? '' : 'none');
+    btnTr.classList.toggle('active', lang==='tr');
+    btnEn.classList.toggle('active', lang==='en');
+    document.documentElement.lang = lang;
+  }
+  btnTr.addEventListener('click', () => setLang('tr'));
+  btnEn.addEventListener('click', () => setLang('en'));
+  setLang('en');
+</script>
+
+</body>
+</html>
