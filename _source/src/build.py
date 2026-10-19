@@ -297,7 +297,8 @@ def privacy(lang):
     p = T[lang]["privacy"]
     out = [head(lang, "privacy", p), '<div class="dark">', header(lang, "privacy", False), "</div>\n<main>"]
     body = "".join(f"<h2>{e(h)}</h2><p>{e(t)}</p>" for h, t in p["body"])
-    out.append(f'<article class="legal"><p class="draft">{e(p["draft"])}</p><h1>{e(p["h1"])}</h1>{body}</article>\n</main>\n')
+    draft = f'<p class="draft">{e(p["draft"])}</p>' if p["draft"] else ""
+    out.append(f'<article class="legal">{draft}<h1>{e(p["h1"])}</h1>{body}</article>\n</main>\n')
     out.append(footer(lang, False))
     return "".join(out)
 

@@ -88,10 +88,10 @@ T = {
   "privacy": {
     "title": "Privacy & KVKK notice — AI Trade",
     "desc": "How AI Trade handles the personal data you share through this website.",
-    "draft": "Draft — pending legal review.",
+    "draft": "",
     "h1": "Privacy & KVKK notice",
     "body": [
-      ("Who we are", "AI Trade is a sole proprietorship run by Hakan Aydın in Istanbul, Türkiye, acting as data controller under the Turkish Personal Data Protection Law No. 6698 (KVKK). Address: [ADDRESS]. Contact: hakan.aydin@aitradeai.net."),
+      ("Who we are", "AI Trade is a sole proprietorship run by Hakan Aydın in Istanbul, Türkiye, acting as data controller under the Turkish Personal Data Protection Law No. 6698 (KVKK). Address: Cevizli Mah. Zühal Cad. A Ticari Blok Apt. No:46/50, Maltepe/İstanbul. Contact: hakan.aydin@aitradeai.net."),
       ("What we collect", "When you request a check-up: your name, work email, company, phone (optional), your note (optional) and your answers to the form questions. When you book a call, Google Calendar collects the details you enter there."),
       ("Why we use it", "Only to reply to your request, arrange the call and prepare the check-up. We do not sell your data or use it for advertising."),
       ("Legal basis", "Taking steps at your request before a possible contract, and our legitimate interest in responding to business enquiries (KVKK Article 5/2 (c) and (f))."),
@@ -181,10 +181,10 @@ T = {
   "privacy": {
     "title": "Gizlilik ve KVKK aydınlatma metni — AI Trade",
     "desc": "AI Trade'in bu site üzerinden paylaştığınız kişisel verileri nasıl işlediği.",
-    "draft": "Taslak — hukuki kontrol bekliyor.",
+    "draft": "",
     "h1": "Gizlilik ve KVKK aydınlatma metni",
     "body": [
-      ("Veri sorumlusu", "AI Trade, İstanbul'da Hakan Aydın tarafından yürütülen bir şahıs işletmesidir ve 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında veri sorumlusudur. Adres: [ADRES]. İletişim: hakan.aydin@aitradeai.net."),
+      ("Veri sorumlusu", "AI Trade, İstanbul'da Hakan Aydın tarafından yürütülen bir şahıs işletmesidir ve 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında veri sorumlusudur. Adres: Cevizli Mah. Zühal Cad. A Ticari Blok Apt. No:46/50, Maltepe/İstanbul. İletişim: hakan.aydin@aitradeai.net."),
       ("Hangi verileri topluyoruz", "Check-up talebinde: adınız, iş e-postanız, şirketiniz, telefonunuz (isteğe bağlı), notunuz (isteğe bağlı) ve form sorularına verdiğiniz cevaplar. Görüşme ayarladığınızda, oraya girdiğiniz bilgileri Google Takvim toplar."),
       ("Neden kullanıyoruz", "Yalnızca talebinize yanıt vermek, görüşmeyi ayarlamak ve check-up'ı hazırlamak için. Verilerinizi satmıyor, reklam amacıyla kullanmıyoruz."),
       ("Hukuki sebep", "Bir sözleşmenin kurulmasından önce talebiniz üzerine adım atılması ve iş taleplerine yanıt vermekteki meşru menfaatimiz (KVKK m. 5/2 (c) ve (f))."),
