@@ -118,7 +118,7 @@ def home(lang):
 <div class="hero-copy">
 <p class="eyebrow">{h['eyebrow']}</p>
 <h1 class="rise">{h['h1']}</h1>
-<p class="lead rise d2">{e(h['lead'])}</p>
+<p class="lead rise d2">{e(h['lead'])} <span class="weeks">{e(h['lead_weeks'])}</span></p>
 <div class="hero-ctas rise d3">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
 <a class="ghost" href="#how">{e(h['ghost'])}</a>
