@@ -6,17 +6,7 @@
 
   function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
 
-  /* 1. Language: first visit to an English page from Turkey -> Turkish */
-  var alt = document.querySelector('a[data-setlang="tr"]');
-  if (pageLang === 'en' && alt && !store('at-lang')) {
-    var langs = (navigator.languages || [navigator.language || '']).join(',').toLowerCase();
-    var tz = '';
-    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
-    if (/(^|,)tr/.test(langs) || tz === 'Europe/Istanbul') {
-      location.replace(alt.getAttribute('href') + location.hash);
-      return;
-    }
-  }
+  /* 1. Language: English for everyone; the TR link switches manually */
   document.querySelectorAll('[data-setlang]').forEach(function (a) {
     a.addEventListener('click', function () { store('at-lang', a.getAttribute('data-setlang')); });
   });
