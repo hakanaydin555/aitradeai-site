@@ -179,6 +179,7 @@ def home(lang):
 <div class="cases">
 <p class="cases-note">{e(h['cases_note'])}<span class="swipe-hint">{e(h['swipe'])}</span></p>
 <div class="case-track stagger">{cases}</div>
+<div class="case-dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
 </div>
 </div>
 </section>
@@ -202,7 +203,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
 <div class="contact-grid stagger">{cards}</div>
-<div class="contact-mobile">
+<div class="contact-mobile stagger">
 <a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener">{e(m[0])}</a>
 <div class="two"><a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a><a class="btn btn-line" href="{rel(lang, lang, 'cu')}">{e(m[2])}</a></div>
 </div>

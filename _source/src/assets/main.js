@@ -55,6 +55,39 @@
     watched.forEach(function (el) { el.classList.add('in'); });
   }
 
+  /* 3b. Scroll-linked flow: process line, case dots, floating button */
+  var plists = document.querySelectorAll('.plist');
+  var fab = document.querySelector('.fab');
+  var ticking = false;
+  function onScroll() {
+    ticking = false;
+    var vh = window.innerHeight;
+    plists.forEach(function (pl) {
+      var r = pl.getBoundingClientRect();
+      var p = Math.max(0, Math.min(1, (vh * 0.7 - r.top) / r.height));
+      pl.style.setProperty('--p', reduce ? 1 : p.toFixed(3));
+      pl.querySelectorAll('.prow').forEach(function (row) {
+        row.classList.toggle('on', reduce || row.getBoundingClientRect().top < vh * 0.7);
+      });
+    });
+    if (fab) fab.classList.toggle('show', window.scrollY > vh * 0.6);
+  }
+  window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+  var track = document.querySelector('.case-track');
+  var dots = document.querySelectorAll('.case-dots span');
+  if (track && dots.length) {
+    track.addEventListener('scroll', function () {
+      var cards = track.children, best = 0, bestD = Infinity;
+      for (var i = 0; i < cards.length; i++) {
+        var d = Math.abs(cards[i].getBoundingClientRect().left - track.getBoundingClientRect().left);
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      dots.forEach(function (dt, i) { dt.classList.toggle('on', i === best); });
+    }, { passive: true });
+  }
+
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;
