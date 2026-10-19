@@ -15,7 +15,7 @@ T = {
   "home": {
     "title": "AI Trade — E-commerce profitability consulting",
     "desc": "We find where your e-commerce operation loses money and time, fix what matters most and hand the working system to your team in eight weeks. Free check-up.",
-    "eyebrow": "E-commerce profitability",
+    "eyebrow": "AI-powered e-commerce profit partner",
     "h1": "Less waste.<br>More profit.",
     "lead": "We find where your e-commerce operation loses money and time, fix what matters most, and hand the working system to your team.", "lead_weeks": "In eight weeks.",
     "cta": "Request a free check-up", "ghost": "See how it works ›",
@@ -108,7 +108,7 @@ T = {
   "home": {
     "title": "AI Trade — E-ticaret kârlılık danışmanlığı",
     "desc": "E-ticaret operasyonunuzun nerede para ve zaman kaybettiğini buluyor, en önemlisini çözüyor, çalışan sistemi sekiz haftada ekibinize devrediyoruz. Ücretsiz check-up.",
-    "eyebrow": "E-ticaret kârlılığı",
+    "eyebrow": "AI destekli e-ticaret kâr ortağınız",
     "h1": "Daha az israf.<br>Daha fazla kâr.",
     "lead": "E-ticaret operasyonunuzun nerede para ve zaman kaybettiğini buluyor, en önemlisini çözüyor ve çalışan sistemi ekibinize devrediyoruz.", "lead_weeks": "Sekiz haftada.",
     "cta": "Ücretsiz check-up isteyin", "ghost": "Nasıl çalıştığını görün ›",
