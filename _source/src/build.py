@@ -148,7 +148,7 @@ def home(lang):
 </section>
 """)
     steps = "".join(f'<div><p class="n">0{i+1}</p><p class="t">{e(t)}</p><p class="d">{e(d)}</p></div>' for i, (t, d) in enumerate(h["steps"]))
-    out.append(f'<section class="steps"><div class="wrap">{steps}</div></section>\n</div>\n<main>\n')
+    out.append(f'<section class="steps"><div class="wrap stagger">{steps}</div></section>\n</div>\n<main>\n')
 
     nodes = "".join(f'<li class="node n{i+1}"><span class="dot" aria-hidden="true">{i+1}</span><span class="txt"><span class="nt">{e(a)}</span><span class="nl">{e(b)}</span><span class="nf">{e(c)}</span></span></li>' for i, (a, b, c) in enumerate(h["nodes"]))
     out.append(f"""<section class="section grey" id="leaks">
@@ -166,7 +166,7 @@ def home(lang):
     out.append(f"""<section class="section" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
-<div class="plist reveal">{plan}</div>
+<div class="plist stagger">{plan}</div>
 </div>
 </section>
 """)
@@ -175,19 +175,19 @@ def home(lang):
     out.append(f"""<section class="section dark" id="measure">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['m_h'])}</h2><p>{e(h['m_p'])}</p></div>
-<div class="measure-grid reveal">{metrics}</div>
+<div class="measure-grid stagger">{metrics}</div>
 <div class="cases">
 <p class="cases-note">{e(h['cases_note'])}<span class="swipe-hint">{e(h['swipe'])}</span></p>
-<div class="case-track">{cases}</div>
+<div class="case-track stagger">{cases}</div>
 </div>
 </div>
 </section>
 """)
-    pr = "".join(f'<div class="principle reveal"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p></div>' for k, t, d in h["principles"])
+    pr = "".join(f'<div class="principle"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p></div>' for k, t, d in h["principles"])
     out.append(f"""<section class="section" id="about">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['p_h'])}</h2><p>{e(h['p_p'])}</p></div>
-<div class="principles">{pr}</div>
+<div class="principles stagger">{pr}</div>
 <p class="principles-foot">{e(h['p_foot'])}</p>
 </div>
 </section>
@@ -196,12 +196,12 @@ def home(lang):
     links = [CAL, wa(lang), rel(lang, lang, "cu")]
     cls = ["btn btn-amber", "btn btn-dark", "btn btn-dark"]
     ext = ['target="_blank" rel="noopener"', 'target="_blank" rel="noopener"', ""]
-    cards = "".join(f'<div class="ccard reveal"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
+    cards = "".join(f'<div class="ccard"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
     m = h["c_mobile"]
     out.append(f"""<section class="section grey" id="contact">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
-<div class="contact-grid">{cards}</div>
+<div class="contact-grid stagger">{cards}</div>
 <div class="contact-mobile">
 <a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener">{e(m[0])}</a>
 <div class="two"><a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a><a class="btn btn-line" href="{rel(lang, lang, 'cu')}">{e(m[2])}</a></div>
@@ -280,7 +280,7 @@ def checkup(lang):
     out.append(f"""<section class="section">
 <div class="wrap">
 <h2 class="h2-left">{e(c['a_h'])}</h2>
-<div class="areas">{areas}</div>
+<div class="areas stagger">{areas}</div>
 <div class="notes">{notes}</div>
 </div>
 </section>

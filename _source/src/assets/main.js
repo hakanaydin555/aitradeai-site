@@ -50,7 +50,7 @@
     }
     requestAnimationFrame(step);
   }
-  var watched = document.querySelectorAll('.reveal, .leakmap, [data-count]');
+  var watched = document.querySelectorAll('.reveal, .stagger, .leakmap, [data-count]');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
