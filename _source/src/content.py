@@ -83,7 +83,7 @@ T = {
     "eyebrow": "Free check-up", "h1": "Find out where your profit leaks.", "lead": "A 30-minute call and a few summary figures. No commitment.",
     "fit": "<strong>Best suited to</strong> companies with 1,000+ monthly orders, where leadership takes part in the process.", "gets_k": "You get", "gets": ["Where your biggest losses are", "A rough size of the opportunity", "An honest view on whether a project is worth it"],
     "steplabel": "Step {n} of {t}", "multi_hint": "Select all that apply.", "next_btn": "Continue", "time": "About 2 minutes",
-    "qs": [("channel", "Where do you sell?", ["Our own website", "Marketplaces in Türkiye", "Marketplaces abroad"], "multi"),
+    "qs": [("channel", "Where do you sell?", ["Our own website", "Local marketplaces", "International marketplaces"], "multi"),
            ("orders", "Monthly orders", ["Under 1,000", "1,000–5,000", "5,000–20,000", "20,000+"]),
            ("concern", "Biggest concern right now", ["Campaign and product profitability", "Advertising efficiency", "Returns, cancellations, stock", "Manual work and reporting", "Not sure yet"]),
            ("timing", "When would you like to start?", ["This month", "Within 1–3 months", "Just exploring"]),
