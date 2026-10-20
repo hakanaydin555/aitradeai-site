@@ -61,7 +61,7 @@ def head(lang, key, page):
 <script src="{prefix}assets/config.js"></script>
 <script src="{prefix}assets/main.js" defer></script>
 </head>
-<body>
+<body class="hero-light">
 """
 
 

@@ -49,7 +49,6 @@ h1,h2,h3,p{margin:0}
 
 /* hero */
 .hero{position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;width:720px;height:720px;right:-160px;top:-220px;border-radius:50%;background:radial-gradient(circle,rgba(245,158,11,.16),rgba(245,158,11,0) 65%);animation:drift 14s ease-in-out infinite alternate;pointer-events:none}
 .hero .wrap{position:relative}
 .hero .wrap{display:flex;flex-wrap:wrap;gap:64px;align-items:center;padding-top:96px;padding-bottom:88px}
 .hero-copy{flex:999 1 440px;min-width:0;display:flex;flex-direction:column;gap:26px}
@@ -363,7 +362,7 @@ h1,h2,h3,p{margin:0}
 .fit strong{color:var(--amber-soft);font-weight:600}
 
 /* variant: white hero (home only, body.hero-light) */
-.hero-light>.dark{background:#fff;color:var(--ink)}
+.hero-light>.dark{background:#fff;color:var(--ink);border-bottom:1px solid var(--line)}
 .hero-light .site-header{border-bottom-color:var(--line)}
 .hero-light .brand,.hero-light .brand:hover{color:var(--ink)}
 .hero-light .nav a.navlink{color:var(--ink-2)}
@@ -376,7 +375,6 @@ h1,h2,h3,p{margin:0}
 .hero-light .hero .lead{color:var(--ink-2)}
 .hero-light .hero-ctas .ghost{color:var(--ink)}
 .hero-light .weeks{color:var(--ink)}
-.hero-light .hero::before{background:radial-gradient(circle,rgba(245,158,11,.13),rgba(245,158,11,0) 65%)}
 .hero-light .panel{box-shadow:0 28px 64px rgba(14,26,43,.22)}
 .hero-light .steps{border-top:1px solid var(--line)}
 .hero-light .steps .n{color:var(--amber-text)}
@@ -385,3 +383,13 @@ h1,h2,h3,p{margin:0}
   .hero-light .nav.open{background:#fff;border-bottom-color:var(--line)}
   .hero-light .nav.open .navlink{border-bottom-color:var(--line)}
 }
+
+/* white hero on the check-up page */
+.hero-light .cu-copy .lead{color:var(--ink-2)}
+.hero-light .gets .k{color:var(--muted)}
+.hero-light .fit{background:var(--amber-tint);color:var(--ink-2)}
+.hero-light .fit strong{color:var(--amber-text)}
+.hero-light .formcard{border:1px solid var(--line);box-shadow:0 24px 60px rgba(14,26,43,.10)}
+.hero-light .form-alt{color:var(--ink-2)}
+.hero-light .form-alt a,.hero-light .founder a{color:var(--amber-text)}
+.hero-light .founder{color:var(--muted);border-top-color:var(--line)}
