@@ -222,7 +222,7 @@ def checkup(lang):
     gets = "".join(f"<div>{CHECK}<span>{e(g)}</span></div>" for g in c["gets"])
     qsteps = []
     for i, (key, q, opts) in enumerate(c["qs"]):
-        buttons = "".join(f'<button type="button" class="opt" aria-pressed="false">{e(o)}</button>' for o in opts)
+        buttons = "".join(f'<button type="button" class="opt" aria-pressed="false" data-i="{j}">{e(o)}</button>' for j, o in enumerate(opts))
         qsteps.append(f'<div data-step="{i}" data-key="{key}" data-q="{e(q)}"{" hidden" if i else ""}><h2>{e(q)}</h2><div class="opts" style="margin-top:18px">{buttons}</div></div>')
     alt = c["alt"].format(cal=CAL, wa=e(wa(lang)))
     founder = c["founder"].format(li=LINKEDIN)
@@ -232,16 +232,17 @@ def checkup(lang):
 <p class="eyebrow">{e(c['eyebrow'])}</p>
 <h1>{e(c['h1'])}</h1>
 <p class="lead">{e(c['lead'])}</p>
+<p class="fit">{c['fit']}</p>
 <div class="gets"><p class="k">{e(c['gets_k'])}</p>{gets}</div>
 </div>
 <div class="cu-form-col">
 <form class="formcard" id="checkup" novalidate>
 <div class="progress-wrap">
-<div class="progress-meta"><span data-steplabel="{e(c['steplabel'])}">{e(c['steplabel'].replace('{n}', '1'))}</span><span>{e(c['time'])}</span></div>
+<div class="progress-meta"><span data-steplabel="{e(c['steplabel'])}">{e(c['steplabel'].replace('{n}', '1').replace('{t}', str(len(c['qs']) + 1)))}</span><span>{e(c['time'])}</span></div>
 <div class="progress"><span></span></div>
 </div>
 {''.join(qsteps)}
-<div data-step="4" hidden>
+<div data-step="{len(c['qs'])}" hidden>
 <h2>{e(c['c_h'])}</h2>
 <div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
 <div class="field"><label for="f-name">{e(c['f_name'])}</label><input id="f-name" name="name" type="text" autocomplete="name" required><span class="err">{e(c['e_name'])}</span></div>
@@ -250,6 +251,7 @@ def checkup(lang):
 <div class="field"><label for="f-company">{e(c['f_company'])}</label><input id="f-company" name="company" type="text" autocomplete="organization" required><span class="err">{e(c['e_company'])}</span></div>
 <div class="field"><label for="f-phone">{e(c['f_phone'])}</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
 </div>
+<div class="field"><label for="f-website">{e(c['f_web'])}</label><input id="f-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required><span class="err">{e(c['e_web'])}</span></div>
 <div class="field"><label for="f-note">{e(c['f_note'])}</label><textarea id="f-note" name="note" rows="3" placeholder="{e(c['f_note_ph'])}"></textarea></div>
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
 <label class="consent"><input type="checkbox" name="consent"><span>{c['consent'].format(privacy=privacy)}</span></label>
@@ -257,7 +259,7 @@ def checkup(lang):
 <button class="btn btn-amber" type="submit" style="width:100%">{e(c['submit'])}</button>
 </div>
 </div>
-<div data-step="5" hidden>
+<div data-step="{len(c['qs']) + 1}" hidden>
 <svg class="done-icon" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="#FFF4E0"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#B45309" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
 <h2 style="margin-top:16px" role="status">{e(c['d_h'])}</h2>
 <p style="font-size:16px;color:var(--muted);margin:10px 0 18px">{e(c['d_p'])}</p>

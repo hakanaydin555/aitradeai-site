@@ -94,7 +94,8 @@
   var steps = form.querySelectorAll('[data-step]');
   var bar = form.querySelector('.progress span');
   var label = form.querySelector('[data-steplabel]');
-  var labelTpl = label ? label.getAttribute('data-steplabel') : 'Step {n} of 5';
+  var labelTpl = label ? label.getAttribute('data-steplabel') : 'Step {n} of {t}';
+  var total = steps.length - 1; /* question + contact steps; last step is the thank-you screen */
   var backBtn = form.querySelector('.back');
   var head = form.querySelector('.progress-wrap');
   var answers = {};
@@ -103,11 +104,11 @@
   function show(i) {
     current = i;
     steps.forEach(function (s) { s.hidden = Number(s.getAttribute('data-step')) !== i; });
-    var n = Math.min(i + 1, 5);
-    if (bar) bar.style.width = (n * 20) + '%';
-    if (label) label.textContent = labelTpl.replace('{n}', n);
-    if (head) head.hidden = i >= 5;
-    if (backBtn) backBtn.hidden = !(i > 0 && i < 5);
+    var n = Math.min(i + 1, total);
+    if (bar) bar.style.width = (n / total * 100) + '%';
+    if (label) label.textContent = labelTpl.replace('{n}', n).replace('{t}', total);
+    if (head) head.hidden = i >= total;
+    if (backBtn) backBtn.hidden = !(i > 0 && i < total);
     var focusEl = steps[i] && steps[i].querySelector('h2');
     if (focusEl && i > 0) { focusEl.setAttribute('tabindex', '-1'); focusEl.focus({ preventScroll: true }); }
   }
@@ -118,7 +119,7 @@
       var idx = Number(stepEl.getAttribute('data-step'));
       stepEl.querySelectorAll('.opt').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
       btn.setAttribute('aria-pressed', 'true');
-      answers[idx] = { q: stepEl.getAttribute('data-q'), key: stepEl.getAttribute('data-key'), a: btn.textContent.trim() };
+      answers[idx] = { q: stepEl.getAttribute('data-q'), key: stepEl.getAttribute('data-key'), a: btn.textContent.trim(), i: btn.getAttribute('data-i') };
       setTimeout(function () { show(idx + 1); }, 180);
     });
   });
@@ -130,19 +131,25 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var okName = val('name').length > 1;
-    var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val('email'));
+    var mail = val('email').toLowerCase();
+    var free = /@(gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|yandex|icloud|me|mac|aol|gmx|mail|protonmail|proton|mynet|windowslive)\.[a-z.]+$/;
+    var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail) && !free.test(mail);
+    var okWeb = /^[^\s]+\.[a-z]{2,}([\/?#][^\s]*)?$/i.test(val('website').replace(/^https?:\/\//i, ''));
     var okCompany = val('company').length > 1;
     var consent = form.elements.consent && form.elements.consent.checked;
-    mark('name', !okName); mark('email', !okMail); mark('company', !okCompany);
+    mark('name', !okName); mark('email', !okMail); mark('company', !okCompany); mark('website', !okWeb);
     var cbox = form.querySelector('.consent'); if (cbox) cbox.classList.toggle('invalid', !consent);
-    if (!(okName && okMail && okCompany && consent)) return;
-    if (val('website2')) { show(5); return; } /* honeypot: silently drop bots */
+    if (!(okName && okMail && okCompany && okWeb && consent)) {
+      var bad = form.querySelector('.field.invalid input'); if (bad) bad.focus();
+      return;
+    }
+    if (val('website2')) { show(total); return; } /* honeypot: silently drop bots */
 
     var data = new URLSearchParams();
     data.append('lang', pageLang);
     data.append('page', location.pathname);
-    Object.keys(answers).forEach(function (k) { data.append(answers[k].key, answers[k].a); });
-    ['name', 'email', 'company', 'phone', 'note'].forEach(function (f) { data.append(f, val(f)); });
+    Object.keys(answers).forEach(function (k) { data.append(answers[k].key, answers[k].a); data.append(answers[k].key + '_i', answers[k].i); });
+    ['name', 'email', 'company', 'phone', 'website', 'note'].forEach(function (f) { data.append(f, val(f)); });
 
     var btn = form.querySelector('button[type="submit"]');
     var errBox = form.querySelector('.form-error');
@@ -160,9 +167,9 @@
     }
 
     var endpoint = window.AT_FORM_ENDPOINT;
-    if (!endpoint) { btn.disabled = false; show(5); return; } /* preview mode */
+    if (!endpoint) { btn.disabled = false; show(total); return; } /* preview mode */
     fetch(endpoint, { method: 'POST', mode: 'no-cors', body: data })
-      .then(function () { show(5); })
+      .then(function () { show(total); })
       .catch(function () { if (errBox) errBox.style.display = 'block'; })
       .then(function () { btn.disabled = false; });
   });
