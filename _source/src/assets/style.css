@@ -441,3 +441,7 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
   .r-table td{display:block;border:0;padding:3px 0}
   .r-table td:nth-child(3),.r-table td:nth-child(4){display:inline-block;margin-right:12px}
 }
+
+.ex-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.ex-cols .ex-n{font-family:var(--head);font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.ex-cols .ex-l{font-size:14px;color:var(--muted)}

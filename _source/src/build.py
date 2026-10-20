@@ -170,7 +170,7 @@ def home(lang):
 <p class="ex-k">{e(h['ex_k'])}</p>
 <h3>{e(h['ex_h'])}</h3>
 <p class="ex-ctx">{e(h['ex_ctx'])}</p>
-<div class="ex-cols">{"".join(f'<div><p class="ex-t">{e(t)}</p><p>{e(d)}</p></div>' for t, d in h['ex_cols'])}</div>
+<div class="ex-cols">{"".join(f'<div><p class="ex-t">{e(t)}</p><p>{e(d)}</p></div>' for t, d in h['ex_cols'])}<div><p class="ex-t">{e(h['ex_res_h'])}</p><div class="ex-stats">{"".join(f'<div><p class="ex-n">{e(n)}</p><p class="ex-l">{e(l)}</p></div>' for n, l in h['ex_res'])}</div></div></div>
 <a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a>
 </div>
 </div>
