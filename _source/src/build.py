@@ -242,9 +242,12 @@ def checkup(lang):
     out = [head(lang, "cu", c), '<div class="dark">', header(lang, "cu", False)]
     gets = "".join(f"<div>{CHECK}<span>{e(g)}</span></div>" for g in c["gets"])
     qsteps = []
-    for i, (key, q, opts) in enumerate(c["qs"]):
+    for i, (key, q, opts, *kind) in enumerate(c["qs"]):
+        multi = "multi" in kind
         buttons = "".join(f'<button type="button" class="opt" aria-pressed="false" data-i="{j}">{e(o)}</button>' for j, o in enumerate(opts))
-        qsteps.append(f'<div data-step="{i}" data-key="{key}" data-q="{e(q)}"{" hidden" if i else ""}><h2>{e(q)}</h2><div class="opts" style="margin-top:18px">{buttons}</div></div>')
+        hint = f'<p class="multi-hint">{e(c["multi_hint"])}</p>' if multi else ""
+        nxt = f'<button type="button" class="btn btn-amber multi-next" disabled>{e(c["next_btn"])}</button>' if multi else ""
+        qsteps.append(f'<div data-step="{i}" data-key="{key}" data-q="{e(q)}"{" data-multi" if multi else ""}{" hidden" if i else ""}><h2>{e(q)}</h2>{hint}<div class="opts{" multi" if multi else ""}" style="margin-top:18px">{buttons}</div>{nxt}</div>')
     alt = c["alt"].format(cal=CAL, wa=e(wa(lang)))
     founder = c["founder"].format(li=LINKEDIN)
     out.append(f"""<section class="cu">

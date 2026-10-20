@@ -150,11 +150,24 @@
     btn.addEventListener('click', function () {
       var stepEl = btn.closest('[data-step]');
       var idx = Number(stepEl.getAttribute('data-step'));
+      if (stepEl.hasAttribute('data-multi')) {
+        btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') === 'true' ? 'false' : 'true');
+        var on = stepEl.querySelectorAll('.opt[aria-pressed="true"]');
+        var a = [], ii = [];
+        on.forEach(function (b) { a.push(b.textContent.trim()); ii.push(b.getAttribute('data-i')); });
+        if (on.length) answers[idx] = { q: stepEl.getAttribute('data-q'), key: stepEl.getAttribute('data-key'), a: a.join(', '), i: ii.join(',') };
+        else delete answers[idx];
+        stepEl.querySelector('.multi-next').disabled = !on.length;
+        return;
+      }
       stepEl.querySelectorAll('.opt').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
       btn.setAttribute('aria-pressed', 'true');
       answers[idx] = { q: stepEl.getAttribute('data-q'), key: stepEl.getAttribute('data-key'), a: btn.textContent.trim(), i: btn.getAttribute('data-i') };
       setTimeout(function () { show(idx + 1); }, 180);
     });
+  });
+  form.querySelectorAll('.multi-next').forEach(function (b) {
+    b.addEventListener('click', function () { show(Number(b.closest('[data-step]').getAttribute('data-step')) + 1); });
   });
   if (backBtn) backBtn.addEventListener('click', function () { show(Math.max(0, current - 1)); });
 
@@ -211,6 +224,7 @@
   if (restart) restart.addEventListener('click', function () {
     answers = {}; form.reset();
     form.querySelectorAll('.opt').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    form.querySelectorAll('.multi-next').forEach(function (b) { b.disabled = true; });
     show(0);
   });
 
