@@ -109,6 +109,20 @@ def footer(lang, on_home):
 """
 
 
+def more_cases(h):
+    out = []
+    for c in h["more_cases"]:
+        if c.get("res"):
+            res = '<div class="mc-stats">' + "".join(f'<div><p class="ex-n">{e(n)}</p><p class="ex-l">{e(l)}</p></div>' for n, l in c["res"]) + '</div>'
+        else:
+            res = '<ul class="mc-notes">' + "".join(f"<li>{e(x)}</li>" for x in c["notes"]) + "</ul>"
+        out.append(f'''<article class="mcase"><p class="ex-k">{e(c['k'])}</p><h3>{e(c['h'])}</h3><p class="ex-ctx">{e(c['ctx'])}</p>
+<p class="ex-t">{e(h['brief_l'])}</p><p>{e(c['brief'])}</p>
+<p class="ex-t">{e(h['built_l'])}</p><p>{e(c['built'])}</p>
+<p class="ex-t">{e(c['res_h'])}</p>{res}</article>''')
+    return "".join(out)
+
+
 def home(lang):
     h = T[lang]["home"]
     out = [head(lang, "home", h), '<div class="dark">', header(lang, "home", True)]
@@ -171,8 +185,9 @@ def home(lang):
 <h3>{e(h['ex_h'])}</h3>
 <p class="ex-ctx">{e(h['ex_ctx'])}</p>
 <div class="ex-cols">{"".join(f'<div><p class="ex-t">{e(t)}</p><p>{e(d)}</p></div>' for t, d in h['ex_cols'])}<div><p class="ex-t">{e(h['ex_res_h'])}</p><div class="ex-stats">{"".join(f'<div><p class="ex-n">{e(n)}</p><p class="ex-l">{e(l)}</p></div>' for n, l in h['ex_res'])}</div></div></div>
-<a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a>
 </div>
+<div class="more-cases stagger">{more_cases(h)}</div>
+<p class="more-cta"><a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a></p>
 </div>
 </section>
 """)
@@ -182,11 +197,6 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['m_h'])}</h2><p>{e(h['m_p'])}</p></div>
 <div class="measure-grid stagger">{metrics}</div>
-<div class="cases">
-<p class="cases-note">{e(h['cases_note'])}<span class="swipe-hint">{e(h['swipe'])}</span></p>
-<div class="case-track stagger">{cases}</div>
-<div class="case-dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div>
-</div>
 </div>
 </section>
 """)

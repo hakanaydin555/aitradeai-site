@@ -445,3 +445,17 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .ex-stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
 .ex-cols .ex-n{font-family:var(--head);font-size:28px;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
 .ex-cols .ex-l{font-size:14px;color:var(--muted)}
+
+/* v4: more cases */
+.more-cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;margin-top:20px}
+.mcase{border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:6px}
+.mcase h3{font-size:22px;letter-spacing:-.015em;margin-bottom:2px}
+.mcase .ex-ctx{font-size:16px;margin-bottom:10px}
+.mcase .ex-t{margin:10px 0 0}
+.mcase p:not(.ex-t):not(.ex-k):not(.ex-n):not(.ex-l){font-size:15px;color:var(--ink-2)}
+.mc-stats{display:flex;gap:28px;margin-top:4px}
+.mcase .ex-n{font-family:var(--head);font-size:26px;font-weight:800;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+.mcase .ex-l{font-size:14px;color:var(--muted)}
+.mc-notes{margin:4px 0 0;padding-left:18px;font-size:15px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
+.more-cta{margin-top:24px}
+@media (max-width:860px){.more-cases{grid-template-columns:minmax(0,1fr)}.mcase{padding:22px}}
