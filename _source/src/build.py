@@ -56,7 +56,7 @@ def head(lang, key, page):
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@500;600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{prefix}assets/style.css">
 <script src="{prefix}assets/config.js"></script>
 <script src="{prefix}assets/main.js" defer></script>
@@ -147,8 +147,7 @@ def home(lang):
 </div>
 </section>
 """)
-    steps = "".join(f'<div><p class="n">0{i+1}</p><p class="t">{e(t)}</p><p class="d">{e(d)}</p></div>' for i, (t, d) in enumerate(h["steps"]))
-    out.append(f'<section class="steps"><div class="wrap stagger">{steps}</div></section>\n</div>\n<main>\n')
+    out.append('</div>\n<main>\n')
 
     nodes = "".join(f'<li class="node n{i+1}"><span class="dot" aria-hidden="true">{i+1}</span><span class="txt"><span class="nt">{e(a)}</span><span class="nl">{e(b)}</span><span class="nf">{e(c)}</span></span></li>' for i, (a, b, c) in enumerate(h["nodes"]))
     out.append(f"""<section class="section grey" id="leaks">
@@ -167,6 +166,13 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
+<div class="example reveal">
+<p class="ex-k">{e(h['ex_k'])}</p>
+<h3>{e(h['ex_h'])}</h3>
+<p class="ex-ctx">{e(h['ex_ctx'])}</p>
+<div class="ex-cols">{"".join(f'<div><p class="ex-t">{e(t)}</p><p>{e(d)}</p></div>' for t, d in h['ex_cols'])}</div>
+<a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a>
+</div>
 </div>
 </section>
 """)
@@ -280,6 +286,22 @@ def checkup(lang):
     areas = "".join(f'<div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in c["areas"])
     notes = "".join(f"<p>{e(n)}</p>" for n in c["notes"])
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in c["faq"])
+    r = c["r"]
+    prof = "".join(f'<div><p class="rk">{e(k)}</p><p class="rv">' + (f'<span class="blur" aria-hidden="true">{e(v)}</span><span class="sr-only">{e(r["hidden"])}</span>' if b else e(v)) + '</p></div>' for k, v, b in r["profile"])
+    rrows = "".join(f'<tr><td><span class="rn">{i+1}</span>{e(a)}</td><td>{e(b)}</td><td><span class="blur" aria-hidden="true">{e(x)}</span><span class="sr-only">{e(r["hidden"])}</span></td><td><span class="prio p{0 if p in ("High", "Yüksek") else 1}">{e(p)}</span></td></tr>' for i, (a, b, x, p) in enumerate(r["rows"]))
+    out.append(f"""<section class="section grey" id="sample">
+<div class="wrap">
+<div class="sec-head reveal"><p class="ex-k">{e(c['r_k'])}</p><h2>{e(c['r_h'])}</h2><p>{e(c['r_p'])}</p></div>
+<article class="report reveal" aria-label="{e(r['title'])}">
+<header class="r-head"><div><p class="r-title">{e(r['title'])}</p><p class="r-for">{e(r['for'])}</p></div><span class="tag">{e(r['tag'])}</span></header>
+<div class="r-prof">{prof}</div>
+<p class="r-sub">{e(r['leaks_h'])}</p>
+<div class="r-table"><table><thead><tr>{"".join(f'<th>{e(x)}</th>' for x in r['cols'])}</tr></thead><tbody>{rrows}</tbody></table></div>
+<div class="r-foot"><div><p class="r-sub">{e(r['view_h'])}</p><p>{e(r['view'])}</p></div><div><p class="r-sub">{e(r['next_h'])}</p><p>{e(r['next'])}</p></div></div>
+</article>
+</div>
+</section>
+""")
     out.append(f"""<section class="section">
 <div class="wrap">
 <h2 class="h2-left">{e(c['a_h'])}</h2>

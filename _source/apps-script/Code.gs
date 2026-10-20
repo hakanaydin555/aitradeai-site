@@ -1,10 +1,11 @@
 /**
  * AI Trade — check-up form receiver (v2, with lead scoring).
  * Bound to the Google Sheet "AI Trade – Check-up talepleri".
- * Each submission adds one row to the "Başvurular" tab and sends a notification email
- * whose subject starts with the priority label.
+ * Each submission adds one row to the "Başvurular" tab, sends you a notification email
+ * whose subject starts with the priority label, and sends the applicant a confirmation.
  */
 var NOTIFY_TO = 'hakan.aydin@aitradeai.net';
+var CAL_URL = 'https://calendar.app.google/qvtHpnCi4qVszRdK8';
 var SHEET_NAME = 'Başvurular';
 var COLUMNS = ['Tarih', 'Etiket', 'Puan', 'Ad soyad', 'Şirket', 'E-posta', 'Telefon', 'Web sitesi', 'Satış kanalı', 'Aylık sipariş', 'Ana sorun', 'Başlama zamanı', 'Rol', 'Not', 'Dil', 'Sayfa'];
 var FIELDS  = ['_date', '_label', '_score', 'name',   'company', 'email',  'phone',  'website',   'channel',      'orders',        'concern',   'timing',          'role', 'note', 'lang', 'page'];
@@ -57,7 +58,30 @@ function doPost(e) {
     subject: values._label + ' · Check-up talebi: ' + (clean_(p.company) || clean_(p.name) || 'web sitesi') + ' (' + s + '/13)',
     body: lines.join('\n')
   });
+  autoReply_(p);
   return ok_();
+}
+
+/** Confirmation email to the applicant (max one per address per day). */
+function autoReply_(p) {
+  var to = String(p.email || '').trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) return;
+  var cache = CacheService.getScriptCache();
+  var key = 'ar_' + to.toLowerCase();
+  if (cache.get(key)) return;
+  cache.put(key, '1', 21600);
+  var name = String(p.name || '').trim().split(' ')[0];
+  var tr = p.lang === 'tr';
+  var body = tr
+    ? 'Merhaba ' + name + ',\n\nCheck-up talebinizi aldık, teşekkürler. İnceleyip bir iş günü içinde size dönüyoruz.\n\nDaha önce konuşmak isterseniz 30 dakikalık görüşme için saat seçebilirsiniz:\n' + CAL_URL + '\n\nAI Trade\nhttps://aitradeai.net'
+    : 'Hello ' + name + ',\n\nThank you, we have received your check-up request. We will review it and reply within one business day.\n\nIf you would like to talk sooner, pick a time for a 30-minute call:\n' + CAL_URL + '\n\nAI Trade\nhttps://aitradeai.net';
+  MailApp.sendEmail({
+    to: to,
+    name: 'AI Trade',
+    replyTo: NOTIFY_TO,
+    subject: tr ? 'Check-up talebinizi aldık — AI Trade' : 'We received your check-up request — AI Trade',
+    body: body
+  });
 }
 
 function getSheet_() {
