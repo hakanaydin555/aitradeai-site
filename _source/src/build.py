@@ -76,7 +76,7 @@ def header(lang, key, on_home):
 <a class="brand" href="{rel(lang, lang, 'home')}">AI Trade</a>
 <nav class="nav" aria-label="Main">
 <a class="navlink" href="{home}#how">{n['how']}</a>
-<a class="navlink" href="{home}#measure">{n['results']}</a>
+<a class="navlink" href="{home}#work">{n['results']}</a>
 <a class="navlink" href="{home}#about">{n['about']}</a>
 <a class="navlink" href="{home}#contact">{n['contact']}</a>
 <div class="lang" role="group" aria-label="{n['lang_label']}">
@@ -108,19 +108,6 @@ def footer(lang, on_home):
 </html>
 """
 
-
-def more_cases(h):
-    out = []
-    for c in h["more_cases"]:
-        if c.get("res"):
-            res = '<div class="mc-stats">' + "".join(f'<div><p class="ex-n">{e(n)}</p><p class="ex-l">{e(l)}</p></div>' for n, l in c["res"]) + '</div>'
-        else:
-            res = '<ul class="mc-notes">' + "".join(f"<li>{e(x)}</li>" for x in c["notes"]) + "</ul>"
-        out.append(f'''<article class="mcase"><p class="ex-k">{e(c['k'])}</p><h3>{e(c['h'])}</h3><p class="ex-ctx">{e(c['ctx'])}</p>
-<p class="ex-t">{e(h['brief_l'])}</p><p>{e(c['brief'])}</p>
-<p class="ex-t">{e(h['built_l'])}</p><p>{e(c['built'])}</p>
-<p class="ex-t">{e(c['res_h'])}</p>{res}</article>''')
-    return "".join(out)
 
 
 def home(lang):
@@ -180,19 +167,37 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
-<div class="example reveal">
-<p class="ex-k">{e(h['ex_k'])}</p>
-<h3>{e(h['ex_h'])}</h3>
-<p class="ex-ctx">{e(h['ex_ctx'])}</p>
-<div class="ex-cols">{"".join(f'<div><p class="ex-t">{e(t)}</p><p>{e(d)}</p></div>' for t, d in h['ex_cols'])}<div><p class="ex-t">{e(h['ex_res_h'])}</p><div class="ex-stats">{"".join(f'<div><p class="ex-n">{e(n)}</p><p class="ex-l">{e(l)}</p></div>' for n, l in h['ex_res'])}</div></div></div>
-</div>
-<div class="more-cases stagger">{more_cases(h)}</div>
-<p class="more-cta"><a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a></p>
 </div>
 </section>
 """)
     metrics = "".join(f'<div><p class="k">{e(k)}</p><p class="v">{e(v)}</p></div>' for k, v in h["metrics"])
     cases = "".join(f'<div class="case"><p class="big"><span data-count="{n}" data-suffix="{s}">{n}{s}</span></p><p class="what">{e(w)}</p><p class="ctx">{e(c)}</p></div>' for n, s, w, c in h["cases"])
+    cards = []
+    for i, w in enumerate(h["work"]):
+        stats = "".join(f'<div><p class="wn">{e(n)}</p><p class="wl">{e(l)}</p></div>' for n, l in w["res"])
+        cards.append(f'''<article class="work-card" aria-label="{e(h['case_l'])} {i + 1}">
+<p class="ex-k">{e(w['k'])}</p>
+<h3>{e(w['h'])}</h3>
+<p class="wctx">{e(w['ctx'])}</p>
+<p class="wt">{e(h['brief_l'])}</p><p class="wp">{e(w['brief'])}</p>
+<p class="wt">{e(h['built_l'])}</p><p class="wp">{e(w['built'])}</p>
+<div class="wres"><p class="wt">{e(h['res_l'])}</p><div class="wstats">{stats}</div></div>
+</article>''')
+    dots = "".join(f'<button type="button" aria-label="{e(h["case_l"])} {i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["work"])))
+    out.append(f"""<section class="section grey" id="work">
+<div class="wrap">
+<div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
+<div class="work" data-carousel>
+<div class="work-track" tabindex="0">{"".join(cards)}</div>
+<div class="work-nav">
+<div class="work-dots">{dots}</div>
+<div class="work-arrows"><button type="button" class="work-prev" aria-label="{e(h['prev'])}">‹</button><button type="button" class="work-next" aria-label="{e(h['next'])}">›</button></div>
+</div>
+</div>
+<p class="more-cta"><a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a></p>
+</div>
+</section>
+""")
     out.append(f"""<section class="section dark" id="measure">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['m_h'])}</h2><p>{e(h['m_p'])}</p></div>

@@ -88,6 +88,39 @@
     }, { passive: true });
   }
 
+  /* 3c. Work carousel */
+  document.querySelectorAll('[data-carousel]').forEach(function (box) {
+    var track = box.querySelector('.work-track');
+    var cards = track.children;
+    var dots = box.querySelectorAll('.work-dots button');
+    var prev = box.querySelector('.work-prev');
+    var next = box.querySelector('.work-next');
+    function current() {
+      var best = 0, bestD = Infinity, left = track.getBoundingClientRect().left;
+      for (var i = 0; i < cards.length; i++) {
+        var d = Math.abs(cards[i].getBoundingClientRect().left - left - parseFloat(getComputedStyle(track).paddingLeft));
+        if (d < bestD) { bestD = d; best = i; }
+      }
+      return best;
+    }
+    function update() {
+      var i = current();
+      dots.forEach(function (d, j) { if (j === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
+      if (prev) prev.disabled = track.scrollLeft < 5;
+      if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
+    }
+    function go(i) {
+      i = Math.max(0, Math.min(cards.length - 1, i));
+      track.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+    }
+    dots.forEach(function (d, j) { d.addEventListener('click', function () { go(j); }); });
+    if (prev) prev.addEventListener('click', function () { go(current() - 1); });
+    if (next) next.addEventListener('click', function () { go(current() + 1); });
+    track.addEventListener('scroll', function () { requestAnimationFrame(update); }, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  });
+
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;

@@ -459,3 +459,26 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .mc-notes{margin:4px 0 0;padding-left:18px;font-size:15px;color:var(--ink-2);display:flex;flex-direction:column;gap:4px}
 .more-cta{margin-top:24px}
 @media (max-width:860px){.more-cases{grid-template-columns:minmax(0,1fr)}.mcase{padding:22px}}
+
+/* v4: work carousel */
+.work-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 calc(var(--pad)*-1);padding:4px var(--pad) 8px;scroll-padding-inline:var(--pad)}
+.work-track::-webkit-scrollbar{display:none}
+.work-card{flex:0 0 calc((100% - 40px)/2.15);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:12px;padding:32px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.work-card h3{font-size:23px;line-height:1.25;letter-spacing:-.015em;margin:4px 0 2px}
+.wctx{font-size:16px;color:var(--muted);margin-bottom:8px}
+.wt{font-family:var(--head);font-weight:700;font-size:15px;color:var(--amber-text);margin-top:10px}
+.wp{font-size:16px;color:var(--ink-2)}
+.wres{margin-top:auto;padding-top:14px}
+.wres .wt{border-top:1px solid var(--line);padding-top:16px}
+.wstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(86px,1fr));gap:14px 16px;margin-top:8px}
+.wn{font-family:var(--head);font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.wl{font-size:14px;color:var(--muted);line-height:1.35}
+.work-nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.work-dots{display:flex;gap:8px}
+.work-dots button{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:#C7CCD4;cursor:pointer;transition:width .3s,background .3s}
+.work-dots button[aria-current="true"]{width:26px;border-radius:999px;background:var(--amber)}
+.work-arrows{display:flex;gap:8px}
+.work-arrows button{width:44px;height:44px;border-radius:8px;border:1px solid var(--line);background:#fff;font-size:22px;color:var(--ink);cursor:pointer}
+.work-arrows button:disabled{opacity:.35;cursor:default}
+.more-cta{margin-top:28px}
+@media (max-width:860px){.work-card{flex-basis:86%;padding:22px}.work-card h3{font-size:20px}.wn{font-size:26px}}
