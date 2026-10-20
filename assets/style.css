@@ -172,7 +172,7 @@ h1,h2,h3,p{margin:0}
 }
 
 /* contact */
-.contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.contact-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px;max-width:880px;margin:0 auto}
 .ccard{background:#fff;border-radius:12px;padding:40px;display:flex;flex-direction:column;gap:14px}
 .ccard .k{font-size:15px;font-weight:600;color:var(--amber-text)}
 .ccard h3{font-size:28px;letter-spacing:-.02em}

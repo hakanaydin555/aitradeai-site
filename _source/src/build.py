@@ -200,9 +200,9 @@ def home(lang):
 </section>
 """)
     c = h["cards"]
-    links = [CAL, wa(lang), rel(lang, lang, "cu")]
-    cls = ["btn btn-amber", "btn btn-dark", "btn btn-dark"]
-    ext = ['target="_blank" rel="noopener"', 'target="_blank" rel="noopener"', ""]
+    links = [rel(lang, lang, "cu"), wa(lang)]
+    cls = ["btn btn-amber", "btn btn-dark"]
+    ext = ["", 'target="_blank" rel="noopener"']
     cards = "".join(f'<div class="ccard"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
     m = h["c_mobile"]
     out.append(f"""<section class="section grey" id="contact">
@@ -210,8 +210,8 @@ def home(lang):
 <div class="sec-head reveal"><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
 <div class="contact-grid stagger">{cards}</div>
 <div class="contact-mobile stagger">
-<a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener">{e(m[0])}</a>
-<div class="two"><a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a><a class="btn btn-line" href="{rel(lang, lang, 'cu')}">{e(m[2])}</a></div>
+<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(m[0])}</a>
+<a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a>
 </div>
 </div>
 </section>
