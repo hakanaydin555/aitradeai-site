@@ -5,6 +5,13 @@ SITE = "https://aitradeai.net"
 CAL = "https://calendar.app.google/qvtHpnCi4qVszRdK8"
 WA_NUMBER = "905334755284"
 LINKEDIN = "https://linkedin.com/in/hakanaydin55/"
+EMAIL = "hakan.aydin@aitradeai.net"
+
+# Search engine verification (meta tag values). Empty = not added.
+GSC_VERIFY = ""   # Google Search Console: content value of google-site-verification
+BING_VERIFY = ""  # Bing Webmaster Tools: content value of msvalidate.01
+# Cloudflare Web Analytics token (cookieless). Empty = no analytics script.
+CF_BEACON = ""
 
 T = {
 "en": {
@@ -138,7 +145,7 @@ T = {
   "fab": "Konuşalım",
   "home": {
     "title": "AI Trade — E-ticaret kârlılık danışmanlığı",
-    "desc": "E-ticaret operasyonunuzun nerede para ve zaman kaybettiğini buluyor, en önemlisini çözüyor, çalışan sistemi sekiz haftada ekibinize devrediyoruz. Ücretsiz check-up.",
+    "desc": "E-ticaretinizde para ve zaman kaybını buluyor, en önemlisini çözüyor, çalışan sistemi sekiz haftada ekibinize devrediyoruz. Ücretsiz check-up.",
     "eyebrow": "AI destekli e-ticaret kâr ortağınız",
     "h1": "Daha az israf.<br>Daha fazla kâr.",
     "lead": "E-ticaret operasyonunuzun nerede para ve zaman kaybettiğini buluyor, en önemlisini çözüyor ve çalışan sistemi ekibinize devrediyoruz.", "lead_weeks": "Sekiz haftada.",
