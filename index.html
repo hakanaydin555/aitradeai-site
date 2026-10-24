@@ -89,10 +89,47 @@
 <div class="leak-cta"><p>Not sure where yours is?</p><a href="check-up.html">The free check-up finds it ›</a></div>
 </div>
 </section>
-<section class="section" id="how">
+<section class="section" id="estimate">
+<div class="wrap">
+<div class="sec-head reveal"><p class="ex-k">Estimate</p><h2>What could this be worth for you?</h2><p>Enter a few rough monthly figures. You get a conservative range, not a promise. The check-up replaces it with real numbers.</p></div>
+<div class="calc reveal" data-calc data-lang="en" data-cu="check-up.html">
+<div class="cx-inputs">
+<label class="cx-field cx-cur"><span class="cx-l">Currency</span><select name="cur"><option selected>$</option><option>€</option><option>£</option><option>₺</option></select></label>
+<label class="cx-field"><span class="cx-l">Monthly revenue</span><span class="cx-in"><span class="cx-pre" data-cur>$</span><input type="text" inputmode="numeric" name="rev" value="250,000" data-kind="money" autocomplete="off"></span></label><label class="cx-field"><span class="cx-l">Monthly ad spend</span><span class="cx-in"><span class="cx-pre" data-cur>$</span><input type="text" inputmode="numeric" name="ads" value="20,000" data-kind="money" autocomplete="off"></span></label><label class="cx-field"><span class="cx-l">Share of sales on discount</span><span class="cx-in"><input type="text" inputmode="numeric" name="disc" value="35" data-kind="pct" autocomplete="off"><span class="cx-suf">%</span></span></label><label class="cx-field"><span class="cx-l">Return and cancellation rate</span><span class="cx-in"><input type="text" inputmode="numeric" name="ret" value="8" data-kind="pct" autocomplete="off"><span class="cx-suf">%</span></span></label><label class="cx-field"><span class="cx-l">Hours a week spent on manual reports and data</span><span class="cx-in"><input type="text" inputmode="numeric" name="hrs" value="15" data-kind="hrs" autocomplete="off"></span></label>
+</div>
+<div class="cx-out" aria-live="polite">
+<p class="cx-k">Estimated profit you could recover <span>· per year</span></p>
+<p class="cx-total" data-out="total">–</p>
+<div class="cx-lines"><div class="cx-line"><span>Campaigns selling below margin</span><span class="cx-v" data-out="camp">–</span></div><div class="cx-line"><span>Ad spend on the wrong products</span><span class="cx-v" data-out="ad">–</span></div><div class="cx-line"><span>Preventable returns</span><span class="cx-v" data-out="rets">–</span></div></div>
+<div class="cx-time"><p class="cx-k">Team time you could free up</p><p class="cx-tv"><span data-out="time">–</span> <span class="u">hours a year</span></p><p class="cx-note">Time is shown separately and is not added to the profit figure.</p></div>
+<a class="btn btn-amber cx-cta" href="check-up.html">Check these numbers with a free check-up</a>
+<p class="cx-carry">Your figures will be added to the request.</p>
+</div>
+</div>
+<details class="cx-how"><summary>How is this calculated?</summary><ul><li>Campaigns: 1.5–4% of discounted revenue. Part of discounted sales usually lands below contribution margin; fixing campaign rules recovers some of it.</li><li>Ads: 5–12% of ad spend. Typical waste is spend on low-stock or low-margin products and overlapping audiences.</li><li>Returns: 10–20% of returns are preventable, and each return costs roughly 15% of its order value.</li><li>Time: 40–60% of manual reporting and data work can be automated, over 48 working weeks.</li><li>These ratios come from our project experience. They are deliberately cautious and will differ for your business.</li></ul></details>
+</div>
+</section>
+<section class="section grey" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><h2>A fixed eight-week project with a clear finish line.</h2><p>It starts with a free check-up. If the numbers justify it, we begin.</p></div>
 <div class="plist stagger"><div class="prow"><p class="w">Before · free</p><p class="t">Check-up</p><p class="d">A short conversation and a few summary figures.</p></div><div class="prow"><p class="w">Weeks 1–2</p><p class="t">Diagnose</p><p class="d">Data, processes and people. A baseline and a list of losses.</p></div><div class="prow"><p class="w">Weeks 3–4</p><p class="t">Pilot</p><p class="d">Two or three fixes, approved by leadership. The first one goes live.</p></div><div class="prow"><p class="w">Weeks 5–7</p><p class="t">Implement</p><p class="d">AI, automation and CRM in place. Results tracked every week.</p></div><div class="prow"><p class="w">Week 8</p><p class="t">Hand over</p><p class="d">Before and after, training, an internal owner, documentation.</p></div></div>
+</div>
+</section>
+<section class="section" id="flows">
+<div class="wrap">
+<div class="sec-head reveal"><p class="ex-k">Example workflows</p><h2>What the AI actually does.</h2><p>Systems like these run inside your existing tools and work for your team. Built and handed over during the eight weeks.</p></div>
+<div class="flows stagger"><article class="flow"><div class="fviz-wrap"><div class="fviz fv1" aria-hidden="true">
+<div class="fv-row"><span class="fv-name">Product A</span><span class="fv-swap"><b class="a">Stock: 12 days</b><b class="b bad">Stock: 2 days</b></span></div>
+<div class="fv-row"><span class="fv-name">Ads</span><span class="fv-tg"><i></i></span><span class="fv-swap r"><b class="a ok">Running</b><b class="b">Paused</b></span></div>
+<div class="fv-toast">Team notified: ads for Product A paused, 2 days of stock left</div>
+</div></div><p class="ex-k">Example workflow</p><h3>Low stock pauses the ad</h3><p>When a product drops below three days of stock, its ads pause and the team gets a message.</p></article><article class="flow"><div class="fviz-wrap"><div class="fviz fv2" aria-hidden="true">
+<span class="fv-clock">Mon 08:00</span>
+<div class="fv-mail"><span class="fv-ic"></span><span><b>Weekly profit report</b><small>Contribution profit · channels · products</small></span></div>
+<div class="fv-bars"><i style="--h:38%;--d:0.00s"></i><i style="--h:52%;--d:0.08s"></i><i style="--h:46%;--d:0.16s"></i><i style="--h:70%;--d:0.24s"></i><i style="--h:64%;--d:0.32s"></i><i style="--h:86%;--d:0.40s"></i></div>
+</div></div><p class="ex-k">Example workflow</p><h3>Monday 08:00, the report is ready</h3><p>Contribution profit by channel, product and campaign is calculated every week and lands in your inbox.</p></article><article class="flow"><div class="fviz-wrap"><div class="fviz fv3" aria-hidden="true">
+<div class="fv-tr"><span>Product A</span><span>20% off</span><b>+$5.20</b></div><div class="fv-tr hit"><span>Product B</span><span>35% off</span><b>−$4.10</b></div><div class="fv-tr"><span>Product C</span><span>15% off</span><b>+$2.40</b></div>
+<div class="fv-fix">Suggestion: cut the discount to 20%</div>
+</div></div><p class="ex-k">Example workflow</p><h3>Loss-making campaigns get flagged</h3><p>Products selling below contribution margin are flagged before the campaign ends, with a suggested fix.</p></article></div>
 </div>
 </section>
 <section class="section grey" id="work">

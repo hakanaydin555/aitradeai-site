@@ -121,6 +121,63 @@
     update();
   });
 
+
+  /* 3d. Profit-leak estimator (all assumptions visible on the page) */
+  document.querySelectorAll('[data-calc]').forEach(function (box) {
+    var lang = box.getAttribute('data-lang');
+    var loc = lang === 'tr' ? 'tr-TR' : 'en-US';
+    var cuUrl = box.getAttribute('data-cu');
+    var cta = box.querySelector('.cx-cta');
+    var cur = box.querySelector('select[name="cur"]');
+    function num(name) {
+      var el = box.querySelector('input[name="' + name + '"]');
+      var v = String(el.value || '');
+      if (el.getAttribute('data-kind') === 'money') v = v.replace(/[^\d]/g, '');
+      else v = v.replace(',', '.').replace(/[^\d.]/g, '');
+      var n = parseFloat(v);
+      return isNaN(n) ? 0 : n;
+    }
+    function money(n, compact) {
+      n = Math.round(n);
+      if (compact && lang === 'tr') {
+        var f1 = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
+        if (n >= 1e9) return cur.value + f1.format(n / 1e9) + ' milyar';
+        if (n >= 1e6) return cur.value + f1.format(n / 1e6) + ' milyon';
+        if (n >= 1e4) return cur.value + new Intl.NumberFormat(loc).format(Math.round(n / 1e3)) + ' bin';
+        return cur.value + new Intl.NumberFormat(loc).format(n);
+      }
+      return cur.value + new Intl.NumberFormat(loc, compact ? { notation: 'compact', maximumFractionDigits: 1 } : { maximumFractionDigits: 0 }).format(n);
+    }
+    function range(a, b) { return money(a, true) + ' – ' + money(b, true); }
+    function out(k, t) { var el = box.querySelector('[data-out="' + k + '"]'); if (el && el.textContent !== t) { el.textContent = t; el.classList.remove('cx-flash'); void el.offsetWidth; el.classList.add('cx-flash'); } }
+    function calc() {
+      var rev = num('rev'), ads = num('ads'), disc = Math.min(num('disc'), 100) / 100, ret = Math.min(num('ret'), 100) / 100, hrs = num('hrs');
+      var camp = [rev * disc * 0.015 * 12, rev * disc * 0.04 * 12];
+      var ad = [ads * 0.05 * 12, ads * 0.12 * 12];
+      var rets = [rev * ret * 0.10 * 0.15 * 12, rev * ret * 0.20 * 0.15 * 12];
+      var tot = [camp[0] + ad[0] + rets[0], camp[1] + ad[1] + rets[1]];
+      var time = [hrs * 0.4 * 48, hrs * 0.6 * 48];
+      out('camp', range(camp[0], camp[1])); out('ad', range(ad[0], ad[1])); out('rets', range(rets[0], rets[1]));
+      out('total', range(tot[0], tot[1]));
+      var tf = new Intl.NumberFormat(loc);
+      out('time', tf.format(Math.round(time[0])) + ' – ' + tf.format(Math.round(time[1])));
+      box.querySelectorAll('[data-cur]').forEach(function (p) { p.textContent = cur.value; });
+      var sum = lang === 'tr'
+        ? 'Ciro ' + money(rev) + '/ay, reklam ' + money(ads) + '/ay, indirimli pay %' + num('disc') + ', iade %' + num('ret') + ', ' + hrs + ' saat/hafta → tahmini kâr ' + range(tot[0], tot[1]) + '/yıl, ' + tf.format(Math.round(time[0])) + '–' + tf.format(Math.round(time[1])) + ' saat/yıl'
+        : 'Revenue ' + money(rev) + '/mo, ads ' + money(ads) + '/mo, discounted ' + num('disc') + '%, returns ' + num('ret') + '%, ' + hrs + ' h/week → est. profit ' + range(tot[0], tot[1]) + '/yr, ' + tf.format(Math.round(time[0])) + '–' + tf.format(Math.round(time[1])) + ' h/yr';
+      if (cta) cta.href = cuUrl + '?calc=' + encodeURIComponent(sum);
+    }
+    box.querySelectorAll('input').forEach(function (el) {
+      el.addEventListener('input', calc);
+      if (el.getAttribute('data-kind') === 'money') el.addEventListener('blur', function () {
+        var n = parseInt(String(el.value).replace(/[^\d]/g, ''), 10);
+        el.value = isNaN(n) ? '' : new Intl.NumberFormat(loc).format(n);
+      });
+    });
+    cur.addEventListener('change', calc);
+    calc();
+  });
+
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;
@@ -133,6 +190,9 @@
   var head = form.querySelector('.progress-wrap');
   var answers = {};
   var current = 0;
+  var calcNote = '';
+  try { calcNote = (new URLSearchParams(location.search).get('calc') || '').slice(0, 400); } catch (e) {}
+  if (calcNote) { var cb = document.querySelector('.cu-calc'); if (cb) cb.classList.add('on'); }
 
   function show(i) {
     current = i;
@@ -195,7 +255,8 @@
     data.append('lang', pageLang);
     data.append('page', location.pathname);
     Object.keys(answers).forEach(function (k) { data.append(answers[k].key, answers[k].a); data.append(answers[k].key + '_i', answers[k].i); });
-    ['name', 'email', 'company', 'phone', 'website', 'note'].forEach(function (f) { data.append(f, val(f)); });
+    ['name', 'email', 'company', 'phone', 'website'].forEach(function (f) { data.append(f, val(f)); });
+    data.append('note', val('note') + (calcNote ? (val('note') ? '\n\n' : '') + '[' + (pageLang === 'tr' ? 'Hesaplayıcı' : 'Calculator') + '] ' + calcNote : ''));
 
     var btn = form.querySelector('button[type="submit"]');
     var errBox = form.querySelector('.form-error');
