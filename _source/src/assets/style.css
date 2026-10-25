@@ -666,8 +666,9 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fd-tx b{display:block;font-size:15px;font-weight:600}
 .fd-tx small{display:block;font-size:13px;color:var(--on-dark);margin-top:2px;line-height:1.4}
 .fd time{font-size:12px;color:var(--muted-dark);white-space:nowrap;padding-top:2px}
-.feed .fd{animation:fdIn 12s infinite;animation-delay:calc(.9s + var(--i) * 1.1s)}
-@keyframes fdIn{0%{opacity:0;transform:translateY(-10px)}4%{opacity:1;transform:none;border-color:var(--amber);background:rgba(245,158,11,.10)}14%{border-color:var(--line-dark);background:rgba(255,255,255,.05)}78%{opacity:1;transform:none}84%,100%{opacity:0;transform:translateY(-10px)}}
+.feed .fd{animation:fdIn .6s cubic-bezier(.2,.7,.2,1) forwards,fdGlow 8.8s infinite;animation-delay:calc(.9s + var(--i) * 1.1s),calc(.9s + var(--i) * 1.1s)}
+@keyframes fdIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes fdGlow{0%{border-color:var(--amber);background:rgba(245,158,11,.10)}12%,100%{border-color:var(--line-dark);background:rgba(255,255,255,.05)}}
 @media (prefers-reduced-motion:reduce){.feed .fd{animation:none;opacity:1;transform:none}}
 
 /* v6: team + measurement */
