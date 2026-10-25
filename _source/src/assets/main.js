@@ -104,7 +104,7 @@
       return best;
     }
     function update() {
-      var i = current();
+      var i = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5 ? cards.length - 1 : current();
       dots.forEach(function (d, j) { if (j === i) d.setAttribute('aria-current', 'true'); else d.removeAttribute('aria-current'); });
       if (prev) prev.disabled = track.scrollLeft < 5;
       if (next) next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 5;
@@ -150,21 +150,29 @@
     }
     function range(a, b) { return money(a, true) + ' – ' + money(b, true); }
     function out(k, t) { var el = box.querySelector('[data-out="' + k + '"]'); if (el && el.textContent !== t) { el.textContent = t; el.classList.remove('cx-flash'); void el.offsetWidth; el.classList.add('cx-flash'); } }
+    var fteH = parseFloat(box.getAttribute('data-fte')) || 40;
+    var dayH = lang === 'tr' ? 9 : 8;
+    var tDays = box.getAttribute('data-t-days'), tFte = box.getAttribute('data-t-fte');
+    function mid(r) { return (r[0] + r[1]) / 2; }
     function calc() {
-      var rev = num('rev'), ads = num('ads'), disc = Math.min(num('disc'), 100) / 100, ret = Math.min(num('ret'), 100) / 100, hrs = num('hrs');
+      var rev = num('rev'), ads = num('ads'), disc = Math.min(num('disc'), 100) / 100, ret = Math.min(num('ret'), 100) / 100,
+          logi = Math.min(num('logi'), 100) / 100, hrs = num('hrs');
       var camp = [rev * disc * 0.015 * 12, rev * disc * 0.04 * 12];
       var ad = [ads * 0.05 * 12, ads * 0.12 * 12];
       var rets = [rev * ret * 0.10 * 0.15 * 12, rev * ret * 0.20 * 0.15 * 12];
-      var tot = [camp[0] + ad[0] + rets[0], camp[1] + ad[1] + rets[1]];
-      var time = [hrs * 0.4 * 48, hrs * 0.6 * 48];
-      out('camp', range(camp[0], camp[1])); out('ad', range(ad[0], ad[1])); out('rets', range(rets[0], rets[1]));
-      out('total', range(tot[0], tot[1]));
-      var tf = new Intl.NumberFormat(loc);
-      out('time', tf.format(Math.round(time[0])) + ' – ' + tf.format(Math.round(time[1])));
+      var lg = [rev * logi * 0.05 * 12, rev * logi * 0.10 * 12];
+      var tot = [camp[0] + ad[0] + rets[0] + lg[0], camp[1] + ad[1] + rets[1] + lg[1]];
+      out('camp', money(mid(camp), true)); out('ad', money(mid(ad), true)); out('rets', money(mid(rets), true)); out('logi', money(mid(lg), true));
+      out('total', money(mid(tot), true));
+      out('range', range(tot[0], tot[1]));
+      var wk = hrs * 0.5;
+      var f1 = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
+      out('time', f1.format(Math.round(wk)));
+      out('eq', tDays.replace('{d}', f1.format(wk / dayH)) + ' · ' + tFte.replace('{f}', f1.format(wk / fteH)));
       box.querySelectorAll('[data-cur]').forEach(function (p) { p.textContent = cur.value; });
       var sum = lang === 'tr'
-        ? 'Ciro ' + money(rev) + '/ay, reklam ' + money(ads) + '/ay, indirimli pay %' + num('disc') + ', iade %' + num('ret') + ', ' + hrs + ' saat/hafta → tahmini kâr ' + range(tot[0], tot[1]) + '/yıl, ' + tf.format(Math.round(time[0])) + '–' + tf.format(Math.round(time[1])) + ' saat/yıl'
-        : 'Revenue ' + money(rev) + '/mo, ads ' + money(ads) + '/mo, discounted ' + num('disc') + '%, returns ' + num('ret') + '%, ' + hrs + ' h/week → est. profit ' + range(tot[0], tot[1]) + '/yr, ' + tf.format(Math.round(time[0])) + '–' + tf.format(Math.round(time[1])) + ' h/yr';
+        ? 'Ciro ' + money(rev) + '/ay, reklam ' + money(ads) + '/ay, indirimli pay %' + num('disc') + ', iade %' + num('ret') + ', kargo/elleçleme %' + num('logi') + ', manuel iş ' + hrs + ' saat/hafta → tahmini kâr ≈' + money(mid(tot), true) + '/yıl (' + range(tot[0], tot[1]) + '), ≈' + Math.round(wk) + ' saat/hafta'
+        : 'Revenue ' + money(rev) + '/mo, ads ' + money(ads) + '/mo, discounted ' + num('disc') + '%, returns ' + num('ret') + '%, shipping/fulfilment ' + num('logi') + '%, manual work ' + hrs + ' h/week → est. profit ≈' + money(mid(tot), true) + '/yr (' + range(tot[0], tot[1]) + '), ≈' + Math.round(wk) + ' h/week';
       if (cta) cta.href = cuUrl + '?calc=' + encodeURIComponent(sum);
     }
     box.querySelectorAll('input').forEach(function (el) {

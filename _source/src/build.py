@@ -243,25 +243,28 @@ def calc_section(lang, h):
     curs = ["$", "€", "£", "₺"] if lang == "en" else ["₺", "$", "€"]
     opts = "".join(f'<option{" selected" if c == h["calc_cur_default"] else ""}>{c}</option>' for c in curs)
     fields = []
-    for key, label, val, kind in h["calc_f"]:
+    for key, label, val, kind, hint in h["calc_f"]:
         pre = '<span class="cx-pre" data-cur>' + e(h["calc_cur_default"]) + '</span>' if kind == "money" else ""
         suf = '<span class="cx-suf">%</span>' if kind == "pct" else ""
-        fields.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span><span class="cx-in">{pre}<input type="text" inputmode="numeric" name="{key}" value="{e(val)}" data-kind="{kind}" autocomplete="off">{suf}</span></label>')
+        hn = f'<span class="cx-h">{e(hint)}</span>' if hint else ""
+        fields.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span>{hn}<span class="cx-in">{pre}<input type="text" inputmode="decimal" name="{key}" value="{e(val)}" data-kind="{kind}" autocomplete="off">{suf}</span></label>')
     lines = "".join(f'<div class="cx-line"><span>{e(t)}</span><span class="cx-v" data-out="{k}">–</span></div>' for k, t in h["calc_lines"])
     method = "".join(f"<li>{e(m)}</li>" for m in h["calc_method"])
     return f"""<section class="section" id="estimate">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['calc_k'])}</p><h2>{e(h['calc_h'])}</h2><p>{e(h['calc_p'])}</p></div>
-<div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}">
+<div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}" data-fte="{h['calc_fte_hours']}" data-t-days="{e(h['calc_days'])}" data-t-fte="{e(h['calc_fte'])}">
 <div class="cx-inputs">
 <label class="cx-field cx-cur"><span class="cx-l">{e(h['calc_cur'])}</span><select name="cur">{opts}</select></label>
 {''.join(fields)}
 </div>
 <div class="cx-out" aria-live="polite">
 <p class="cx-k">{e(h['calc_total'])} <span>· {e(h['calc_year'])}</span></p>
-<p class="cx-total" data-out="total">–</p>
+<p class="cx-total">≈ <span data-out="total">–</span></p>
+<p class="cx-range">{e(h['calc_range'])}: <span data-out="range">–</span></p>
 <div class="cx-lines">{lines}</div>
-<div class="cx-time"><p class="cx-k">{e(h['calc_time'])}</p><p class="cx-tv"><span data-out="time">–</span> <span class="u">{e(h['calc_time_u'])}</span></p><p class="cx-note">{e(h['calc_note'])}</p></div>
+<div class="cx-time"><p class="cx-k">{e(h['calc_time'])}</p><p class="cx-tv">≈ <span data-out="time">–</span> <span class="u">{e(h['calc_week'])}</span></p>
+<p class="cx-eq" data-out="eq">–</p><p class="cx-note">{e(h['calc_time_p'])} {e(h['calc_note'])}</p></div>
 <a class="btn btn-amber cx-cta" href="{rel(lang, lang, 'cu')}">{e(h['calc_cta'])}</a>
 <p class="cx-carry">{e(h['calc_carry'])}</p>
 </div>
@@ -272,29 +275,55 @@ def calc_section(lang, h):
 """
 
 
+def flow_viz(f):
+    t = f["t"]
+    if t == "stock":
+        return f"""<div class="fviz fv1">
+<div class="fv-row"><span class="fv-name">{e(f['prod'])}</span><span class="fv-swap"><b class="a">{e(f['stock'])}: {e(f['d1'])}</b><b class="b bad">{e(f['stock'])}: {e(f['d2'])}</b></span></div>
+<div class="fv-row"><span class="fv-name">{e(f['ad'])}</span><span class="fv-tg"><i></i></span><span class="fv-swap r"><b class="a ok">{e(f['on'])}</b><b class="b">{e(f['off'])}</b></span></div>
+<div class="fv-toast">{e(f['toast'])}</div></div>"""
+    if t == "alert":
+        return f"""<div class="fviz fv-al">
+<span class="fv-clock">{e(f['chip'])}</span>
+<svg viewBox="0 0 300 70" class="fv-line"><polyline class="ok" pathLength="1" points="0,30 30,26 60,32 90,24 120,28 150,22 180,26 210,24" /><polyline class="drop" pathLength="1" points="210,24 240,46 270,58 300,60" /></svg>
+<div class="fv-alarm"><b>{e(f['alert'])}</b><small>{e(f['alert2'])}</small></div></div>"""
+    if t == "report":
+        bars = "".join(f'<i style="--h:{v}%;--d:{i * .08:.2f}s"></i>' for i, v in enumerate([38, 52, 46, 70, 64, 86]))
+        return f"""<div class="fviz fv2">
+<span class="fv-clock">{e(f['clock'])}</span>
+<div class="fv-mail"><span class="fv-ic"></span><span><b>{e(f['mail'])}</b><small>{e(f['mail2'])}</small></span></div>
+<div class="fv-bars">{bars}</div></div>"""
+    if t == "camp":
+        rows = "".join(f'<div class="fv-tr{" hit" if i == 1 else ""}"><span>{e(a)}</span><span>{e(b)}</span><b>{e(c)}</b></div>' for i, (a, b, c) in enumerate(f["rows"]))
+        return f'<div class="fviz fv3">{rows}<div class="fv-fix">{e(f["fix"])}</div></div>'
+    if t == "carrier":
+        rows = "".join(f'<div class="fv-tr fv-cr{" pick" if i == 1 else ""}{" slow" if i == 2 else ""}"><span>{e(a)}</span><span>{e(c)}</span><b>{e(b)}</b><em>{e(f["pick"])}</em></div>' for i, (a, b, c) in enumerate(f["rows"]))
+        return f'<div class="fviz fv-ca"><span class="fv-clock">{e(f["order"])}</span>{rows}</div>'
+    if t == "returns":
+        rows = "".join(f'<div class="fv-rr"><span>{e(a)}</span><span class="fv-rb"><i style="--w:{v * 2}%;--d:{i * .12:.2f}s"></i></span><b>{("%" + str(v)) if f.get("pct_first") else (str(v) + "%")}</b></div>' for i, (a, v) in enumerate(f["rows"]))
+        return f'<div class="fviz fv-re">{rows}<div class="fv-fix">{e(f["fix"])}</div></div>'
+    if t == "reply":
+        return f"""<div class="fviz fv-rp">
+<div class="fv-q">{e(f['q'])}</div>
+<div class="fv-a"><span class="fv-dots"><i></i><i></i><i></i></span><span class="fv-at">{e(f['a'])}</span></div>
+<div class="fv-ok">{e(f['btn'])}</div></div>"""
+    tags = "".join(f"<span>{e(x)}</span>" for x in f["tags"])
+    return f'<div class="fviz fv-mo"><div class="fv-tags">{tags}</div></div>'
+
+
 def flows_section(h):
-    f1, f2, f3 = h["flows"]
-    viz1 = f"""<div class="fviz fv1" aria-hidden="true">
-<div class="fv-row"><span class="fv-name">{e(f1['prod'])}</span><span class="fv-swap"><b class="a">{e(f1['stock'])}: {e(f1['d1'])}</b><b class="b bad">{e(f1['stock'])}: {e(f1['d2'])}</b></span></div>
-<div class="fv-row"><span class="fv-name">{e(f1['ad'])}</span><span class="fv-tg"><i></i></span><span class="fv-swap r"><b class="a ok">{e(f1['on'])}</b><b class="b">{e(f1['off'])}</b></span></div>
-<div class="fv-toast">{e(f1['toast'])}</div>
-</div>"""
-    bars = "".join(f'<i style="--h:{v}%;--d:{i * .08:.2f}s"></i>' for i, v in enumerate([38, 52, 46, 70, 64, 86]))
-    viz2 = f"""<div class="fviz fv2" aria-hidden="true">
-<span class="fv-clock">{e(f2['clock'])}</span>
-<div class="fv-mail"><span class="fv-ic"></span><span><b>{e(f2['mail'])}</b><small>{e(f2['mail2'])}</small></span></div>
-<div class="fv-bars">{bars}</div>
-</div>"""
-    rows = "".join(f'<div class="fv-tr{" hit" if i == 1 else ""}"><span>{e(a)}</span><span>{e(b)}</span><b>{e(c)}</b></div>' for i, (a, b, c) in enumerate(f3["rows"]))
-    viz3 = f"""<div class="fviz fv3" aria-hidden="true">
-{rows}
-<div class="fv-fix">{e(f3['fix'])}</div>
-</div>"""
-    cards = "".join(f'<article class="flow"><div class="fviz-wrap">{v}</div><p class="ex-k">{e(h["fl_tag"])}</p><h3>{e(f["h"])}</h3><p>{e(f["p"])}</p></article>' for v, f in zip([viz1, viz2, viz3], h["flows"]))
+    cards = "".join(f'<article class="flow"><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="ex-k">{e(f.get("tag", h["fl_tag"]))}</p><h3>{e(f["h"])}</h3><p>{e(f["p"])}</p></article>' for f in h["flows"])
+    dots = "".join(f'<button type="button" aria-label="{i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["flows"])))
     return f"""<section class="section" id="flows">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['fl_k'])}</p><h2>{e(h['fl_h'])}</h2><p>{e(h['fl_p'])}</p></div>
-<div class="flows stagger">{cards}</div>
+<div class="work flows-car" data-carousel>
+<div class="work-track flows stagger" tabindex="0">{cards}</div>
+<div class="work-nav">
+<div class="work-dots">{dots}</div>
+<div class="work-arrows"><button type="button" class="work-prev" aria-label="{e(h['prev'])}">‹</button><button type="button" class="work-next" aria-label="{e(h['next'])}">›</button></div>
+</div>
+</div>
 </div>
 </section>
 """
