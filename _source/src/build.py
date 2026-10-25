@@ -113,7 +113,6 @@ def footer(lang, on_home):
 def home(lang):
     h = T[lang]["home"]
     out = [head(lang, "home", h), '<div class="dark">', header(lang, "home", True)]
-    rows = "".join(f'<div><span>{e(a)}</span><span class="st s{i+1}">{e(b)}</span></div>' for i, (a, b) in enumerate(h["rows"]))
     out.append(f"""<section class="hero" id="top">
 <div class="wrap">
 <div class="hero-copy">
@@ -125,26 +124,7 @@ def home(lang):
 <a class="ghost" href="#estimate">{e(h['ghost'])}</a>
 </div>
 </div>
-<div class="panel anim">
-<div class="panel-head">
-<div><p class="panel-kicker">{e(h['panel_kicker'])}</p><p class="panel-title">{e(h['panel_title'])}</p></div>
-<span class="tag">{e(h['panel_tag'])}</span>
-</div>
-<svg viewBox="0 0 400 170" role="img" aria-label="{e(h['chart_aria'])}">
-<line x1="0" y1="140" x2="400" y2="140" stroke="rgba(255,255,255,0.12)"/>
-<line x1="0" y1="95" x2="400" y2="95" stroke="rgba(255,255,255,0.06)"/>
-<line x1="0" y1="50" x2="400" y2="50" stroke="rgba(255,255,255,0.06)"/>
-<line class="fadein" x1="0" y1="112" x2="400" y2="112" stroke="#8FA0B5" stroke-width="1.5" stroke-dasharray="5 5"/>
-<text class="fadein" x="4" y="106" fill="#8FA0B5" font-size="11" font-family="Geist, sans-serif">{e(h['chart_base'])}</text>
-<line class="fixmark" x1="170" y1="20" x2="170" y2="150" stroke="rgba(246,185,122,0.5)"/>
-<text class="fixmark" x="176" y="30" fill="#F6B97A" font-size="11" font-family="Geist, sans-serif">{e(h['chart_live'])}</text>
-<polyline class="draw" pathLength="1" points="0,116 34,110 68,118 102,113 136,117 170,112 204,98 238,86 272,74 306,66 340,58 374,52 400,48" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>
-<circle class="popdot" cx="396" cy="48" r="4" fill="#F59E0B"/>
-<text x="2" y="164" fill="#8FA0B5" font-size="11" font-family="Geist, sans-serif">{e(h['chart_w1'])}</text>
-<text x="398" y="164" text-anchor="end" fill="#8FA0B5" font-size="11" font-family="Geist, sans-serif">{e(h['chart_w8'])}</text>
-</svg>
-<div class="panel-rows">{rows}</div>
-</div>
+{feed_panel(h)}
 </div>
 </section>
 """)
@@ -201,22 +181,7 @@ def home(lang):
 """)
     out.append(how_html)
     out.append(calc_section(lang, h))
-    out.append(f"""<section class="section dark" id="measure">
-<div class="wrap">
-<div class="sec-head reveal"><h2>{e(h['m_h'])}</h2><p>{e(h['m_p'])}</p></div>
-<div class="measure-grid stagger">{metrics}</div>
-</div>
-</section>
-""")
-    pr = "".join(f'<div class="principle"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p></div>' for k, t, d in h["principles"])
-    out.append(f"""<section class="section" id="about">
-<div class="wrap">
-<div class="sec-head reveal"><h2>{e(h['p_h'])}</h2><p>{e(h['p_p'])}</p></div>
-<div class="principles stagger">{pr}</div>
-<p class="principles-foot">{e(h['p_foot'])}</p>
-</div>
-</section>
-""")
+    out.append(team_section(lang, h))
     c = h["cards"]
     links = [rel(lang, lang, "cu"), wa(lang)]
     cls = ["btn btn-amber", "btn btn-dark"]
@@ -238,6 +203,55 @@ def home(lang):
     out.append(footer(lang, True))
     return "".join(out)
 
+
+
+
+ICONS = {
+    "rep": '<svg viewBox="0 0 20 20"><path d="M4 16V9M10 16V5M16 16v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" fill="none"/></svg>',
+    "ad": '<svg viewBox="0 0 20 20"><rect x="6" y="5" width="2.6" height="10" rx="1" fill="currentColor"/><rect x="11.4" y="5" width="2.6" height="10" rx="1" fill="currentColor"/></svg>',
+    "ship": '<svg viewBox="0 0 20 20"><path d="M3 6.5 10 3l7 3.5v7L10 17l-7-3.5z M3 6.5 10 10l7-3.5 M10 10v7" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linejoin="round"/></svg>',
+    "camp": '<svg viewBox="0 0 20 20"><path d="M10 4v7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><circle cx="10" cy="15" r="1.4" fill="currentColor"/></svg>',
+}
+
+
+def feed_panel(h):
+    items = "".join(f'<li class="fd fd-{k}" style="--i:{i}"><span class="fd-ic">{ICONS[k]}</span><span class="fd-tx"><b>{e(t)}</b><small>{e(d)}</small></span><time>{e(tm)}</time></li>' for i, (k, tm, t, d) in enumerate(h["feed"]))
+    return f"""<div class="panel anim feedp">
+<div class="panel-head"><div><p class="panel-kicker">{e(h['feed_k'])}</p><p class="panel-title">{e(h['feed_h'])}</p></div><span class="tag">{e(h['feed_tag'])}</span></div>
+<ul class="feed" aria-label="{e(h['feed_h'])}">{items}</ul>
+</div>"""
+
+
+def team_section(lang, h):
+    pr = "".join(f'<div class="tp"><i>{i + 1}</i><div><b>{e(t)}</b><span>{e(d)}</span></div></div>' for i, (t, d) in enumerate(h["t_pr"]))
+    tags = "".join(f"<span>{e(x)}</span>" for x in h["t_tags"])
+    segs = "".join("<i></i>" for _ in range(8))
+    rows = "".join(f'<div class="sc-row" style="--i:{i}"><p class="sc-l">{e(l)}</p><p class="sc-v">{e(v)}</p><p class="sc-n">{e(n)}</p><svg class="sc-sp" viewBox="0 0 100 28" aria-hidden="true"><polyline pathLength="1" points="{pts}"/></svg></div>'
+                   for i, ((l, v, n), pts) in enumerate(zip(h["sc_rows"], ["0,24 14,23 28,24 42,18 56,14 70,11 84,7 100,4", "0,26 20,26 34,20 48,20 62,14 76,14 100,8", "0,24 16,22 30,18 44,15 58,12 72,10 86,9 100,8"])))
+    wk = h["sc_week"].replace("{n}", "6")
+    return f"""<section class="section" id="about">
+<div class="wrap">
+<div class="sec-head reveal"><p class="ex-k">{e(h['t_k'])}</p><h2>{e(h['t_h'])}</h2><p>{e(h['t_p'])}</p></div>
+<div class="team">
+<div class="team-l stagger">
+<p class="team-k">{e(h['t_team'])}</p>
+{pr}
+<div class="who"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="72" height="72" alt="{e(h['t_name'])}" loading="lazy">
+<div><p class="who-n">{e(h['t_name'])} <a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">in</a></p><p class="who-r">{e(h['t_role'])}</p><p class="who-t">{tags}</p><p class="who-g">{e(h['t_regions'])}</p></div></div>
+</div>
+<div class="team-r">
+<p class="team-k">{e(h['t_meas'])}</p>
+<div class="scard reveal">
+<div class="sc-head"><p class="sc-h">{e(h['sc_h'])}</p><span class="tag">{e(h['sc_tag'])}</span></div>
+<p class="sc-wk">{e(wk)}</p><div class="sc-bar" aria-hidden="true">{segs}</div>
+{rows}
+<p class="sc-foot">{e(h['sc_foot'])}</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+"""
 
 
 def calc_section(lang, h):
@@ -391,7 +405,7 @@ def checkup(lang):
 <button type="button" class="back" hidden>{e(c['back'])}</button>
 </form>
 <p class="form-alt">{alt}</p>
-<p class="founder">{founder}</p>
+<p class="founder"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="40" height="40" alt="" loading="lazy">{founder}</p>
 </div>
 </div>
 </section>
