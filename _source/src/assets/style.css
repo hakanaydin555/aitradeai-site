@@ -713,3 +713,18 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .dot svg{width:24px;height:24px}
 @media (max-width:860px){.node .dot svg{width:18px;height:18px}}
 .fab.hide{opacity:0!important;pointer-events:none}
+
+/* v7: slim team section, founder card in contact */
+.team1{display:grid;grid-template-columns:1fr 1fr;gap:0 48px;max-width:980px;margin:0 auto}
+.team1 .tp i svg{width:16px;height:16px}
+#contact .who{max-width:680px;margin:36px auto 0}
+.who-k{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.who-g a{font-weight:600;text-decoration:none}
+@media (max-width:860px){.team1{grid-template-columns:1fr}#contact .who{margin-top:24px;align-items:flex-start}}
+@media (max-width:860px){
+  .cu .wrap{flex-direction:column;flex-wrap:nowrap;gap:20px}
+  .cu-copy{display:contents}
+  .cu-copy>.eyebrow,.cu-copy>h1,.cu-copy>.lead{order:1}
+  .cu-form-col{order:2;width:100%;flex:none}
+  .cu-copy>.fit,.cu-copy>.gets{order:3}
+}

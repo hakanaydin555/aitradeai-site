@@ -5,6 +5,7 @@ SITE = "https://aitradeai.net"
 CAL = "https://calendar.app.google/qvtHpnCi4qVszRdK8"
 WA_NUMBER = "905334755284"
 LINKEDIN = "https://linkedin.com/in/hakanaydin55/"
+LINKEDIN_CO = "https://www.linkedin.com/company/aitradeai/"
 EMAIL = "hakan.aydin@aitradeai.net"
 
 # Search engine verification (meta tag values). Empty = not added.
@@ -17,7 +18,7 @@ T = {
 "en": {
   "wa_text": "Hi, I'd like to talk about a free check-up.",
   "nav": {"how": "How it works", "results": "Results", "about": "About", "contact": "Contact", "cta": "Free check-up", "menu": "Open menu", "lang_label": "Language"},
-  "footer": {"copy": "© 2026 AI Trade · Istanbul, Türkiye", "contact": "Contact", "privacy": "Privacy & KVKK"},
+  "footer": {"copy": "© 2026 AI Trade · Istanbul, Türkiye", "contact": "Contact", "privacy": "Privacy & KVKK", "li": "LinkedIn"},
   "fab": "Let's talk",
   "home": {
     "title": "AI Trade — E-commerce profitability consulting",
@@ -141,7 +142,7 @@ T = {
 "tr": {
   "wa_text": "Merhaba, ücretsiz check-up hakkında konuşmak istiyorum.",
   "nav": {"how": "Nasıl çalışıyoruz", "results": "Sonuçlar", "about": "Hakkımızda", "contact": "İletişim", "cta": "Ücretsiz check-up", "menu": "Menüyü aç", "lang_label": "Dil"},
-  "footer": {"copy": "© 2026 AI Trade · İstanbul, Türkiye", "contact": "İletişim", "privacy": "Gizlilik ve KVKK"},
+  "footer": {"copy": "© 2026 AI Trade · İstanbul, Türkiye", "contact": "İletişim", "privacy": "Gizlilik ve KVKK", "li": "LinkedIn"},
   "fab": "Konuşalım",
   "home": {
     "title": "AI Trade — E-ticaret kârlılık danışmanlığı",
@@ -413,3 +414,9 @@ T["tr"]["home"].update({
                 ("Ekip zamanı", "18 saat / hafta", "ayrı sayılır, nakde çevrilmez")],
     "sc_foot": "Her pazartesi gelen kutunuzda · başlangıç değeri birlikte belirlenir",
 })
+
+# --- v7: measurement as 4th principle, founder card in contact ---
+T["en"]["home"]["t_pr"] = T["en"]["home"]["t_pr"] + [("Every gain measured on its own", "Profit, cash and time are reported separately and never counted twice. The baseline is agreed with you.")]
+T["tr"]["home"]["t_pr"] = T["tr"]["home"]["t_pr"] + [("Her kazanç ayrı ölçülür", "Kâr, nakit ve zaman ayrı raporlanır, hiçbiri iki kez sayılmaz. Başlangıç değeri sizinle birlikte belirlenir.")]
+T["en"]["home"].update({"t_p": "A small senior team, with you from day one to handover.", "who_k": "Who you will talk to", "li_co": "Follow AI Trade on LinkedIn ›"})
+T["tr"]["home"].update({"t_p": "Küçük ve kıdemli bir ekip; ilk günden devire kadar sizinle.", "who_k": "Görüşmeyi kim yapıyor", "li_co": "AI Trade'i LinkedIn'de takip edin ›"})

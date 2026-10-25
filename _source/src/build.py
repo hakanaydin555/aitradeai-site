@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Builds the static site into ../dist. Run: python3 build.py"""
 import os, shutil, html, urllib.parse, json, datetime
-from content import T, SITE, CAL, WA_NUMBER, LINKEDIN, EMAIL, GSC_VERIFY, BING_VERIFY, CF_BEACON
+from content import T, SITE, CAL, WA_NUMBER, LINKEDIN, LINKEDIN_CO, EMAIL, GSC_VERIFY, BING_VERIFY, CF_BEACON
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(HERE), "dist")
@@ -41,6 +41,7 @@ def schema(lang, key, page, canon):
         "knowsAbout": ["E-commerce profitability", "Marketplace operations", "Performance marketing", "CRM",
                        "Demand forecasting", "Pricing and promotions", "AI automation", "Cross-border e-commerce"],
         "founder": {"@type": "Person", "name": "Hakan Aydın", "sameAs": [LINKEDIN]},
+        "sameAs": [LINKEDIN_CO],
     }
     site = {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "AI Trade",
             "inLanguage": ["en", "tr"], "publisher": {"@id": ORG_ID}}
@@ -151,6 +152,7 @@ def footer(lang, on_home):
 <nav aria-label="Footer">
 <a href="{home}#contact">{f['contact']}</a>
 <a href="{rel(lang, lang, 'privacy')}">{f['privacy']}</a>
+<a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{f['li']}</a>
 </nav>
 </div>
 </footer>
@@ -256,6 +258,7 @@ def home(lang):
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(m[0])}</a>
 <a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a>
 </div>
+{who_card(lang, h)}
 </div>
 </section>
 </main>
@@ -282,33 +285,20 @@ def feed_panel(h):
 </div>"""
 
 
-def team_section(lang, h):
-    pr = "".join(f'<div class="tp"><i>{i + 1}</i><div><b>{e(t)}</b><span>{e(d)}</span></div></div>' for i, (t, d) in enumerate(h["t_pr"]))
+
+def who_card(lang, h):
     tags = "".join(f"<span>{e(x)}</span>" for x in h["t_tags"])
-    segs = "".join("<i></i>" for _ in range(8))
-    rows = "".join(f'<div class="sc-row" style="--i:{i}"><p class="sc-l">{e(l)}</p><p class="sc-v">{e(v)}</p><p class="sc-n">{e(n)}</p><svg class="sc-sp" viewBox="0 0 100 28" aria-hidden="true"><polyline pathLength="1" points="{pts}"/></svg></div>'
-                   for i, ((l, v, n), pts) in enumerate(zip(h["sc_rows"], ["0,24 14,23 28,24 42,18 56,14 70,11 84,7 100,4", "0,26 20,26 34,20 48,20 62,14 76,14 100,8", "0,24 16,22 30,18 44,15 58,12 72,10 86,9 100,8"])))
-    wk = h["sc_week"].replace("{n}", "6")
+    return f"""<div class="who reveal"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="72" height="72" alt="{e(h['t_name'])}" loading="lazy">
+<div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])} <a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">in</a></p><p class="who-r">{e(h['t_role'])}</p><p class="who-t">{tags}</p><p class="who-g">{e(h['t_regions'])} · <a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></p></div></div>"""
+
+
+def team_section(lang, h):
+    tick = '<svg viewBox="0 0 20 20"><path d="M5 10.5l3.2 3.2L15 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    pr = "".join(f'<div class="tp"><i>{tick}</i><div><b>{e(t)}</b><span>{e(d)}</span></div></div>' for t, d in h["t_pr"])
     return f"""<section class="section" id="about">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['t_k'])}</p><h2>{e(h['t_h'])}</h2><p>{e(h['t_p'])}</p></div>
-<div class="team">
-<div class="team-l stagger">
-<p class="team-k">{e(h['t_team'])}</p>
-{pr}
-<div class="who"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="72" height="72" alt="{e(h['t_name'])}" loading="lazy">
-<div><p class="who-n">{e(h['t_name'])} <a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">in</a></p><p class="who-r">{e(h['t_role'])}</p><p class="who-t">{tags}</p><p class="who-g">{e(h['t_regions'])}</p></div></div>
-</div>
-<div class="team-r">
-<p class="team-k">{e(h['t_meas'])}</p>
-<div class="scard reveal">
-<div class="sc-head"><p class="sc-h">{e(h['sc_h'])}</p><span class="tag">{e(h['sc_tag'])}</span></div>
-<p class="sc-wk">{e(wk)}</p><div class="sc-bar" aria-hidden="true">{segs}</div>
-{rows}
-<p class="sc-foot">{e(h['sc_foot'])}</p>
-</div>
-</div>
-</div>
+<div class="team1 stagger">{pr}</div>
 </div>
 </section>
 """
@@ -525,7 +515,7 @@ def llms_txt():
 
 > {en['home']['desc']}
 
-AI Trade is an e-commerce profitability and AI automation consultancy based in Istanbul, Türkiye. It works with mid-sized e-commerce companies, brands and manufacturers' e-commerce teams in Türkiye and abroad. Founder: Hakan Aydın ({LINKEDIN}).
+AI Trade is an e-commerce profitability and AI automation consultancy based in Istanbul, Türkiye. It works with mid-sized e-commerce companies, brands and manufacturers' e-commerce teams in Türkiye and abroad. Founder: Hakan Aydın ({LINKEDIN}). LinkedIn: {LINKEDIN_CO}
 
 How a project works:
 {plan}
