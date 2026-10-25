@@ -630,3 +630,7 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
   .fv-ca .pick{border-color:var(--amber);background:var(--amber-tint)}.fv-cr em{opacity:1}.fv-ca .slow{opacity:.45}
   .fv-rb i{transform:none}
 }
+
+.leak-cta a.alt{color:var(--ink-2);font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.swipe{display:none}
+@media (max-width:860px){.swipe{display:block;text-align:right;font-size:14px;font-weight:600;color:var(--amber-text);margin:-8px 0 10px}}

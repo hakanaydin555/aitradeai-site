@@ -122,7 +122,7 @@ def home(lang):
 <p class="lead rise d2">{e(h['lead'])} <span class="weeks">{e(h['lead_weeks'])}</span></p>
 <div class="hero-ctas rise d3">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
-<a class="ghost" href="#how">{e(h['ghost'])}</a>
+<a class="ghost" href="#estimate">{e(h['ghost'])}</a>
 </div>
 </div>
 <div class="panel anim">
@@ -158,20 +158,19 @@ def home(lang):
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
 </div>
-<div class="leak-cta"><p>{e(h['leak_q'])}</p><a href="{rel(lang, lang, 'cu')}">{e(h['leak_a'])}</a></div>
+<div class="leak-cta"><p>{e(h['leak_q'])}</p><a href="{rel(lang, lang, 'cu')}">{e(h['leak_a'])}</a><a class="alt" href="#estimate">{e(h['leak_c'])}</a></div>
 </div>
 </section>
 """)
-    out.append(calc_section(lang, h))
     plan = "".join(f'<div class="prow"><p class="w">{e(w)}</p><p class="t">{e(t)}</p><p class="d">{e(d)}</p></div>' for w, t, d in h["plan"])
-    out.append(f"""<section class="section grey" id="how">
+    out.append(flows_section(h))
+    how_html = (f"""<section class="section" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
 </div>
 </section>
 """)
-    out.append(flows_section(h))
     metrics = "".join(f'<div><p class="k">{e(k)}</p><p class="v">{e(v)}</p></div>' for k, v in h["metrics"])
     cases = "".join(f'<div class="case"><p class="big"><span data-count="{n}" data-suffix="{s}">{n}{s}</span></p><p class="what">{e(w)}</p><p class="ctx">{e(c)}</p></div>' for n, s, w, c in h["cases"])
     cards = []
@@ -200,6 +199,8 @@ def home(lang):
 </div>
 </section>
 """)
+    out.append(how_html)
+    out.append(calc_section(lang, h))
     out.append(f"""<section class="section dark" id="measure">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['m_h'])}</h2><p>{e(h['m_p'])}</p></div>
@@ -250,7 +251,7 @@ def calc_section(lang, h):
         fields.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span>{hn}<span class="cx-in">{pre}<input type="text" inputmode="decimal" name="{key}" value="{e(val)}" data-kind="{kind}" autocomplete="off">{suf}</span></label>')
     lines = "".join(f'<div class="cx-line"><span>{e(t)}</span><span class="cx-v" data-out="{k}">–</span></div>' for k, t in h["calc_lines"])
     method = "".join(f"<li>{e(m)}</li>" for m in h["calc_method"])
-    return f"""<section class="section" id="estimate">
+    return f"""<section class="section grey" id="estimate">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['calc_k'])}</p><h2>{e(h['calc_h'])}</h2><p>{e(h['calc_p'])}</p></div>
 <div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}" data-fte="{h['calc_fte_hours']}" data-t-days="{e(h['calc_days'])}" data-t-fte="{e(h['calc_fte'])}">
@@ -318,6 +319,7 @@ def flows_section(h):
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['fl_k'])}</p><h2>{e(h['fl_h'])}</h2><p>{e(h['fl_p'])}</p></div>
 <div class="work flows-car" data-carousel>
+<p class="swipe" aria-hidden="true">{e(h['swipe'])}</p>
 <div class="work-track flows stagger" tabindex="0">{cards}</div>
 <div class="work-nav">
 <div class="work-dots">{dots}</div>
