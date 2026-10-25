@@ -420,3 +420,21 @@ T["en"]["home"]["t_pr"] = T["en"]["home"]["t_pr"] + [("Every gain measured on it
 T["tr"]["home"]["t_pr"] = T["tr"]["home"]["t_pr"] + [("Her kazanç ayrı ölçülür", "Kâr, nakit ve zaman ayrı raporlanır, hiçbiri iki kez sayılmaz. Başlangıç değeri sizinle birlikte belirlenir.")]
 T["en"]["home"].update({"t_p": "A small senior team, with you from day one to handover.", "who_k": "Who you will talk to", "li_co": "Follow AI Trade on LinkedIn ›"})
 T["tr"]["home"].update({"t_p": "Küçük ve kıdemli bir ekip; ilk günden devire kadar sizinle.", "who_k": "Görüşmeyi kim yapıyor", "li_co": "AI Trade'i LinkedIn'de takip edin ›"})
+
+# --- v8: consulting-first framing ---
+T["en"]["home"].update({
+    "feed_k": "Designed around your business", "feed_h": "What we can build after the check-up",
+    "fl_k": "Example solutions", "fl_h": "Not an off-the-shelf tool. Designed around your business.",
+    "fl_p": "First we find where the loss is. Then we build the right system inside the tools you already use and hand it to your team. These are examples of what can be built for different businesses.",
+    "fl_tag": "Example solution",
+    "how_note": "We do not sell software, licences or subscriptions. We work with the tools you already have, and if a new one is needed, we help you choose the right one.",
+})
+T["tr"]["home"].update({
+    "feed_k": "İşinize göre tasarlanır", "feed_h": "Check-up sonrası kurulabilecekler",
+    "fl_k": "Örnek çözümler", "fl_h": "Hazır araç değil, işinize göre tasarım.",
+    "fl_p": "Önce kaybın nerede olduğunu buluruz. Sonra o soruna uygun sistemi mevcut araçlarınızın içinde kurar, ekibinize devrederiz. Aşağıdakiler farklı işletmelerde kurulabilecek çözümlere örnek.",
+    "fl_tag": "Örnek çözüm",
+    "how_note": "Yazılım, lisans ya da abonelik satmıyoruz. Mevcut araçlarınızla çalışırız; yeni bir araç gerekirse doğru olanı seçmenize yardım ederiz.",
+})
+T["en"]["home"]["li_me"] = "Hakan's profile ›"
+T["tr"]["home"]["li_me"] = "Hakan'ın profili ›"

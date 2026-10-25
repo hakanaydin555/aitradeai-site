@@ -205,14 +205,16 @@ def home(lang):
 </section>
 """)
     plan = "".join(f'<div class="prow"><p class="w">{e(w)}</p><p class="t">{e(t)}</p><p class="d">{e(d)}</p></div>' for w, t, d in h["plan"])
-    out.append(flows_section(h))
     how_html = (f"""<section class="section" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
+<p class="how-note reveal">{e(h['how_note'])}</p>
 </div>
 </section>
 """)
+    out.append(how_html)
+    out.append(flows_section(h))
     metrics = "".join(f'<div><p class="k">{e(k)}</p><p class="v">{e(v)}</p></div>' for k, v in h["metrics"])
     cases = "".join(f'<div class="case"><p class="big"><span data-count="{n}" data-suffix="{s}">{n}{s}</span></p><p class="what">{e(w)}</p><p class="ctx">{e(c)}</p></div>' for n, s, w, c in h["cases"])
     cards = []
@@ -227,7 +229,7 @@ def home(lang):
 <div class="wres"><p class="wt">{e(h['res_l'])}</p><div class="wstats">{stats}</div></div>
 </article>''')
     dots = "".join(f'<button type="button" aria-label="{e(h["case_l"])} {i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["work"])))
-    out.append(f"""<section class="section grey" id="work">
+    out.append(f"""<section class="section" id="work">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
 <div class="work" data-carousel>
@@ -241,7 +243,6 @@ def home(lang):
 </div>
 </section>
 """)
-    out.append(how_html)
     out.append(calc_section(lang, h))
     out.append(team_section(lang, h))
     c = h["cards"]
@@ -288,8 +289,12 @@ def feed_panel(h):
 
 def who_card(lang, h):
     tags = "".join(f"<span>{e(x)}</span>" for x in h["t_tags"])
-    return f"""<div class="who reveal"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="72" height="72" alt="{e(h['t_name'])}" loading="lazy">
-<div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])} <a href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn">in</a></p><p class="who-r">{e(h['t_role'])}</p><p class="who-t">{tags}</p><p class="who-g">{e(h['t_regions'])} · <a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></p></div></div>"""
+    return f"""<div class="who reveal">
+<div class="who-top"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="64" height="64" alt="{e(h['t_name'])}" loading="lazy">
+<div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])}</p><p class="who-r">{e(h['t_role'])}</p></div></div>
+<p class="who-t">{tags}</p>
+<div class="who-f"><span class="who-g">{e(h['t_regions'])}</span><span class="who-l"><a href="{LINKEDIN}" target="_blank" rel="noopener">{e(h['li_me'])}</a><a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></span></div>
+</div>"""
 
 
 def team_section(lang, h):
@@ -381,7 +386,7 @@ def flow_viz(f):
 def flows_section(h):
     cards = "".join(f'<article class="flow"><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="ex-k">{e(f.get("tag", h["fl_tag"]))}</p><h3>{e(f["h"])}</h3><p>{e(f["p"])}</p></article>' for f in h["flows"])
     dots = "".join(f'<button type="button" aria-label="{i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["flows"])))
-    return f"""<section class="section" id="flows">
+    return f"""<section class="section grey" id="flows">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['fl_k'])}</p><h2>{e(h['fl_h'])}</h2><p>{e(h['fl_p'])}</p></div>
 <div class="work flows-car" data-carousel>
