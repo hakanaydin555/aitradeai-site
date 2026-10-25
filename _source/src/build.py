@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """Builds the static site into ../dist. Run: python3 build.py"""
-import os, shutil, html, urllib.parse
-from content import T, SITE, CAL, WA_NUMBER, LINKEDIN
+import os, shutil, html, urllib.parse, json, datetime
+from content import T, SITE, CAL, WA_NUMBER, LINKEDIN, EMAIL, GSC_VERIFY, BING_VERIFY, CF_BEACON
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(HERE), "dist")
@@ -28,6 +28,50 @@ def rel(lang, target_lang, key):
     return prefix + path
 
 
+ORG_ID = SITE + "/#org"
+
+
+def schema(lang, key, page, canon):
+    """JSON-LD structured data. Only states what the visible page also says."""
+    org = {
+        "@type": "Organization", "@id": ORG_ID, "name": "AI Trade", "url": SITE + "/",
+        "email": EMAIL, "description": T["en"]["home"]["desc"],
+        "address": {"@type": "PostalAddress", "addressLocality": "Istanbul", "addressCountry": "TR"},
+        "areaServed": [{"@type": "Country", "name": "Türkiye"}, "MENA", "CIS"],
+        "knowsAbout": ["E-commerce profitability", "Marketplace operations", "Performance marketing", "CRM",
+                       "Demand forecasting", "Pricing and promotions", "AI automation", "Cross-border e-commerce"],
+        "founder": {"@type": "Person", "name": "Hakan Aydın", "sameAs": [LINKEDIN]},
+    }
+    site = {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "AI Trade",
+            "inLanguage": ["en", "tr"], "publisher": {"@id": ORG_ID}}
+    webpage = {"@type": "WebPage", "@id": canon + "#page", "url": canon, "name": page["title"],
+               "description": page["desc"], "inLanguage": lang, "isPartOf": {"@id": SITE + "/#website"},
+               "about": {"@id": ORG_ID}}
+    graph = [org, site, webpage]
+    if key == "cu":
+        c = T[lang]["cu"]
+        graph.append({"@type": "Service", "@id": canon + "#service", "name": c["h1"], "description": page["desc"],
+                      "serviceType": "E-commerce profitability check-up", "provider": {"@id": ORG_ID},
+                      "areaServed": "TR", "url": canon,
+                      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "url": canon}})
+        graph.append({"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": lang, "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in c["faq"]]})
+    data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
+    return '<script type="application/ld+json">' + data.replace("</", "<\\/") + "</script>"
+
+
+def verify_tags():
+    out = ""
+    if GSC_VERIFY:
+        out += '<meta name="google-site-verification" content="%s">\n' % e(GSC_VERIFY)
+    if BING_VERIFY:
+        out += '<meta name="msvalidate.01" content="%s">\n' % e(BING_VERIFY)
+    if CF_BEACON:
+        out += ('<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" '
+                'data-cf-beacon=\'{"token": "%s"}\'></script>\n' % e(CF_BEACON))
+    return out
+
+
 def head(lang, key, page):
     en_c, tr_c = SITE + PAGES[key][2], SITE + PAGES[key][3]
     canon = en_c if lang == "en" else tr_c
@@ -50,8 +94,15 @@ def head(lang, key, page):
 <meta property="og:description" content="{e(page['desc'])}">
 <meta property="og:url" content="{canon}">
 <meta property="og:image" content="{og}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{e(page['title'])}">
 <meta property="og:locale" content="{'en_US' if lang == 'en' else 'tr_TR'}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{e(page['title'])}">
+<meta name="twitter:description" content="{e(page['desc'])}">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+{verify_tags()}{schema(lang, key, page, canon)}
 <meta name="theme-color" content="#0E1A2B">
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -466,6 +517,34 @@ def privacy(lang):
     return "".join(out)
 
 
+def llms_txt():
+    """Plain summary for AI assistants and crawlers (llms.txt convention)."""
+    en, tr = T["en"], T["tr"]
+    plan = "\n".join("- %s (%s): %s" % (t, w, d) for w, t, d in en["home"]["plan"])
+    return f"""# AI Trade
+
+> {en['home']['desc']}
+
+AI Trade is an e-commerce profitability and AI automation consultancy based in Istanbul, Türkiye. It works with mid-sized e-commerce companies, brands and manufacturers' e-commerce teams in Türkiye and abroad. Founder: Hakan Aydın ({LINKEDIN}).
+
+How a project works:
+{plan}
+
+Results are measured as contribution profit, cash savings and team hours, not revenue alone.
+
+## Pages
+- [Home (English)]({SITE}/): what we do, how it works, anonymised results
+- [Free check-up (English)]({SITE}/check-up): short form and call to find profit leaks
+- [Ana sayfa (Türkçe)]({SITE}/tr/): {tr['home']['desc']}
+- [Ücretsiz check-up (Türkçe)]({SITE}/tr/check-up)
+- [Privacy & KVKK]({SITE}/privacy)
+
+## Contact
+- Email: {EMAIL}
+- Check-up request: {SITE}/check-up
+"""
+
+
 def main():
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
@@ -480,14 +559,21 @@ def main():
         f.write("aitradeai.net")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
         f.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE)
+    today = datetime.date.today().isoformat()
     urls = []
     for key in PAGES:
-        for i in (2, 3):
-            urls.append("<url><loc>%s%s</loc></url>" % (SITE, PAGES[key][i]))
+        en_c, tr_c = SITE + PAGES[key][2], SITE + PAGES[key][3]
+        alts = ('<xhtml:link rel="alternate" hreflang="en" href="%s"/><xhtml:link rel="alternate" hreflang="tr" href="%s"/>'
+                '<xhtml:link rel="alternate" hreflang="x-default" href="%s"/>') % (en_c, tr_c, en_c)
+        for loc in (en_c, tr_c):
+            urls.append("<url><loc>%s</loc><lastmod>%s</lastmod>%s</url>" % (loc, today, alts))
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">%s</urlset>\n' % "".join(urls))
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
+                'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s\n</urlset>\n' % "\n".join(urls))
+    with open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8") as f:
+        f.write(llms_txt())
     with open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as f:
-        f.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found — AI Trade</title><link rel="stylesheet" href="/assets/style.css"></head><body><div class="dark" style="min-height:100vh;display:flex;align-items:center"><div class="wrap" style="display:flex;flex-direction:column;gap:20px;padding-top:80px;padding-bottom:80px"><p class="eyebrow">404</p><h1 style="font-size:48px;letter-spacing:-.03em">Page not found.</h1><p style="color:#C9D1DC">Bu sayfa bulunamadı.</p><p><a class="btn btn-amber" href="/">AI Trade home</a></p></div></div></body></html>')
+        f.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found — AI Trade</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/style.css"></head><body><div class="dark" style="min-height:100vh;display:flex;align-items:center"><div class="wrap" style="display:flex;flex-direction:column;gap:20px;padding-top:80px;padding-bottom:80px"><p class="eyebrow">404</p><h1 style="font-size:48px;letter-spacing:-.03em">Page not found.</h1><p style="color:#C9D1DC">Bu sayfa bulunamadı.</p><p><a class="btn btn-amber" href="/">AI Trade home</a></p></div></div></body></html>')
     print("built", OUT)
 
 
