@@ -72,7 +72,7 @@
     });
     if (fab) {
       fab.classList.toggle('show', window.scrollY > vh * 0.6);
-      var hideOn = document.querySelectorAll('.cx-out, #contact');
+      var hideOn = document.querySelectorAll('#estimate .calc, #contact');
       var over = false;
       hideOn.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > vh - 120) over = true; });
       fab.classList.toggle('hide', over);
@@ -134,7 +134,7 @@
     var loc = lang === 'tr' ? 'tr-TR' : 'en-US';
     var cuUrl = box.getAttribute('data-cu');
     var cta = box.querySelector('.cx-cta');
-    var cur = box.querySelector('select[name="cur"]');
+    var cur = { get value() { var r = box.querySelector('input[name="cur"]:checked'); return r ? r.value : ''; } };
     function num(name) {
       var el = box.querySelector('input[name="' + name + '"]');
       var v = String(el.value || '');
@@ -190,7 +190,12 @@
         el.value = isNaN(n) ? '' : new Intl.NumberFormat(loc).format(n);
       });
     });
-    cur.addEventListener('change', calc);
+    box.querySelectorAll('input[name="cur"]').forEach(function (r) { r.addEventListener('change', calc); });
+    box.querySelectorAll('input[type="range"]').forEach(function (r) {
+      var v = box.querySelector('[data-val="' + r.name + '"]');
+      function show() { if (v) v.textContent = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 }).format(parseFloat(r.value)); }
+      r.addEventListener('input', show); show();
+    });
     calc();
   });
 

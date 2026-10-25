@@ -312,13 +312,18 @@ def team_section(lang, h):
 
 def calc_section(lang, h):
     curs = ["$", "€", "£", "₺"] if lang == "en" else ["₺", "$", "€"]
-    opts = "".join(f'<option{" selected" if c == h["calc_cur_default"] else ""}>{c}</option>' for c in curs)
-    fields = []
+    opts = "".join(f'<label><input type="radio" name="cur" value="{c}"{" checked" if c == h["calc_cur_default"] else ""}><span>{c}</span></label>' for c in curs)
+    RNG = {"disc": (0, 80, 1), "ret": (0, 40, 0.5), "logi": (0, 30, 0.5), "hrs": (0, 200, 5)}
+    money, sliders = [], []
     for key, label, val, kind, hint in h["calc_f"]:
-        pre = '<span class="cx-pre" data-cur>' + e(h["calc_cur_default"]) + '</span>' if kind == "money" else ""
-        suf = '<span class="cx-suf">%</span>' if kind == "pct" else ""
-        hn = f'<span class="cx-h">{e(hint)}</span>' if hint else ""
-        fields.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span>{hn}<span class="cx-in">{pre}<input type="text" inputmode="decimal" name="{key}" value="{e(val)}" data-kind="{kind}" autocomplete="off">{suf}</span></label>')
+        if kind == "money":
+            money.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span><span class="cx-in"><span class="cx-pre" data-cur>{e(h["calc_cur_default"])}</span><input type="text" inputmode="numeric" name="{key}" value="{e(val)}" data-kind="money" autocomplete="off"></span></label>')
+        else:
+            lo, hi, st = RNG[key]
+            unit = "%" if kind == "pct" else ""
+            ttl = f' title="{e(hint)}"' if hint else ""
+            sliders.append(f'<label class="cx-sl"{ttl}><span class="cx-slh"><span class="cx-l">{e(label)}</span><b>{unit if lang == "tr" else ""}<span data-val="{key}">{e(val)}</span>{unit if lang != "tr" else ""}</b></span><input type="range" name="{key}" min="{lo}" max="{hi}" step="{st}" value="{e(val)}" data-kind="{kind}"></label>')
+    fields = ['<div class="cx-money">' + "".join(money) + '</div>'] + sliders
     cols = ["#F59E0B", "#F6B97A", "#8FA0B5", "#4B5B70"]
     bar = "".join(f'<i data-seg="{k}" style="background:{cols[i]}"></i>' for i, (k, t) in enumerate(h["calc_lines"]))
     leg = "".join(f'<div><span><em style="background:{cols[i]}"></em>{e(t)}</span><b data-out="{k}">–</b></div>' for i, (k, t) in enumerate(h["calc_lines"]))
@@ -328,7 +333,7 @@ def calc_section(lang, h):
 <div class="sec-head reveal"><p class="ex-k">{e(h['calc_k'])}</p><h2>{e(h['calc_h'])}</h2><p>{e(h['calc_p'])}</p></div>
 <div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}" data-fte="{h['calc_fte_hours']}" data-t-days="{e(h['calc_days'])}" data-t-fte="{e(h['calc_fte'])}" data-t-hours="{e(h['calc_hours'])}">
 <div class="cx-inputs">
-<label class="cx-field cx-cur"><span class="cx-l">{e(h['calc_cur'])}</span><select name="cur">{opts}</select></label>
+<div class="cx-cur2"><span class="cx-l">{e(h['calc_cur'])}</span><span class="cx-seg">{opts}</span></div>
 {''.join(fields)}
 </div>
 <div class="cx-out" aria-live="polite">

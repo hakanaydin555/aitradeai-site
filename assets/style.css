@@ -776,3 +776,23 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .wmore[open] summary::after{content:" ‹"}
 .wmore p{margin-top:8px}
 @media (max-width:720px){.fab{width:44px;height:44px;right:12px;bottom:12px}.fab svg{width:22px;height:22px}.wc2 .wstats .wn{font-size:28px}}
+
+/* v9c: compact estimator inputs */
+.cx-inputs{gap:16px}
+.cx-cur2{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cx-seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.cx-seg label{position:relative}
+.cx-seg input{position:absolute;opacity:0;pointer-events:none}
+.cx-seg span{display:block;min-width:40px;padding:7px 10px;text-align:center;font-weight:600;cursor:pointer;color:var(--ink-2)}
+.cx-seg input:checked+span{background:var(--navy);color:#fff}
+.cx-seg input:focus-visible+span{outline:3px solid var(--amber);outline-offset:-3px}
+.cx-money{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cx-money .cx-in{min-height:44px;padding:0 10px}
+.cx-money .cx-in input{font-size:17px;padding:8px 0}
+.cx-sl{display:flex;flex-direction:column;gap:6px}
+.cx-slh{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.cx-slh b{font-family:var(--head);font-size:17px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cx-sl input[type=range]{width:100%;accent-color:var(--amber);height:28px;margin:0}
+@media (max-width:860px){.cx-inputs{gap:14px}.cx-l{font-size:14px}}
+.cx-money>*{min-width:0}.cx-money .cx-in{min-width:0}
+.cx-money{align-items:end}

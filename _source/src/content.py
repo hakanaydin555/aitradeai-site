@@ -468,3 +468,6 @@ for _w, _t in zip(T["tr"]["home"]["work"], [["Birim ekonomisi modeli", "Atıf ve
     _w["tags"] = _t
 T["en"]["home"].update({"did_l": "What we did", "more_l": "Details"})
 T["tr"]["home"].update({"did_l": "Ne yaptık", "more_l": "Detaylar"})
+
+for _l, _new in (("tr", {"ads": "Aylık reklam", "logi": "Kargo ve elleçleme payı", "hrs": "Haftalık manuel iş (ekip, saat)"}), ("en", {"ads": "Monthly ad spend", "logi": "Shipping and fulfilment share", "hrs": "Manual work per week (team hours)"})):
+    T[_l]["home"]["calc_f"] = [(k, _new.get(k, lab), v, kind, hint) for k, lab, v, kind, hint in T[_l]["home"]["calc_f"]]
