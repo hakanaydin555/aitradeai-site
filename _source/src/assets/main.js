@@ -152,7 +152,7 @@
     function out(k, t) { var el = box.querySelector('[data-out="' + k + '"]'); if (el && el.textContent !== t) { el.textContent = t; el.classList.remove('cx-flash'); void el.offsetWidth; el.classList.add('cx-flash'); } }
     var fteH = parseFloat(box.getAttribute('data-fte')) || 40;
     var dayH = lang === 'tr' ? 9 : 8;
-    var tDays = box.getAttribute('data-t-days'), tFte = box.getAttribute('data-t-fte');
+    var tDays = box.getAttribute('data-t-days'), tFte = box.getAttribute('data-t-fte'), tHours = box.getAttribute('data-t-hours');
     function mid(r) { return (r[0] + r[1]) / 2; }
     function calc() {
       var rev = num('rev'), ads = num('ads'), disc = Math.min(num('disc'), 100) / 100, ret = Math.min(num('ret'), 100) / 100,
@@ -163,11 +163,13 @@
       var lg = [rev * logi * 0.05 * 12, rev * logi * 0.10 * 12];
       var tot = [camp[0] + ad[0] + rets[0] + lg[0], camp[1] + ad[1] + rets[1] + lg[1]];
       out('camp', money(mid(camp), true)); out('ad', money(mid(ad), true)); out('rets', money(mid(rets), true)); out('logi', money(mid(lg), true));
+      var segs = { camp: mid(camp), ad: mid(ad), logi: mid(lg), rets: mid(rets) };
+      box.querySelectorAll('[data-seg]').forEach(function (el) { el.style.flexGrow = Math.max(segs[el.getAttribute('data-seg')], 0); });
       out('total', money(mid(tot), true));
       out('range', range(tot[0], tot[1]));
       var wk = hrs * 0.5;
       var f1 = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
-      out('time', f1.format(Math.round(wk)));
+      out('time', tHours.replace('{h}', f1.format(Math.round(wk))));
       out('eq', tDays.replace('{d}', f1.format(wk / dayH)) + ' · ' + tFte.replace('{f}', f1.format(wk / fteH)));
       box.querySelectorAll('[data-cur]').forEach(function (p) { p.textContent = cur.value; });
       var sum = lang === 'tr'

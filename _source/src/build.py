@@ -249,25 +249,27 @@ def calc_section(lang, h):
         suf = '<span class="cx-suf">%</span>' if kind == "pct" else ""
         hn = f'<span class="cx-h">{e(hint)}</span>' if hint else ""
         fields.append(f'<label class="cx-field"><span class="cx-l">{e(label)}</span>{hn}<span class="cx-in">{pre}<input type="text" inputmode="decimal" name="{key}" value="{e(val)}" data-kind="{kind}" autocomplete="off">{suf}</span></label>')
-    lines = "".join(f'<div class="cx-line"><span>{e(t)}</span><span class="cx-v" data-out="{k}">–</span></div>' for k, t in h["calc_lines"])
-    method = "".join(f"<li>{e(m)}</li>" for m in h["calc_method"])
+    cols = ["#F59E0B", "#F6B97A", "#8FA0B5", "#4B5B70"]
+    bar = "".join(f'<i data-seg="{k}" style="background:{cols[i]}"></i>' for i, (k, t) in enumerate(h["calc_lines"]))
+    leg = "".join(f'<div><span><em style="background:{cols[i]}"></em>{e(t)}</span><b data-out="{k}">–</b></div>' for i, (k, t) in enumerate(h["calc_lines"]))
+    method = "".join("<li>" + e(m).replace("&lt;range&gt;", '<span data-out="range">–</span>') + "</li>" for m in h["calc_method"])
     return f"""<section class="section grey" id="estimate">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['calc_k'])}</p><h2>{e(h['calc_h'])}</h2><p>{e(h['calc_p'])}</p></div>
-<div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}" data-fte="{h['calc_fte_hours']}" data-t-days="{e(h['calc_days'])}" data-t-fte="{e(h['calc_fte'])}">
+<div class="calc reveal" data-calc data-lang="{lang}" data-cu="{rel(lang, lang, 'cu')}" data-fte="{h['calc_fte_hours']}" data-t-days="{e(h['calc_days'])}" data-t-fte="{e(h['calc_fte'])}" data-t-hours="{e(h['calc_hours'])}">
 <div class="cx-inputs">
 <label class="cx-field cx-cur"><span class="cx-l">{e(h['calc_cur'])}</span><select name="cur">{opts}</select></label>
 {''.join(fields)}
 </div>
 <div class="cx-out" aria-live="polite">
-<p class="cx-k">{e(h['calc_total'])} <span>· {e(h['calc_year'])}</span></p>
-<p class="cx-total">≈ <span data-out="total">–</span></p>
-<p class="cx-range">{e(h['calc_range'])}: <span data-out="range">–</span></p>
-<div class="cx-lines">{lines}</div>
-<div class="cx-time"><p class="cx-k">{e(h['calc_time'])}</p><p class="cx-tv">≈ <span data-out="time">–</span> <span class="u">{e(h['calc_week'])}</span></p>
-<p class="cx-eq" data-out="eq">–</p><p class="cx-note">{e(h['calc_time_p'])} {e(h['calc_note'])}</p></div>
+<p class="cx-k">{e(h['calc_total'])}</p>
+<p class="cx-total" data-out="total">–</p>
+<div class="cx-bar" aria-hidden="true">{bar}</div>
+<div class="cx-leg">{leg}</div>
+<p class="cx-plus">{e(h['calc_plus'])}</p>
+<p class="cx-tv"><span data-out="time">–</span> <span class="u">{e(h['calc_week'])}</span></p>
+<p class="cx-eq">{e(h['calc_back'])} · <span data-out="eq">–</span></p>
 <a class="btn btn-amber cx-cta" href="{rel(lang, lang, 'cu')}">{e(h['calc_cta'])}</a>
-<p class="cx-carry">{e(h['calc_carry'])}</p>
 </div>
 </div>
 <details class="cx-how"><summary>{e(h['calc_how'])}</summary><ul>{method}</ul></details>
