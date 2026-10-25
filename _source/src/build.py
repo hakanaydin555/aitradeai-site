@@ -67,7 +67,7 @@ def verify_tags():
     if BING_VERIFY:
         out += '<meta name="msvalidate.01" content="%s">\n' % e(BING_VERIFY)
     if CF_BEACON:
-        out += ('<script defer src="https://static.cloudflareinsights.com/beacon.min.js" '
+        out += ('<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js" '
                 'data-cf-beacon=\'{"token": "%s"}\'></script>\n' % e(CF_BEACON))
     return out
 
