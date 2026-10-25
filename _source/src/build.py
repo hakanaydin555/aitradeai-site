@@ -110,6 +110,15 @@ def footer(lang, on_home):
 
 
 
+LEAK_ICONS = [
+    '<svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6L7 10H4z M16.5 9a4 4 0 0 1 0 6 M19 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 10.5h10.6L20.5 7H7 M9 19.5a1 1 0 1 0 0 .01 M17 19.5a1 1 0 1 0 0 .01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M4 7.5 12 4l8 3.5v9L12 20l-8-3.5z M4 7.5 12 11l8-3.5 M12 11v9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M9 7H5V3 M5.5 7A8 8 0 1 1 4 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+    '<svg viewBox="0 0 24 24"><path d="M12 7v5l3 2 M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
+]
+
+
 def home(lang):
     h = T[lang]["home"]
     out = [head(lang, "home", h), '<div class="dark">', header(lang, "home", True)]
@@ -130,7 +139,7 @@ def home(lang):
 """)
     out.append('</div>\n<main>\n')
 
-    nodes = "".join(f'<li class="node n{i+1}"><span class="dot" aria-hidden="true">{i+1}</span><span class="txt"><span class="nt">{e(a)}</span><span class="nl">{e(b)}</span><span class="nf">{e(c)}</span></span></li>' for i, (a, b, c) in enumerate(h["nodes"]))
+    nodes = "".join(f'<li class="node n{i+1}"><span class="dot" aria-hidden="true">{LEAK_ICONS[i]}</span><span class="txt"><span class="nt">{e(a)}</span><span class="nl">{e(b)}</span><span class="nf">{e(c)}</span></span></li>' for i, (a, b, c) in enumerate(h["nodes"]))
     out.append(f"""<section class="section grey" id="leaks">
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['leak_h'])}</h2><p>{e(h['leak_p'])}</p></div>

@@ -70,7 +70,13 @@
         row.classList.toggle('on', reduce || row.getBoundingClientRect().top < vh * 0.7);
       });
     });
-    if (fab) fab.classList.toggle('show', window.scrollY > vh * 0.6);
+    if (fab) {
+      fab.classList.toggle('show', window.scrollY > vh * 0.6);
+      var hideOn = document.querySelectorAll('.cx-out, #contact');
+      var over = false;
+      hideOn.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > vh - 120) over = true; });
+      fab.classList.toggle('hide', over);
+    }
   }
   window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
   window.addEventListener('resize', onScroll);
