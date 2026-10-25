@@ -9,7 +9,7 @@ EMAIL = "hakan.aydin@aitradeai.net"
 
 # Search engine verification (meta tag values). Empty = not added.
 GSC_VERIFY = ""   # Google Search Console: content value of google-site-verification
-BING_VERIFY = ""  # Bing Webmaster Tools: content value of msvalidate.01
+BING_VERIFY = "F9897FD44A7FC3706BDF0ED05C5F26AD"  # Bing Webmaster Tools: content value of msvalidate.01
 # Cloudflare Web Analytics token (cookieless). Empty = no analytics script.
 CF_BEACON = ""
 
