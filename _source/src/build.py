@@ -209,7 +209,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
-<p class="how-note reveal">{e(h['how_note'])}</p>
+<ul class="how-pts reveal">{"".join(f"<li>{e(x)}</li>" for x in h['how_pts'])}</ul>
 </div>
 </section>
 """)
@@ -281,7 +281,7 @@ ICONS = {
 def feed_panel(h):
     items = "".join(f'<li class="fd fd-{k}" style="--i:{i}"><span class="fd-ic">{ICONS[k]}</span><span class="fd-tx"><b>{e(t)}</b><small>{e(d)}</small></span><time>{e(tm)}</time></li>' for i, (k, tm, t, d) in enumerate(h["feed"]))
     return f"""<div class="panel anim feedp">
-<div class="panel-head"><div><p class="panel-kicker">{e(h['feed_k'])}</p><p class="panel-title">{e(h['feed_h'])}</p></div><span class="tag">{e(h['feed_tag'])}</span></div>
+<div class="panel-head"><div><p class="panel-kicker">{e(h['feed_k'])}</p><p class="panel-title">{e(h['feed_h'])}</p></div>{f'<span class="tag">{e(h["feed_tag"])}</span>' if h['feed_tag'] else ''}</div>
 <ul class="feed" aria-label="{e(h['feed_h'])}">{items}</ul>
 </div>"""
 
@@ -291,9 +291,9 @@ def who_card(lang, h):
     tags = "".join(f"<span>{e(x)}</span>" for x in h["t_tags"])
     return f"""<div class="who reveal">
 <div class="who-top"><img src="{'../' if lang == 'tr' else ''}assets/hakan.jpg" width="64" height="64" alt="{e(h['t_name'])}" loading="lazy">
-<div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])}</p><p class="who-r">{e(h['t_role'])}</p></div></div>
+<div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])} <a class="li-ic" href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn: {e(h['t_name'])}">in</a></p><p class="who-r">{e(h['t_role'])}</p></div></div>
 <p class="who-t">{tags}</p>
-<div class="who-f"><span class="who-g">{e(h['t_regions'])}</span><span class="who-l"><a href="{LINKEDIN}" target="_blank" rel="noopener">{e(h['li_me'])}</a><a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></span></div>
+<div class="who-f"><span class="who-g">{e(h['t_regions'])}</span><span class="who-l"><a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></span></div>
 </div>"""
 
 

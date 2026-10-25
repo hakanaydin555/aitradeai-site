@@ -438,3 +438,17 @@ T["tr"]["home"].update({
 })
 T["en"]["home"]["li_me"] = "Hakan's profile ›"
 T["tr"]["home"]["li_me"] = "Hakan'ın profili ›"
+
+# --- v8b: tighter consulting copy ---
+T["en"]["home"].update({
+    "feed_k": "Example · designed for each business", "feed_h": "Built for you after the check‑up", "feed_tag": "",
+    "fl_h": "Built for your business, not off the shelf.",
+    "fl_p": "We find the loss first, then build the fix inside the tools you already use. A few examples:",
+    "how_pts": ["No software to buy", "Works with your current tools", "Yours after handover"],
+})
+T["tr"]["home"].update({
+    "feed_k": "Örnek · her işletmeye özel tasarlanır", "feed_h": "Check‑up sonrası, size özel", "feed_tag": "",
+    "fl_h": "Hazır paket değil, işinize göre kurulur.",
+    "fl_p": "Önce kaybı buluruz, sonra çözümü kullandığınız araçların içinde kurarız. Birkaç örnek:",
+    "how_pts": ["Yazılım satmıyoruz", "Mevcut araçlarınızla çalışırız", "Devirden sonra sistem sizin"],
+})
