@@ -452,3 +452,7 @@ T["tr"]["home"].update({
     "fl_p": "Önce kaybı buluruz, sonra çözümü kullandığınız araçların içinde kurarız. Birkaç örnek:",
     "how_pts": ["Yazılım satmıyoruz", "Mevcut araçlarınızla çalışırız", "Devirden sonra sistem sizin"],
 })
+T["en"]["home"].update({"how_pts": ["No software to buy", "Tools chosen to fit the problem", "Yours after handover"],
+    "fl_p": "We find the loss first, then build the right fix for it, with AI where it helps, and hand it to your team. A few examples:"})
+T["tr"]["home"].update({"how_pts": ["Yazılım satmıyoruz", "Araçları sorununuza göre seçeriz", "Devirden sonra sistem sizin"],
+    "fl_p": "Önce kaybı buluruz, sonra ona uygun çözümü, gereken yerde yapay zekâyla kurar ve ekibinize devrederiz. Birkaç örnek:"})
