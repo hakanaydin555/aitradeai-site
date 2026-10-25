@@ -759,3 +759,20 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
   .fab:hover{color:#fff;background:#178F44}
   .fab svg{width:26px;height:26px}
 }
+
+/* v9b: compact case cards, smaller floating WhatsApp */
+.wc2{gap:10px}
+.wc2 .wstats{order:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:6px 0 4px;padding:16px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.wc2 .wstats .wn{font-family:var(--head);font-weight:800;font-size:34px;letter-spacing:-.03em;color:var(--amber-text);line-height:1.05}
+.wc2 .wstats .wl{font-size:13px;color:var(--muted);margin-top:2px}
+.wc2 h3{font-size:20px;line-height:1.25;margin:4px 0 0}
+.wc2 .wt{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.wtags{display:flex;flex-wrap:wrap;gap:6px}
+.wtags span{font-size:13px;font-weight:600;background:var(--bg-2);border:1px solid var(--line);border-radius:20px;padding:4px 10px;color:var(--ink)}
+.wmore{margin-top:auto;padding-top:8px;font-size:14px;color:var(--ink-2)}
+.wmore summary{cursor:pointer;font-weight:600;color:var(--amber-text);list-style:none}
+.wmore summary::-webkit-details-marker{display:none}
+.wmore summary::after{content:" ›"}
+.wmore[open] summary::after{content:" ‹"}
+.wmore p{margin-top:8px}
+@media (max-width:720px){.fab{width:44px;height:44px;right:12px;bottom:12px}.fab svg{width:22px;height:22px}.wc2 .wstats .wn{font-size:28px}}

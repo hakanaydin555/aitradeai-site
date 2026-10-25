@@ -456,3 +456,15 @@ T["en"]["home"].update({"how_pts": ["No software to buy", "Tools chosen to fit t
     "fl_p": "We find the loss first, then build the right fix for it, with AI where it helps, and hand it to your team. A few examples:"})
 T["tr"]["home"].update({"how_pts": ["Yazılım satmıyoruz", "Araçları sorununuza göre seçeriz", "Devirden sonra sistem sizin"],
     "fl_p": "Önce kaybı buluruz, sonra ona uygun çözümü, gereken yerde yapay zekâyla kurar ve ekibinize devrederiz. Birkaç örnek:"})
+
+# --- v9: shorter case cards ---
+for _w, _t in zip(T["en"]["home"]["work"], [["Unit-economics model", "Attribution and campaign efficiency", "CRM automation", "Site and app redesign"],
+                                             ["Monthly ad optimisation", "Campaign-product costs", "Shipping costs"],
+                                             ["Supplier network", "Stock-free flow-through", "Marketplace optimisation"]]):
+    _w["tags"] = _t
+for _w, _t in zip(T["tr"]["home"]["work"], [["Birim ekonomisi modeli", "Atıf ve kampanya verimliliği", "CRM otomasyonu", "Site ve uygulama yenileme"],
+                                             ["Aylık reklam optimizasyonu", "Kampanyalı ürün maliyeti", "Kargo maliyeti"],
+                                             ["Tedarik ağı", "Stoksuz flow-through", "Pazar yeri optimizasyonu"]]):
+    _w["tags"] = _t
+T["en"]["home"].update({"did_l": "What we did", "more_l": "Details"})
+T["tr"]["home"].update({"did_l": "Ne yaptık", "more_l": "Detaylar"})

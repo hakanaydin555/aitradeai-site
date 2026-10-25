@@ -221,13 +221,13 @@ def home(lang):
     cards = []
     for i, w in enumerate(h["work"]):
         stats = "".join(f'<div><p class="wn">{e(n)}</p><p class="wl">{e(l)}</p></div>' for n, l in w["res"])
-        cards.append(f'''<article class="work-card" aria-label="{e(h['case_l'])} {i + 1}">
+        tags = "".join(f"<span>{e(t)}</span>" for t in w["tags"])
+        cards.append(f'''<article class="work-card wc2" aria-label="{e(h['case_l'])} {i + 1}">
 <p class="ex-k">{e(w['k'])}</p>
+<div class="wstats">{stats}</div>
 <h3>{e(w['h'])}</h3>
-<p class="wctx">{e(w['ctx'])}</p>
-<p class="wt">{e(h['brief_l'])}</p><p class="wp">{e(w['brief'])}</p>
-<p class="wt">{e(h['built_l'])}</p><p class="wp">{e(w['built'])}</p>
-<div class="wres"><p class="wt">{e(h['res_l'])}</p><div class="wstats">{stats}</div></div>
+<p class="wt">{e(h['did_l'])}</p><p class="wtags">{tags}</p>
+<details class="wmore"><summary>{e(h['more_l'])}</summary><p>{e(w['ctx'])}</p><p>{e(w['brief'])}</p><p>{e(w['built'])}</p></details>
 </article>''')
     dots = "".join(f'<button type="button" aria-label="{e(h["case_l"])} {i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["work"])))
     out.append(f"""<section class="section" id="work">
