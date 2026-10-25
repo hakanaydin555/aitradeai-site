@@ -8,7 +8,7 @@ BOLD = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 REG = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"
 TEXT = {
     "en": ("Less waste.", "More profit.", "AI-powered e-commerce profit partner · Free check-up"),
-    "tr": ("Daha az israf.", "Daha fazla kâr.", "AI destekli e-ticaret kâr ortağınız · Ücretsiz check-up"),
+    "tr": ("Daha az kayıp.", "Daha fazla kâr.", "AI destekli e-ticaret kâr ortağınız · Ücretsiz check-up"),
 }
 
 for lang, (l1, l2, sub) in TEXT.items():
