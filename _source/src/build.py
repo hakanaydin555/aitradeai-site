@@ -14,6 +14,7 @@ PAGES = {  # key: (en path, tr path, canonical en, canonical tr)
 
 e = html.escape
 CHECK = '<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10.5l4 4 8-9" fill="none" stroke="#F59E0B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+WA_ICON = '<svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1.1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.2-.2-.5-.3z"/></svg>'
 CHAT = '<svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M4 15.5l-1 3 3.4-1.6A8 8 0 1 0 4 15.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>'
 
 
@@ -156,7 +157,7 @@ def footer(lang, on_home):
 </nav>
 </div>
 </footer>
-<a class="fab" href="{home}#contact">{CHAT}<span>{T[lang]['fab']}</span></a>
+<a class="fab" href="{e(wa(lang))}" target="_blank" rel="noopener" aria-label="WhatsApp">{WA_ICON}</a>
 </body>
 </html>
 """
@@ -247,9 +248,9 @@ def home(lang):
     out.append(team_section(lang, h))
     c = h["cards"]
     links = [rel(lang, lang, "cu"), wa(lang)]
-    cls = ["btn btn-amber", "btn btn-dark"]
+    cls = ["btn btn-amber", "btn btn-wa"]
     ext = ["", 'target="_blank" rel="noopener"']
-    cards = "".join(f'<div class="ccard"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
+    cards = "".join(f'<div class="ccard"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{WA_ICON if i else ""}{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
     m = h["c_mobile"]
     out.append(f"""<section class="section grey" id="contact">
 <div class="wrap">
@@ -257,7 +258,7 @@ def home(lang):
 <div class="contact-grid stagger">{cards}</div>
 <div class="contact-mobile stagger">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(m[0])}</a>
-<a class="btn btn-line" href="{e(wa(lang))}" target="_blank" rel="noopener">{e(m[1])}</a>
+<a class="btn btn-wa" href="{e(wa(lang))}" target="_blank" rel="noopener">{WA_ICON}{e(m[1])}</a>
 </div>
 {who_card(lang, h)}
 </div>

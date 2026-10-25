@@ -750,3 +750,12 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .how-pts li::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--amber-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='%23B45309' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/12px no-repeat;flex:none}
 @media (max-width:720px){.how-pts{flex-direction:column;align-items:flex-start;gap:10px;margin-top:24px}}
 .who-n .li-ic{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:4px;background:#0A66C2;color:#fff;font:700 12px var(--head);text-decoration:none;vertical-align:2px;margin-left:6px}
+
+/* v9: WhatsApp green buttons, compact floating WhatsApp button */
+.btn-wa,.ccard .btn-wa{background:#1DA851;color:#fff;gap:10px}.btn-wa:hover,.ccard .btn-wa:hover{background:#178F44;color:#fff}
+.btn-wa svg{flex:none}
+@media (max-width:720px){
+  .fab{width:52px;height:52px;min-height:0;padding:0;border-radius:50%;justify-content:center;background:#1DA851;color:#fff;box-shadow:0 6px 18px rgba(14,26,43,.28)}
+  .fab:hover{color:#fff;background:#178F44}
+  .fab svg{width:26px;height:26px}
+}
