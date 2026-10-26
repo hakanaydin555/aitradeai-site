@@ -339,8 +339,10 @@ def calc_section(lang, h):
 <div class="cx-inputs">
 <div class="cx-cur2"><span class="cx-l">{e(h['calc_cur'])}</span><span class="cx-seg">{opts}</span></div>
 {''.join(fields)}
+<button type="button" class="btn btn-amber cx-go">{e(h['calc_go'])}</button>
 </div>
-<div class="cx-out" aria-live="polite">
+<div class="cx-out pre" aria-live="polite">
+<p class="cx-preh">{e(h['calc_pre'])}</p>
 <p class="cx-k">{e(h['calc_total'])}</p>
 <p class="cx-total" data-out="total">–</p>
 <div class="cx-bar" aria-hidden="true">{bar}</div>
@@ -389,8 +391,8 @@ def flow_viz(f):
 <div class="fv-q">{e(f['q'])}</div>
 <div class="fv-a"><span class="fv-dots"><i></i><i></i><i></i></span><span class="fv-at">{e(f['a'])}</span></div>
 <div class="fv-ok">{e(f['btn'])}</div></div>"""
-    tags = "".join(f"<span>{e(x)}</span>" for x in f["tags"])
-    return f'<div class="fviz fv-mo"><div class="fv-tags">{tags}</div></div>'
+    tags = "".join(f'<span><i>{em}</i>{e(x)}</span>' for em, x in zip(f["emo"], f["tags"]))
+    return f'<div class="fviz fv-mo"><div class="fv-emo">{tags}</div></div>'
 
 
 def flows_section(h):

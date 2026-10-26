@@ -477,3 +477,12 @@ T["en"]["home"].update({"leak_k": "The problem", "how_k": "How we work", "w_k": 
 T["tr"]["home"].update({"leak_k": "Sorun", "how_k": "Yöntem", "w_k": "Sonuçlar", "c_k": "İletişim"})
 T["en"]["home"]["w_p"] = "Three engagements we have led. Client names are kept confidential."
 T["tr"]["home"]["w_p"] = "Yürüttüğümüz üç proje. Müşteri adları gizli tutulur."
+
+# --- v11 ---
+T["en"]["home"].update({"calc_go": "Calculate", "calc_pre": "Enter your figures and tap Calculate"})
+T["tr"]["home"].update({"calc_go": "Hesapla", "calc_pre": "Rakamlarınızı girin, Hesapla'ya basın"})
+_EMO = ["🏷️", "🔁", "✍️", "👥", "🛒", "📦"]
+for _l in ("en", "tr"):
+    for _f in T[_l]["home"]["flows"]:
+        if _f["t"] == "more":
+            _f["emo"] = _EMO

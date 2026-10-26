@@ -172,6 +172,7 @@
       var segs = { camp: mid(camp), ad: mid(ad), logi: mid(lg), rets: mid(rets) };
       box.querySelectorAll('[data-seg]').forEach(function (el) { el.style.flexGrow = Math.max(segs[el.getAttribute('data-seg')], 0); });
       out('total', money(mid(tot), true));
+      var tEl0 = box.querySelector('[data-out="total"]'); if (tEl0) tEl0.setAttribute('data-raw', mid(tot));
       out('range', range(tot[0], tot[1]));
       var wk = hrs * 0.5;
       var f1 = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 });
@@ -191,6 +192,18 @@
       });
     });
     box.querySelectorAll('input[name="cur"]').forEach(function (r) { r.addEventListener('change', calc); });
+    var outBox = box.querySelector('.cx-out'), go = box.querySelector('.cx-go');
+    if (go) go.addEventListener('click', function () {
+      calc();
+      var first = outBox.classList.contains('pre');
+      outBox.classList.remove('pre'); box.classList.add('done');
+      var tEl = box.querySelector('[data-out="total"]');
+      if (first && tEl && !reduce) {
+        var target = parseFloat(tEl.getAttribute('data-raw')) || 0, t0 = null;
+        (function step(t) { if (!t0) t0 = t; var k = Math.min((t - t0) / 900, 1); tEl.textContent = money(target * (1 - Math.pow(1 - k, 3)), true); if (k < 1) requestAnimationFrame(step); })(performance.now());
+      }
+      if (window.innerWidth < 861) outBox.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+    });
     box.querySelectorAll('input[type="range"]').forEach(function (r) {
       var v = box.querySelector('[data-val="' + r.name + '"]');
       function show() { if (v) v.textContent = new Intl.NumberFormat(loc, { maximumFractionDigits: 1 }).format(parseFloat(r.value)); }
