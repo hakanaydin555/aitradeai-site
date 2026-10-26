@@ -471,3 +471,9 @@ T["tr"]["home"].update({"did_l": "Ne yaptık", "more_l": "Detaylar"})
 
 for _l, _new in (("tr", {"ads": "Aylık reklam", "logi": "Kargo ve elleçleme payı", "hrs": "Haftalık manuel iş (ekip, saat)"}), ("en", {"ads": "Monthly ad spend", "logi": "Shipping and fulfilment share", "hrs": "Manual work per week (team hours)"})):
     T[_l]["home"]["calc_f"] = [(k, _new.get(k, lab), v, kind, hint) for k, lab, v, kind, hint in T[_l]["home"]["calc_f"]]
+
+# --- v10: section labels, results section ---
+T["en"]["home"].update({"leak_k": "The problem", "how_k": "How we work", "w_k": "Results", "c_k": "Contact"})
+T["tr"]["home"].update({"leak_k": "Sorun", "how_k": "Yöntem", "w_k": "Sonuçlar", "c_k": "İletişim"})
+T["en"]["home"]["w_p"] = "Three engagements we have led. Client names are kept confidential."
+T["tr"]["home"]["w_p"] = "Yürüttüğümüz üç proje. Müşteri adları gizli tutulur."

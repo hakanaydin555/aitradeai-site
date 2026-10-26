@@ -796,3 +796,58 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 @media (max-width:860px){.cx-inputs{gap:14px}.cx-l{font-size:14px}}
 .cx-money>*{min-width:0}.cx-money .cx-in{min-width:0}
 .cx-money{align-items:end}
+
+/* v10: brand A, stronger section contrast, results on navy, compact process on mobile, team in contact */
+.brand-a{color:var(--amber)}
+.section.grey{background:#ECEEF2}
+.results .sec-head h2{color:#fff}
+.results .sec-head p{color:var(--on-dark)}
+.results .ex-k{color:var(--amber-soft)}
+.work-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.work-grid .work-card{flex:none;width:auto;background:var(--navy-2);border:1px solid var(--line-dark);color:#fff}
+.work-grid .wc2 .ex-k{color:var(--muted-dark)}
+.work-grid .wc2 .wstats{border-color:var(--line-dark)}
+.work-grid .wc2 .wstats .wn{color:var(--amber)}
+.work-grid .wc2 .wstats .wl{color:var(--on-dark)}
+.work-grid .wc2 h3{color:#fff}
+.work-grid .wc2 .wt{color:var(--muted-dark)}
+.work-grid .wtags span{background:rgba(255,255,255,.06);border-color:var(--line-dark);color:#fff}
+.work-grid .wmore{color:var(--on-dark)}
+.work-grid .wmore summary{color:var(--amber-soft)}
+.results .more-cta a{color:var(--amber-soft)}
+@media (max-width:860px){.work-grid{grid-template-columns:1fr;gap:14px}.work-grid .work-card{padding:20px}}
+@media (max-width:720px){
+  .plist{padding-left:0}
+  .plist::before,.plist::after,.prow::before{display:none}
+  .plist{border-top:0;display:grid;gap:8px}
+  .prow{display:block;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+  .prow .w{display:inline;font-size:12px;margin-right:6px}
+  .prow .t{display:inline;font-size:16px}
+  .prow:not(.on) .t{color:var(--ink)}
+  .prow .d{font-size:14px;margin-top:2px}
+}
+.teamc{max-width:680px;margin:40px auto 0;scroll-margin-top:80px}
+.teamc .team-k{text-align:left}
+.tlist{list-style:none;margin:0 0 4px;padding:0;display:grid;gap:10px}
+.tlist li{display:flex;gap:10px;font-size:15px;color:var(--ink-2);line-height:1.45}
+.tlist li i{flex:none;width:22px;height:22px;border-radius:50%;background:var(--amber-tint);color:var(--amber-text);display:flex;align-items:center;justify-content:center;margin-top:1px}
+.tlist li i svg{width:13px;height:13px}
+.tlist b{color:var(--ink)}
+#contact .teamc .who{margin-top:20px}
+@media (min-width:861px){.tlist{grid-template-columns:1fr 1fr;gap:12px 28px}}
+
+/* v10b: shorter mobile */
+.wtags-m{display:none}
+@media (max-width:720px){
+  .section{padding:52px 0}
+  .sec-head{gap:10px}
+  .sec-head h2{font-size:30px}
+  .sec-head p{font-size:16px}
+  .work-grid .wdid,.work-grid .wtags:not(.wtags-m){display:none}
+  .work-grid .wtags-m{display:flex;margin-top:8px}
+  .work-grid .wc2 .wstats{padding:12px 0;gap:10px 14px}
+  .work-grid .wc2 h3{font-size:18px}
+  .work-grid .wmore{margin-top:4px}
+  .how-pts{margin-top:18px}
+}
+@media (max-width:480px){.feed .fd:nth-child(n+3){display:none}}

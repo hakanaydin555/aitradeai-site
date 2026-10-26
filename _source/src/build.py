@@ -126,7 +126,7 @@ def header(lang, key, on_home):
     l_tr = rel(lang, "tr", key)
     return f"""<header class="site-header">
 <div class="wrap">
-<a class="brand" href="{rel(lang, lang, 'home')}">AI Trade</a>
+<a class="brand" href="{rel(lang, lang, 'home')}" aria-label="AI Trade"><span class="brand-a">A</span>I Trade</a>
 <nav class="nav" aria-label="Main">
 <a class="navlink" href="{home}#how">{n['how']}</a>
 <a class="navlink" href="{home}#work">{n['results']}</a>
@@ -196,7 +196,7 @@ def home(lang):
     nodes = "".join(f'<li class="node n{i+1}"><span class="dot" aria-hidden="true">{LEAK_ICONS[i]}</span><span class="txt"><span class="nt">{e(a)}</span><span class="nl">{e(b)}</span><span class="nf">{e(c)}</span></span></li>' for i, (a, b, c) in enumerate(h["nodes"]))
     out.append(f"""<section class="section grey" id="leaks">
 <div class="wrap">
-<div class="sec-head reveal"><h2>{e(h['leak_h'])}</h2><p>{e(h['leak_p'])}</p></div>
+<div class="sec-head reveal"><p class="ex-k">{e(h['leak_k'])}</p><h2>{e(h['leak_h'])}</h2><p>{e(h['leak_p'])}</p></div>
 <div class="leakmap">
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
@@ -208,7 +208,7 @@ def home(lang):
     plan = "".join(f'<div class="prow"><p class="w">{e(w)}</p><p class="t">{e(t)}</p><p class="d">{e(d)}</p></div>' for w, t, d in h["plan"])
     how_html = (f"""<section class="section" id="how">
 <div class="wrap">
-<div class="sec-head reveal"><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
+<div class="sec-head reveal"><p class="ex-k">{e(h['how_k'])}</p><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
 <div class="plist stagger">{plan}</div>
 <ul class="how-pts reveal">{"".join(f"<li>{e(x)}</li>" for x in h['how_pts'])}</ul>
 </div>
@@ -226,41 +226,34 @@ def home(lang):
 <p class="ex-k">{e(w['k'])}</p>
 <div class="wstats">{stats}</div>
 <h3>{e(w['h'])}</h3>
-<p class="wt">{e(h['did_l'])}</p><p class="wtags">{tags}</p>
-<details class="wmore"><summary>{e(h['more_l'])}</summary><p>{e(w['ctx'])}</p><p>{e(w['brief'])}</p><p>{e(w['built'])}</p></details>
+<p class="wt wdid">{e(h['did_l'])}</p><p class="wtags">{tags}</p>
+<details class="wmore"><summary>{e(h['more_l'])}</summary><p class="wtags wtags-m">{tags}</p><p>{e(w['ctx'])}</p><p>{e(w['brief'])}</p><p>{e(w['built'])}</p></details>
 </article>''')
     dots = "".join(f'<button type="button" aria-label="{e(h["case_l"])} {i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["work"])))
-    out.append(f"""<section class="section" id="work">
+    out.append(f"""<section class="section dark results" id="work">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
-<div class="work" data-carousel>
-<div class="work-track" tabindex="0">{"".join(cards)}</div>
-<div class="work-nav">
-<div class="work-dots">{dots}</div>
-<div class="work-arrows"><button type="button" class="work-prev" aria-label="{e(h['prev'])}">‹</button><button type="button" class="work-next" aria-label="{e(h['next'])}">›</button></div>
-</div>
-</div>
+<div class="work-grid stagger">{"".join(cards)}</div>
 <p class="more-cta"><a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a></p>
 </div>
 </section>
 """)
     out.append(calc_section(lang, h))
-    out.append(team_section(lang, h))
     c = h["cards"]
     links = [rel(lang, lang, "cu"), wa(lang)]
     cls = ["btn btn-amber", "btn btn-wa"]
     ext = ["", 'target="_blank" rel="noopener"']
     cards = "".join(f'<div class="ccard"><p class="k">{e(k)}</p><h3>{e(t)}</h3><p>{e(d)}</p><a class="{cls[i]}" href="{e(links[i])}" {ext[i]}>{WA_ICON if i else ""}{e(b)}</a></div>' for i, (k, t, d, b) in enumerate(c))
     m = h["c_mobile"]
-    out.append(f"""<section class="section grey" id="contact">
+    out.append(f"""<section class="section" id="contact">
 <div class="wrap">
-<div class="sec-head reveal"><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
+<div class="sec-head reveal"><p class="ex-k">{e(h['c_k'])}</p><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
 <div class="contact-grid stagger">{cards}</div>
 <div class="contact-mobile stagger">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(m[0])}</a>
 <a class="btn btn-wa" href="{e(wa(lang))}" target="_blank" rel="noopener">{WA_ICON}{e(m[1])}</a>
 </div>
-{who_card(lang, h)}
+{team_block(lang, h)}
 </div>
 </section>
 </main>
@@ -295,6 +288,17 @@ def who_card(lang, h):
 <div><p class="who-k">{e(h['who_k'])}</p><p class="who-n">{e(h['t_name'])} <a class="li-ic" href="{LINKEDIN}" target="_blank" rel="noopener" aria-label="LinkedIn: {e(h['t_name'])}">in</a></p><p class="who-r">{e(h['t_role'])}</p></div></div>
 <p class="who-t">{tags}</p>
 <div class="who-f"><span class="who-g">{e(h['t_regions'])}</span><span class="who-l"><a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{e(h['li_co'])}</a></span></div>
+</div>"""
+
+
+
+def team_block(lang, h):
+    tick = '<svg viewBox="0 0 20 20"><path d="M5 10.5l3.2 3.2L15 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    pr = "".join(f'<li><i>{tick}</i><span><b>{e(t)}</b> {e(d)}</span></li>' for t, d in h["t_pr"])
+    return f"""<div class="teamc" id="about">
+<p class="team-k">{e(h['t_h'])}</p>
+<ul class="tlist">{pr}</ul>
+{who_card(lang, h)}
 </div>"""
 
 
