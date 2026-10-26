@@ -333,7 +333,7 @@ def timeline(h):
 
 
 def steps(h):
-    rows = "".join(f'<li><span class="st-n">{i:02d}</span><div><p class="st-t">{e(t)}<span>{e(w)}</span></p><p class="st-d">{e(d)}</p></div></li>' for i, (w, t, d) in enumerate(h["plan"]))
+    rows = "".join(f'<li><span class="st-w">{e(w)}</span><div><p class="st-t">{e(t)}</p><p class="st-d">{e(d)}</p></div></li>' for w, t, d in h["plan"])
     return f'<ol class="steps2 stagger">{rows}</ol>'
 
 

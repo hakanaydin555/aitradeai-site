@@ -1021,3 +1021,12 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .cwa{width:100%;margin-top:20px}
 #contact .teamc .who{margin-top:16px}
 .results .more-cta .btn-est{color:var(--amber)}
+
+/* v18: method — weeks first, no numbers */
+.st-w{font-size:13px;font-weight:700;color:var(--amber-text);letter-spacing:.01em}
+.steps2 li:first-child .st-w{color:var(--navy)}
+@media (max-width:860px){
+  .steps2 li{display:grid;grid-template-columns:96px 1fr;gap:12px;align-items:baseline}
+  .st-w{font-size:13px;line-height:1.35}
+  .st-t{display:block;font-size:17px}
+}
