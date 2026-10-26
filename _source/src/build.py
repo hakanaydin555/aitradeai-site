@@ -181,7 +181,8 @@ def home(lang):
 <div class="hero-copy">
 <p class="eyebrow">{h['eyebrow']}</p>
 <h1 class="rise">{h['h1']}</h1>
-<p class="lead rise d2">{e(h['lead'])} <span class="weeks">{e(h['lead_weeks'])}</span></p>
+<p class="lead rise d2">{e(h['lead'])}</p>
+<p class="wk8 rise d2" aria-label="{e(h['lead_weeks'])}"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="4.5" width="14" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 8.5h14M7 2.8v3.4M13 2.8v3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>{e(h['lead_weeks'])}</span><i class="wk8-bar">{"".join(f'<i style="--d:{1.1 + k * .12:.2f}s"></i>' for k in range(8))}</i></p>
 <div class="hero-ctas rise d3">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
 <a class="ghost" href="#estimate">{e(h['ghost'])}</a>
@@ -209,7 +210,7 @@ def home(lang):
     how_html = (f"""<section class="section" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['how_k'])}</p><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
-<div class="plist stagger">{plan}</div>
+{timeline(h)}
 <ul class="how-pts reveal">{"".join(f"<li>{e(x)}</li>" for x in h['how_pts'])}</ul>
 </div>
 </section>
@@ -314,6 +315,24 @@ def team_section(lang, h):
 """
 
 
+
+PHASE_COLORS = ["#0E1A2B", "#FCD9A0", "#F8BC5E", "#F59E0B", "#B45309"]
+PHASE_WEEKS = [None, (1, 2), (3, 4), (5, 7), (8, 8)]
+
+
+def timeline(h):
+    plan = h["plan"]
+    cells = []
+    for wk in range(1, 9):
+        ph = next(i for i in range(1, 5) if PHASE_WEEKS[i][0] <= wk <= PHASE_WEEKS[i][1])
+        cells.append(f'<span class="tl-c" style="--c:{PHASE_COLORS[ph]};--d:{(wk - 1) * .12:.2f}s"><b>{wk}</b></span>')
+    rows = "".join(f'<li style="--c:{PHASE_COLORS[i]}"><span class="tl-sw"></span><div><p class="tl-t">{e(t)} <span>{e(w)}</span></p><p class="tl-d">{e(d)}</p></div></li>' for i, (w, t, d) in enumerate(plan))
+    return f"""<div class="tl reveal">
+<div class="tl-top"><span class="tl-pre" style="--c:{PHASE_COLORS[0]}">{e(plan[0][1])}</span><span class="tl-arr" aria-hidden="true"></span><div class="tl-bar" aria-hidden="true">{''.join(cells)}</div></div>
+<ol class="tl-list">{rows}</ol>
+</div>"""
+
+
 def calc_section(lang, h):
     curs = ["$", "€", "£", "₺"] if lang == "en" else ["₺", "$", "€"]
     opts = "".join(f'<label><input type="radio" name="cur" value="{c}"{" checked" if c == h["calc_cur_default"] else ""}><span>{c}</span></label>' for c in curs)
@@ -359,6 +378,17 @@ def calc_section(lang, h):
 """
 
 
+_I = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{}</svg>'
+MORE_ICONS = [_I.format(p) for p in [
+    '<path d="M3 12V4h8l10 10-8 8L3 12z"/><circle cx="7.5" cy="7.5" r="1.5"/>',
+    '<path d="M7 7h12l-3-3M17 17H5l3 3"/>',
+    '<path d="M4 20h4L19 9l-4-4L4 16v4zM13.5 6.5l4 4"/>',
+    '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.5M18 14.5c2 .8 3 2.7 3 5.5"/>',
+    '<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 3.5h6v3H9zM9 13l2 2 4-4"/>',
+    '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-.01M17 19a2 2 0 1 0 0-.01"/>',
+]]
+
+
 def flow_viz(f):
     t = f["t"]
     if t == "stock":
@@ -391,7 +421,7 @@ def flow_viz(f):
 <div class="fv-q">{e(f['q'])}</div>
 <div class="fv-a"><span class="fv-dots"><i></i><i></i><i></i></span><span class="fv-at">{e(f['a'])}</span></div>
 <div class="fv-ok">{e(f['btn'])}</div></div>"""
-    tags = "".join(f'<span><i>{em}</i>{e(x)}</span>' for em, x in zip(f["emo"], f["tags"]))
+    tags = "".join(f'<span><i>{MORE_ICONS[k]}</i>{e(x)}</span>' for k, x in enumerate(f["tags"]))
     return f'<div class="fviz fv-mo"><div class="fv-emo">{tags}</div></div>'
 
 

@@ -486,3 +486,6 @@ for _l in ("en", "tr"):
     for _f in T[_l]["home"]["flows"]:
         if _f["t"] == "more":
             _f["emo"] = _EMO
+
+T["en"]["home"].update({"tl_wk": "Week", "weeks_badge": "8 weeks"})
+T["tr"]["home"].update({"tl_wk": "Hafta", "weeks_badge": "8 hafta"})
