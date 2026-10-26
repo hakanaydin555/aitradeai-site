@@ -489,3 +489,11 @@ for _l in ("en", "tr"):
 
 T["en"]["home"].update({"tl_wk": "Week", "weeks_badge": "8 weeks"})
 T["tr"]["home"].update({"tl_wk": "Hafta", "weeks_badge": "8 hafta"})
+
+# --- v13: hero facts, clean method list ---
+T["en"]["home"]["facts"] = [("8", "weeks", "a clear finish line"), ("Free", "", "check-up first"), ("Yours", "", "after handover")]
+T["tr"]["home"]["facts"] = [("8", "hafta", "net bir bitiş"), ("Ücretsiz", "", "önce check-up"), ("Sizin", "", "devirden sonra")]
+for _l, _a, _b in (("tr", "Mağazalar arası stok transferi", "Mağazalar arası transfer"), ("en", "Stock transfers between stores", "Store-to-store transfers")):
+    for _f in T[_l]["home"]["flows"]:
+        if _f["t"] == "more":
+            _f["tags"] = [_b if x == _a else x for x in _f["tags"]]

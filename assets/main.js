@@ -212,6 +212,13 @@
     calc();
   });
 
+  /* 3e. Hero fact counter */
+  document.querySelectorAll('.facts [data-to]').forEach(function (el) {
+    var to = parseInt(el.getAttribute('data-to'), 10); if (reduce || !to) return;
+    var n = 1; el.textContent = n;
+    var t = setInterval(function () { n++; el.textContent = n; if (n >= to) clearInterval(t); }, 110);
+  });
+
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;

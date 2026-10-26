@@ -182,11 +182,11 @@ def home(lang):
 <p class="eyebrow">{h['eyebrow']}</p>
 <h1 class="rise">{h['h1']}</h1>
 <p class="lead rise d2">{e(h['lead'])}</p>
-<p class="wk8 rise d2" aria-label="{e(h['lead_weeks'])}"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="4.5" width="14" height="12" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M3 8.5h14M7 2.8v3.4M13 2.8v3.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><span>{e(h['lead_weeks'])}</span><i class="wk8-bar">{"".join(f'<i style="--d:{1.1 + k * .12:.2f}s"></i>' for k in range(8))}</i></p>
 <div class="hero-ctas rise d3">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
 <a class="ghost" href="#estimate">{e(h['ghost'])}</a>
 </div>
+<ul class="facts rise d3">{"".join(f'<li><p class="fx"><b{" data-to=" + chr(34) + n + chr(34) if n.isdigit() else ""}>{e(n)}</b>{f"<span>{e(u)}</span>" if u else ""}</p><small>{e(c)}</small></li>' for n, u, c in h["facts"])}</ul>
 </div>
 {feed_panel(h)}
 </div>
@@ -210,7 +210,7 @@ def home(lang):
     how_html = (f"""<section class="section" id="how">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['how_k'])}</p><h2>{e(h['how_h'])}</h2><p>{e(h['how_p'])}</p></div>
-{timeline(h)}
+{steps(h)}
 <ul class="how-pts reveal">{"".join(f"<li>{e(x)}</li>" for x in h['how_pts'])}</ul>
 </div>
 </section>
@@ -331,6 +331,12 @@ def timeline(h):
 <div class="tl-top"><span class="tl-pre" style="--c:{PHASE_COLORS[0]}">{e(plan[0][1])}</span><span class="tl-arr" aria-hidden="true"></span><div class="tl-bar" aria-hidden="true">{''.join(cells)}</div></div>
 <ol class="tl-list">{rows}</ol>
 </div>"""
+
+
+
+def steps(h):
+    rows = "".join(f'<li><span class="st-n">{i:02d}</span><div><p class="st-t">{e(t)}<span>{e(w)}</span></p><p class="st-d">{e(d)}</p></div></li>' for i, (w, t, d) in enumerate(h["plan"]))
+    return f'<ol class="steps2 stagger">{rows}</ol>'
 
 
 def calc_section(lang, h):
