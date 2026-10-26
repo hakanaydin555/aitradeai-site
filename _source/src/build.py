@@ -24,9 +24,10 @@ def wa(lang):
 
 def rel(lang, target_lang, key):
     """Relative link from a page in `lang` to page `key` in `target_lang`."""
-    path = PAGES[key][0 if target_lang == "en" else 1]
+    # Clean URLs (match canonicals) so Google doesn't crawl *.html duplicates.
+    path = PAGES[key][2 if target_lang == "en" else 3].lstrip("/")
     prefix = "../" if lang == "tr" else ""
-    return prefix + path
+    return (prefix + path) or "./"
 
 
 ORG_ID = SITE + "/#org"
