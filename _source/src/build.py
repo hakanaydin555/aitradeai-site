@@ -183,8 +183,8 @@ def home(lang):
 <h1 class="rise">{h['h1']}</h1>
 <p class="lead rise d2">{e(h['lead'])} <span class="wk">{e(h['lead_weeks'])}</span></p>
 <div class="hero-ctas rise d3">
-<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
-<a class="ghost" href="#estimate">{e(h['ghost'])}</a>
+<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}"><span class="lg">{e(h['cta'])}</span><span class="sm">{e(h['cta_s'])}</span></a>
+<a class="btn btn-line" href="#estimate"><span class="lg">{e(h['ghost']).replace(' ›','')}</span><span class="sm">{e(h['ghost_s'])}</span></a>
 </div>
 </div>
 {feed_panel(h)}
@@ -201,7 +201,7 @@ def home(lang):
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
 </div>
-<div class="leak-cta"><p>{e(h['leak_q'])}</p><a href="{rel(lang, lang, 'cu')}">{e(h['leak_a'])}</a><a class="alt" href="#estimate">{e(h['leak_c'])}</a></div>
+<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['leak_btn1'])}</a><a class="btn btn-line" href="#estimate">{e(h['leak_btn2'])}</a></div></div>
 </div>
 </section>
 """)

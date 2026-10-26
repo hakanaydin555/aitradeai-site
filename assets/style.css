@@ -979,3 +979,23 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .more-list i{flex:none;width:30px;height:30px;border-radius:8px;background:var(--amber-tint);color:var(--amber-text);display:flex;align-items:center;justify-content:center}
 .more-list i svg{width:17px;height:17px}
 #flows .flow-more{padding-top:20px}
+
+/* v15: eight weeks shimmer, compact button rows, 3 feed items */
+.wk{background:linear-gradient(100deg,var(--amber-text) 0 40%,#F59E0B 50%,var(--amber-text) 60% 100%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:wkIn .6s 1.1s cubic-bezier(.2,.7,.2,1) forwards,wkShine 3.2s 1.8s ease-in-out infinite}
+@keyframes wkShine{0%{background-position:100% 0}45%,100%{background-position:0 0}}
+@media (prefers-reduced-motion:reduce){.wk{animation:none;opacity:1;transform:none;color:var(--amber-text);background:none}}
+.btn .sm{display:none}
+.hero-ctas{gap:12px}
+.hero-ctas .btn{min-height:48px}
+.btn-line{background:#fff}
+@media (max-width:720px){
+  .btn .lg{display:none}.btn .sm{display:inline}
+  .hero-ctas{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+  .hero-ctas .btn{padding:10px 8px;font-size:15.5px;min-height:46px}
+}
+.leak-cta2{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:32px}
+.leak-cta2 p{font-size:18px;color:var(--ink-2)}
+.btn-row{display:flex;gap:10px}
+.btn-row .btn{min-height:44px;padding:9px 20px;font-size:16px}
+@media (max-width:720px){.leak-cta2{align-items:stretch;margin-top:20px}.leak-cta2 p{font-size:16px}.btn-row{display:grid;grid-template-columns:1fr 1fr}.btn-row .btn{padding:9px 8px;font-size:15px}}
+@media (max-width:480px){.feed .fd:nth-child(3){display:flex}.feed .fd:nth-child(4){display:none}.feed{gap:7px}.fd{padding:9px 11px;gap:10px}.fd-ic{width:28px;height:28px}.fd-tx b{font-size:14px}.fd-tx small{font-size:12.5px}.feedp{gap:12px}}

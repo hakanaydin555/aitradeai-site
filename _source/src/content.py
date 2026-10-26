@@ -497,3 +497,7 @@ for _l, _a, _b in (("tr", "Mağazalar arası stok transferi", "Mağazalar arası
     for _f in T[_l]["home"]["flows"]:
         if _f["t"] == "more":
             _f["tags"] = [_b if x == _a else x for x in _f["tags"]]
+
+# --- v15: short button labels ---
+T["en"]["home"].update({"cta_s": "Free check-up", "ghost_s": "Estimate your loss", "leak_btn1": "Free check-up", "leak_btn2": "Estimate it"})
+T["tr"]["home"].update({"cta_s": "Ücretsiz check-up", "ghost_s": "Kaybı hesapla", "leak_btn1": "Ücretsiz check-up", "leak_btn2": "Hesaplayın"})
