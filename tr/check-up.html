@@ -28,9 +28,8 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aitradeai.net/#org","name":"AI Trade","url":"https://aitradeai.net/","email":"hakan.aydin@aitradeai.net","description":"We find where your e-commerce operation loses money and time, fix what matters most and hand the working system to your team in eight weeks. Free check-up.","address":{"@type":"PostalAddress","addressLocality":"Istanbul","addressCountry":"TR"},"areaServed":[{"@type":"Country","name":"Türkiye"},"MENA","CIS"],"knowsAbout":["E-commerce profitability","Marketplace operations","Performance marketing","CRM","Demand forecasting","Pricing and promotions","AI automation","Cross-border e-commerce"],"founder":{"@type":"Person","name":"Hakan Aydın","sameAs":["https://linkedin.com/in/hakanaydin55/"]},"sameAs":["https://www.linkedin.com/company/aitradeai/"]},{"@type":"WebSite","@id":"https://aitradeai.net/#website","url":"https://aitradeai.net/","name":"AI Trade","inLanguage":["en","tr"],"publisher":{"@id":"https://aitradeai.net/#org"}},{"@type":"WebPage","@id":"https://aitradeai.net/tr/check-up#page","url":"https://aitradeai.net/tr/check-up","name":"Ücretsiz e-ticaret check-up — AI Trade","description":"30 dakikalık bir görüşme ve birkaç özet rakam. E-ticaret kârınızın nereden sızdığını ve bir projenin değip değmeyeceğini öğrenin. Taahhüt yok.","inLanguage":"tr","isPartOf":{"@id":"https://aitradeai.net/#website"},"about":{"@id":"https://aitradeai.net/#org"}},{"@type":"Service","@id":"https://aitradeai.net/tr/check-up#service","name":"Kârınızın nereden sızdığını öğrenin.","description":"30 dakikalık bir görüşme ve birkaç özet rakam. E-ticaret kârınızın nereden sızdığını ve bir projenin değip değmeyeceğini öğrenin. Taahhüt yok.","serviceType":"E-commerce profitability check-up","provider":{"@id":"https://aitradeai.net/#org"},"areaServed":"TR","url":"https://aitradeai.net/tr/check-up","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","url":"https://aitradeai.net/tr/check-up"}},{"@type":"FAQPage","@id":"https://aitradeai.net/tr/check-up#faq","inLanguage":"tr","mainEntity":[{"@type":"Question","name":"Gerçekten ücretsiz mi?","acceptedAnswer":{"@type":"Answer","text":"Evet. Ücret ve yükümlülük yok. Bir proje ekonomik olarak anlamlı değilse bunu açıkça söyleriz."}},{"@type":"Question","name":"Hangi verilere ihtiyacınız var?","acceptedAnswer":{"@type":"Answer","text":"Son üç ayın özet rakamları: ciro, marj, reklam harcaması, iadeler. Bu aşamada sistem erişimi gerekmez."}},{"@type":"Question","name":"Sonrasında ne oluyor?","acceptedAnswer":{"@type":"Answer","text":"Kısa bir yazılı değerlendirme alırsınız. Net bir fırsat varsa, kapsamı belli sabit ücretli bir proje öneririz."}}]}]}</script>
 <meta name="theme-color" content="#0E1A2B">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="../assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/config.js"></script>
 <script src="../assets/main.js" defer></script>
@@ -48,7 +47,7 @@
 <a href="../check-up.html" hreflang="en" lang="en" data-setlang="en" aria-current="false">EN</a>
 <a href="../tr/check-up.html" hreflang="tr" lang="tr" data-setlang="tr" aria-current="true">TR</a>
 </div>
-<a class="btn btn-amber" href="../tr/check-up.html">Ücretsiz check-up</a>
+<a class="btn btn-amber" href="../tr/check-up.html"><span class="lg">Ücretsiz check-up</span><span class="sm">Check-up</span></a>
 <button class="menu-btn" type="button" aria-label="Menüyü aç" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 7h16M3 15h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
 </nav>
 </div>
@@ -92,7 +91,9 @@
 <h2 style="margin-top:16px" role="status">Teşekkürler. Bir iş günü içinde dönüyoruz.</h2>
 <p style="font-size:16px;color:var(--muted);margin:10px 0 18px">Beklemek istemiyor musunuz? 30 dakikalık görüşme için şimdi saat seçin.</p>
 <a class="btn btn-amber" href="https://calendar.app.google/qvtHpnCi4qVszRdK8" target="_blank" rel="noopener" style="width:100%">Saat seçin</a>
+<div class="next-steps"><strong>Sonraki adımlar</strong><ol><li>Bir iş günü içinde dönüş yaparız.</li><li>Rakamlarınız üzerine 30 dakikalık görüşme.</li><li>Dürüst bir görüşle tek sayfalık değerlendirme.</li></ol></div>
 <div class="summary" style="margin-top:18px"><strong>Cevaplarınız</strong><div class="summary-list"></div></div>
+<p class="est-try">Bu arada zarar hesaplayıcıyı deneyin <a class="btn btn-est" href="../tr/index.html#estimate">Zarar hesaplayıcı</a></p>
 <button type="button" class="back restart" style="color:var(--amber-text);font-weight:600">Baştan başla</button>
 </div>
 <button type="button" class="back" hidden>‹ Geri</button>

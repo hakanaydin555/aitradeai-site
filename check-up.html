@@ -28,9 +28,8 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://aitradeai.net/#org","name":"AI Trade","url":"https://aitradeai.net/","email":"hakan.aydin@aitradeai.net","description":"We find where your e-commerce operation loses money and time, fix what matters most and hand the working system to your team in eight weeks. Free check-up.","address":{"@type":"PostalAddress","addressLocality":"Istanbul","addressCountry":"TR"},"areaServed":[{"@type":"Country","name":"Türkiye"},"MENA","CIS"],"knowsAbout":["E-commerce profitability","Marketplace operations","Performance marketing","CRM","Demand forecasting","Pricing and promotions","AI automation","Cross-border e-commerce"],"founder":{"@type":"Person","name":"Hakan Aydın","sameAs":["https://linkedin.com/in/hakanaydin55/"]},"sameAs":["https://www.linkedin.com/company/aitradeai/"]},{"@type":"WebSite","@id":"https://aitradeai.net/#website","url":"https://aitradeai.net/","name":"AI Trade","inLanguage":["en","tr"],"publisher":{"@id":"https://aitradeai.net/#org"}},{"@type":"WebPage","@id":"https://aitradeai.net/check-up#page","url":"https://aitradeai.net/check-up","name":"Free e-commerce check-up — AI Trade","description":"A 30-minute call and a few summary figures. Find out where your e-commerce profit leaks and whether a project is worth it. No commitment.","inLanguage":"en","isPartOf":{"@id":"https://aitradeai.net/#website"},"about":{"@id":"https://aitradeai.net/#org"}},{"@type":"Service","@id":"https://aitradeai.net/check-up#service","name":"Find out where your profit leaks.","description":"A 30-minute call and a few summary figures. Find out where your e-commerce profit leaks and whether a project is worth it. No commitment.","serviceType":"E-commerce profitability check-up","provider":{"@id":"https://aitradeai.net/#org"},"areaServed":"TR","url":"https://aitradeai.net/check-up","offers":{"@type":"Offer","price":"0","priceCurrency":"USD","url":"https://aitradeai.net/check-up"}},{"@type":"FAQPage","@id":"https://aitradeai.net/check-up#faq","inLanguage":"en","mainEntity":[{"@type":"Question","name":"Is it really free?","acceptedAnswer":{"@type":"Answer","text":"Yes. No fee and no obligation. If a project does not make economic sense, we will say so."}},{"@type":"Question","name":"What data do you need?","acceptedAnswer":{"@type":"Answer","text":"Summary figures for the last three months: revenue, margin, ad spend, returns. No system access at this stage."}},{"@type":"Question","name":"What happens after?","acceptedAnswer":{"@type":"Answer","text":"You receive a short written assessment. If there is a clear opportunity, we propose a fixed-scope project."}}]}]}</script>
 <meta name="theme-color" content="#0E1A2B">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="preload" href="assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/config.js"></script>
 <script src="assets/main.js" defer></script>
@@ -48,7 +47,7 @@
 <a href="check-up.html" hreflang="en" lang="en" data-setlang="en" aria-current="true">EN</a>
 <a href="tr/check-up.html" hreflang="tr" lang="tr" data-setlang="tr" aria-current="false">TR</a>
 </div>
-<a class="btn btn-amber" href="check-up.html">Free check-up</a>
+<a class="btn btn-amber" href="check-up.html"><span class="lg">Free check-up</span><span class="sm">Check-up</span></a>
 <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 7h16M3 15h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
 </nav>
 </div>
@@ -92,7 +91,9 @@
 <h2 style="margin-top:16px" role="status">Thanks. We&#x27;ll reply within one business day.</h2>
 <p style="font-size:16px;color:var(--muted);margin:10px 0 18px">Want to skip the wait? Pick a time for the 30-minute call now.</p>
 <a class="btn btn-amber" href="https://calendar.app.google/qvtHpnCi4qVszRdK8" target="_blank" rel="noopener" style="width:100%">Pick a time</a>
+<div class="next-steps"><strong>What happens next</strong><ol><li>We reply within one business day.</li><li>A 30-minute call on your numbers.</li><li>A one-page assessment, with an honest view.</li></ol></div>
 <div class="summary" style="margin-top:18px"><strong>Your answers</strong><div class="summary-list"></div></div>
+<p class="est-try">Meanwhile, try the loss estimator <a class="btn btn-est" href="index.html#estimate">Loss estimator</a></p>
 <button type="button" class="back restart" style="color:var(--amber-text);font-weight:600">Start again</button>
 </div>
 <button type="button" class="back" hidden>‹ Back</button>

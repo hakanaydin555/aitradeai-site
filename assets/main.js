@@ -233,7 +233,7 @@
   var current = 0;
   var calcNote = '';
   try { calcNote = (new URLSearchParams(location.search).get('calc') || '').slice(0, 400); } catch (e) {}
-  if (calcNote) { var cb = document.querySelector('.cu-calc'); if (cb) cb.classList.add('on'); }
+  if (calcNote) { var cb = document.querySelector('.cu-calc'); if (cb) cb.classList.add('on'); var et = document.querySelector('.est-try'); if (et) et.hidden = true; }
 
   function show(i) {
     current = i;
@@ -309,7 +309,7 @@
       summary.innerHTML = '';
       Object.keys(answers).sort().forEach(function (k) {
         var p = document.createElement('p');
-        p.textContent = answers[k].q + ': ' + answers[k].a;
+        p.textContent = answers[k].q.replace(/[?:]\s*$/, '') + ': ' + answers[k].a;
         summary.appendChild(p);
       });
     }

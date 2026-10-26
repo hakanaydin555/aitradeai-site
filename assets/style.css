@@ -1,4 +1,6 @@
 /* AI Trade — site styles */
+@font-face{font-family:"Libre Franklin";src:url("libre-franklin.woff") format("woff");font-weight:600 800;font-style:normal;font-display:swap}
+@font-face{font-family:"Source Sans 3";src:url("source-sans-3.woff") format("woff");font-weight:400 600;font-style:normal;font-display:swap}
 :root{--head:"Libre Franklin",system-ui,-apple-system,"Segoe UI",sans-serif;
   --navy:#0E1A2B;--navy-2:#13253D;--navy-3:#1B2A40;--line-dark:rgba(255,255,255,.1);
   --amber:#F59E0B;--amber-soft:#F6B97A;--amber-text:#B45309;--amber-tint:#FFF4E0;
@@ -1030,3 +1032,18 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
   .st-w{font-size:13px;line-height:1.35}
   .st-t{display:block;font-size:17px}
 }
+
+/* v19: mobile header CTA, thank-you extras, 404 */
+@media (max-width:860px){
+  .nav>.btn.btn-amber{display:inline-flex;min-height:36px;padding:6px 12px;font-size:14px;order:0}
+  .nav.open>.btn.btn-amber{display:flex}
+}
+.next-steps{margin-top:18px;padding:14px 16px;border-radius:10px;background:var(--bg-2)}
+.next-steps ol{margin:8px 0 0;padding-left:20px;display:grid;gap:4px;font-size:15px;color:var(--ink-2)}
+.est-try{margin-top:16px;font-size:15px;color:var(--ink-2);display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.est-try .btn{min-height:40px;padding:8px 14px;font-size:15px}
+.nf-main{min-height:70vh;display:flex;align-items:center}
+.nf-main .wrap{display:flex;flex-direction:column;gap:18px;padding-top:80px;padding-bottom:80px}
+.nf-main h1{font-size:clamp(40px,6vw,64px);letter-spacing:-.03em;color:var(--ink)}
+.nf-main .lead{color:var(--ink-2)}
+.nf-main .btn-row{display:flex;gap:10px}

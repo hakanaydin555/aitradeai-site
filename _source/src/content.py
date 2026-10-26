@@ -134,7 +134,7 @@ T = {
       ("What we collect", "When you request a check-up: your name, work email, company, phone (optional), your note (optional) and your answers to the form questions. When you book a call, Google Calendar collects the details you enter there."),
       ("Why we use it", "Only to reply to your request, arrange the call and prepare the check-up. We do not sell your data or use it for advertising."),
       ("Legal basis", "Taking steps at your request before a possible contract, and our legitimate interest in responding to business enquiries (KVKK Article 5/2 (c) and (f))."),
-      ("Where it is stored", "Form answers are stored in our Google Workspace account (Google Sheets and Gmail). Google may process this data on servers outside Türkiye. Fonts are loaded from Google Fonts. This site sets no cookies. We use Cloudflare Web Analytics, which counts page visits without cookies and without identifying individual visitors."),
+      ("Where it is stored", "Form answers are stored in our Google Workspace account (Google Sheets and Gmail). Google may process this data on servers outside Türkiye. Fonts are served from this website. This site sets no cookies. We use Cloudflare Web Analytics, which counts page visits without cookies and without identifying individual visitors."),
       ("How long we keep it", "Up to two years after our last contact, unless a business relationship requires longer."),
       ("Your rights", "Under KVKK Article 11 you can ask what data we hold, request correction or deletion, and object to processing. Write to hakan.aydin@aitradeai.net.")],
   },
@@ -258,7 +258,7 @@ T = {
       ("Hangi verileri topluyoruz", "Check-up talebinde: adınız, iş e-postanız, şirketiniz, telefonunuz (isteğe bağlı), notunuz (isteğe bağlı) ve form sorularına verdiğiniz cevaplar. Görüşme ayarladığınızda, oraya girdiğiniz bilgileri Google Takvim toplar."),
       ("Neden kullanıyoruz", "Yalnızca talebinize yanıt vermek, görüşmeyi ayarlamak ve check-up'ı hazırlamak için. Verilerinizi satmıyor, reklam amacıyla kullanmıyoruz."),
       ("Hukuki sebep", "Bir sözleşmenin kurulmasından önce talebiniz üzerine adım atılması ve iş taleplerine yanıt vermekteki meşru menfaatimiz (KVKK m. 5/2 (c) ve (f))."),
-      ("Nerede saklanıyor", "Form cevapları Google Workspace hesabımızda (Google Sheets ve Gmail) saklanır. Google bu verileri Türkiye dışındaki sunucularda işleyebilir. Yazı tipleri Google Fonts'tan yüklenir. Bu site çerez kullanmaz. Ziyaretleri çerezsiz ve ziyaretçileri tek tek tanımlamadan sayan Cloudflare Web Analytics kullanılır."),
+      ("Nerede saklanıyor", "Form cevapları Google Workspace hesabımızda (Google Sheets ve Gmail) saklanır. Google bu verileri Türkiye dışındaki sunucularda işleyebilir. Yazı tipleri bu siteden yüklenir. Bu site çerez kullanmaz. Ziyaretleri çerezsiz ve ziyaretçileri tek tek tanımlamadan sayan Cloudflare Web Analytics kullanılır."),
       ("Ne kadar süre saklıyoruz", "Bir iş ilişkisi daha uzun süre gerektirmedikçe, son iletişimimizden sonra en fazla iki yıl."),
       ("Haklarınız", "KVKK m. 11 kapsamında hangi verilerinizi tuttuğumuzu sorabilir, düzeltilmesini ya da silinmesini isteyebilir ve işlemeye itiraz edebilirsiniz. hakan.aydin@aitradeai.net adresine yazmanız yeterli.")],
   },
@@ -513,3 +513,11 @@ for _l, _cu, _est, _wk in (("en", "Free check-up", "Estimate your loss", "In jus
 
 T["en"]["home"]["btn_est"] = "Loss estimator"
 T["tr"]["home"]["btn_est"] = "Zarar hesaplayıcı"
+
+# --- v19 ---
+T["en"]["nav"]["cta_s"] = "Check-up"
+T["tr"]["nav"]["cta_s"] = "Check-up"
+T["en"]["home"].update({"how_h": "Eight weeks, a clear finish line.", "c_h": "See where you stand first."})
+T["tr"]["home"].update({"how_h": "Sekiz hafta, net bir bitiş.", "c_h": "Önce nerede durduğunuzu görün."})
+T["en"]["cu"].update({"next_h": "What happens next", "next": ["We reply within one business day.", "A 30-minute call on your numbers.", "A one-page assessment, with an honest view."], "est_try": "Meanwhile, try the loss estimator", "est_btn": "Loss estimator"})
+T["tr"]["cu"].update({"next_h": "Sonraki adımlar", "next": ["Bir iş günü içinde dönüş yaparız.", "Rakamlarınız üzerine 30 dakikalık görüşme.", "Dürüst bir görüşle tek sayfalık değerlendirme."], "est_try": "Bu arada zarar hesaplayıcıyı deneyin", "est_btn": "Zarar hesaplayıcı"})

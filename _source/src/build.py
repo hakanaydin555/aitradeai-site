@@ -107,9 +107,8 @@ def head(lang, key, page):
 {verify_tags()}{schema(lang, key, page, canon)}
 <meta name="theme-color" content="#0E1A2B">
 <link rel="icon" href="{prefix}assets/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@600;700;800&amp;family=Source+Sans+3:wght@400;600&amp;display=swap" rel="stylesheet">
+<link rel="preload" href="{prefix}assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="{prefix}assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="{prefix}assets/style.css">
 <script src="{prefix}assets/config.js"></script>
 <script src="{prefix}assets/main.js" defer></script>
@@ -136,7 +135,7 @@ def header(lang, key, on_home):
 <a href="{l_en}" hreflang="en" lang="en" data-setlang="en" aria-current="{'true' if lang == 'en' else 'false'}">EN</a>
 <a href="{l_tr}" hreflang="tr" lang="tr" data-setlang="tr" aria-current="{'true' if lang == 'tr' else 'false'}">TR</a>
 </div>
-<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{n['cta']}</a>
+<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}"><span class="lg">{n['cta']}</span><span class="sm">{n['cta_s']}</span></a>
 <button class="menu-btn" type="button" aria-label="{n['menu']}" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 22 22" aria-hidden="true"><path d="M3 7h16M3 15h16" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
 </nav>
 </div>
@@ -507,7 +506,9 @@ def checkup(lang):
 <h2 style="margin-top:16px" role="status">{e(c['d_h'])}</h2>
 <p style="font-size:16px;color:var(--muted);margin:10px 0 18px">{e(c['d_p'])}</p>
 <a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener" style="width:100%">{e(c['d_btn'])}</a>
+<div class="next-steps"><strong>{e(c['next_h'])}</strong><ol>{"".join(f"<li>{e(x)}</li>" for x in c['next'])}</ol></div>
 <div class="summary" style="margin-top:18px"><strong>{e(c['d_sum'])}</strong><div class="summary-list"></div></div>
+<p class="est-try">{e(c['est_try'])} <a class="btn btn-est" href="{rel(lang, lang, 'home')}#estimate">{e(c['est_btn'])}</a></p>
 <button type="button" class="back restart" style="color:var(--amber-text);font-weight:600">{e(c['restart'])}</button>
 </div>
 <button type="button" class="back" hidden>{e(c['back'])}</button>
@@ -621,7 +622,7 @@ def main():
     with open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8") as f:
         f.write(llms_txt())
     with open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as f:
-        f.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found — AI Trade</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/style.css"></head><body><div class="dark" style="min-height:100vh;display:flex;align-items:center"><div class="wrap" style="display:flex;flex-direction:column;gap:20px;padding-top:80px;padding-bottom:80px"><p class="eyebrow">404</p><h1 style="font-size:48px;letter-spacing:-.03em">Page not found.</h1><p style="color:#C9D1DC">Bu sayfa bulunamadı.</p><p><a class="btn btn-amber" href="/">AI Trade home</a></p></div></div></body></html>')
+        f.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Page not found — AI Trade</title><meta name="robots" content="noindex"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="/assets/style.css"></head><body class="hero-light"><header class="site-header"><div class="wrap"><a class="brand" href="/"><span class="brand-a">A</span>I Trade</a></div></header><main class="nf-main"><div class="wrap"><p class="eyebrow">404</p><h1>Page not found.</h1><p class="lead">Bu sayfa bulunamadı.</p><div class="btn-row"><a class="btn btn-amber" href="/">AI Trade</a><a class="btn btn-est" href="/tr/">Türkçe</a></div></div></main></body></html>')
     print("built", OUT)
 
 
