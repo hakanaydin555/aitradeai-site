@@ -524,3 +524,14 @@ T["tr"]["cu"].update({"next_h": "Sonraki adımlar", "next": ["Bir iş günü iç
 
 T["en"]["cu"].update({"a_k": "Check-up scope", "a_p": "Five areas, one short conversation. We only ask for summary figures."})
 T["tr"]["cu"].update({"a_k": "Check-up kapsamı", "a_p": "Beş alan, tek kısa görüşme. Sadece özet rakamlar istiyoruz."})
+
+# --- v21: short card names on top; one-line text under the visual ---
+_FN = {
+    "tr": {"stock": "Stok koruma", "alert": "Anlık alarm", "report": "Haftalık kâr raporu", "camp": "Kampanya kontrolü",
+           "carrier": "Kargo seçimi", "returns": "İade analizi", "reply": "Müşteri yanıtları", "more": "Diğer alanlar"},
+    "en": {"stock": "Stock guard", "alert": "Instant alerts", "report": "Weekly profit report", "camp": "Campaign check",
+           "carrier": "Carrier selection", "returns": "Returns analysis", "reply": "Customer replies", "more": "Other areas"},
+}
+for _l in ("en", "tr"):
+    for _f in T[_l]["home"]["flows"]:
+        _f["n"] = _FN[_l][_f["t"]]
