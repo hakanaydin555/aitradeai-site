@@ -181,12 +181,11 @@ def home(lang):
 <div class="hero-copy">
 <p class="eyebrow">{h['eyebrow']}</p>
 <h1 class="rise">{h['h1']}</h1>
-<p class="lead rise d2">{e(h['lead'])}</p>
+<p class="lead rise d2">{e(h['lead'])} <span class="wk">{e(h['lead_weeks'])}</span></p>
 <div class="hero-ctas rise d3">
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['cta'])}</a>
 <a class="ghost" href="#estimate">{e(h['ghost'])}</a>
 </div>
-<ul class="facts rise d3">{"".join(f'<li><p class="fx"><b{" data-to=" + chr(34) + n + chr(34) if n.isdigit() else ""}>{e(n)}</b>{f"<span>{e(u)}</span>" if u else ""}</p><small>{e(c)}</small></li>' for n, u, c in h["facts"])}</ul>
 </div>
 {feed_panel(h)}
 </div>
@@ -432,7 +431,12 @@ def flow_viz(f):
 
 
 def flows_section(h):
-    cards = "".join(f'<article class="flow"><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="ex-k">{e(f.get("tag", h["fl_tag"]))}</p><h3>{e(f["h"])}</h3><p>{e(f["p"])}</p></article>' for f in h["flows"])
+    def card(f):
+        if f["t"] == "more":
+            items = "".join(f'<li><i>{MORE_ICONS[k]}</i>{e(x)}</li>' for k, x in enumerate(f["tags"]))
+            return f'<article class="flow flow-more"><p class="ex-k">{e(f.get("tag", h["fl_tag"]))}</p><h3>{e(f["h"])}</h3><ul class="more-list">{items}</ul></article>'
+        return f'<article class="flow"><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="ex-k">{e(f.get("tag", h["fl_tag"]))}</p><h3>{e(f["h"])}</h3><p>{e(f["p"])}</p></article>'
+    cards = "".join(card(f) for f in h["flows"])
     dots = "".join(f'<button type="button" aria-label="{i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["flows"])))
     return f"""<section class="section grey" id="flows">
 <div class="wrap">
