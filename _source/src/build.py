@@ -183,8 +183,8 @@ def home(lang):
 <h1 class="rise">{h['h1']}</h1>
 <p class="lead rise d2">{e(h['lead'])} <span class="wk">{e(h['lead_weeks'])}</span></p>
 <div class="hero-ctas rise d3">
-<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}"><span class="lg">{e(h['cta'])}</span><span class="sm">{e(h['cta_s'])}</span></a>
-<a class="btn btn-line" href="#estimate"><span class="lg">{e(h['ghost']).replace(' ›','')}</span><span class="sm">{e(h['ghost_s'])}</span></a>
+<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a>
+<a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a>
 </div>
 </div>
 {feed_panel(h)}
@@ -201,7 +201,7 @@ def home(lang):
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
 </div>
-<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['leak_btn1'])}</a><a class="btn btn-line" href="#estimate">{e(h['leak_btn2'])}</a></div></div>
+<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div></div>
 </div>
 </section>
 """)
@@ -234,7 +234,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
 <div class="work-grid stagger">{"".join(cards)}</div>
-<p class="more-cta"><a class="link" href="{rel(lang, lang, 'cu')}">{e(h['ex_cta'])}</a></p>
+<p class="more-cta"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></p>
 </div>
 </section>
 """)
@@ -363,7 +363,7 @@ def calc_section(lang, h):
 <div class="cx-inputs">
 <div class="cx-cur2"><span class="cx-l">{e(h['calc_cur'])}</span><span class="cx-seg">{opts}</span></div>
 {''.join(fields)}
-<button type="button" class="btn btn-amber cx-go">{e(h['calc_go'])}</button>
+<button type="button" class="btn btn-est cx-go">{e(h['calc_go'])}</button>
 </div>
 <div class="cx-out pre" aria-live="polite">
 <p class="cx-preh">{e(h['calc_pre'])}</p>
@@ -391,6 +391,8 @@ MORE_ICONS = [_I.format(p) for p in [
     '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M16 5.5a3 3 0 0 1 0 5.5M18 14.5c2 .8 3 2.7 3 5.5"/>',
     '<rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M9 3.5h6v3H9zM9 13l2 2 4-4"/>',
     '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7M7 19a2 2 0 1 0 0-.01M17 19a2 2 0 1 0 0-.01"/>',
+    '<path d="M3 20h18M5 16l4-5 4 3 6-8"/>',
+    '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
 ]]
 
 

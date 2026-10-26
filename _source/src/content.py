@@ -501,3 +501,12 @@ for _l, _a, _b in (("tr", "Mağazalar arası stok transferi", "Mağazalar arası
 # --- v15: short button labels ---
 T["en"]["home"].update({"cta_s": "Free check-up", "ghost_s": "Estimate your loss", "leak_btn1": "Free check-up", "leak_btn2": "Estimate it"})
 T["tr"]["home"].update({"cta_s": "Ücretsiz check-up", "ghost_s": "Kaybı hesapla", "leak_btn1": "Ücretsiz check-up", "leak_btn2": "Hesaplayın"})
+
+# --- v16: one check-up button, one estimator button ---
+for _l, _cu, _est, _wk in (("en", "Free check-up", "Estimate your loss", "In just eight weeks."), ("tr", "Ücretsiz check-up", "Kaybı hesapla", "Sadece sekiz haftada.")):
+    _h = T[_l]["home"]
+    _h.update({"btn_cu": _cu, "btn_est": _est, "lead_weeks": _wk, "calc_cta": _cu, "c_mobile": (_cu, "WhatsApp")})
+    _h["cards"] = [(k, t, d, _cu if i == 0 else b) for i, (k, t, d, b) in enumerate(_h["cards"])]
+    for _f in _h["flows"]:
+        if _f["t"] == "more":
+            _f["tags"] = _f["tags"] + (["Demand forecasting", "Abandoned-cart flows"] if _l == "en" else ["Talep tahmini", "Sepet terk akışları"])

@@ -999,3 +999,12 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .btn-row .btn{min-height:44px;padding:9px 20px;font-size:16px}
 @media (max-width:720px){.leak-cta2{align-items:stretch;margin-top:20px}.leak-cta2 p{font-size:16px}.btn-row{display:grid;grid-template-columns:1fr 1fr}.btn-row .btn{padding:9px 8px;font-size:15px}}
 @media (max-width:480px){.feed .fd:nth-child(3){display:flex}.feed .fd:nth-child(4){display:none}.feed{gap:7px}.fd{padding:9px 11px;gap:10px}.fd-ic{width:28px;height:28px}.fd-tx b{font-size:14px}.fd-tx small{font-size:12.5px}.feedp{gap:12px}}
+
+/* v16: one style per action */
+.btn-est{background:var(--navy);color:#fff}.btn-est:hover{background:#1B2A40;color:#fff}
+.calc.done .cx-go{background:var(--navy);color:#fff;border:0;opacity:.85}
+.results .more-cta{text-align:center;margin-top:28px}
+.results .more-cta .btn{color:var(--navy)}
+@media (max-width:720px){.hero-ctas .btn{font-size:15.5px}.results .more-cta .btn{width:100%}}
+.flow-more{display:flex;flex-direction:column}
+.more-list{flex:1;justify-content:space-between;gap:6px;padding-bottom:4px}
