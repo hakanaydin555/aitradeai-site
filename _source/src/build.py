@@ -234,7 +234,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
 <div class="work-grid stagger">{"".join(cards)}</div>
-<p class="more-cta"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></p>
+<div class="btn-row two more-cta"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div>
 </div>
 </section>
 """)
@@ -248,12 +248,10 @@ def home(lang):
     out.append(f"""<section class="section" id="contact">
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['c_k'])}</p><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
-<div class="contact-grid stagger">{cards}</div>
-<div class="contact-mobile stagger">
-<a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(m[0])}</a>
-<a class="btn btn-wa" href="{e(wa(lang))}" target="_blank" rel="noopener">{WA_ICON}{e(m[1])}</a>
-</div>
+<div class="cbox">
+<div class="btn-row two"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div>
 {team_block(lang, h)}
+</div>
 </div>
 </section>
 </main>
@@ -298,6 +296,7 @@ def team_block(lang, h):
     return f"""<div class="teamc" id="about">
 <p class="team-k">{e(h['t_h'])}</p>
 <ul class="tlist">{pr}</ul>
+<a class="btn btn-wa cwa" href="{e(wa(lang))}" target="_blank" rel="noopener">{WA_ICON}WhatsApp</a>
 {who_card(lang, h)}
 </div>"""
 

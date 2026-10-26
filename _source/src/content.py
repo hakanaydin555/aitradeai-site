@@ -510,3 +510,6 @@ for _l, _cu, _est, _wk in (("en", "Free check-up", "Estimate your loss", "In jus
     for _f in _h["flows"]:
         if _f["t"] == "more":
             _f["tags"] = _f["tags"] + (["Demand forecasting", "Abandoned-cart flows"] if _l == "en" else ["Talep tahmini", "Sepet terk akışları"])
+
+T["en"]["home"]["btn_est"] = "Loss estimator"
+T["tr"]["home"]["btn_est"] = "Zarar hesaplayıcı"
