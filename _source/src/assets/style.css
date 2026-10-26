@@ -1047,3 +1047,17 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .nf-main h1{font-size:clamp(40px,6vw,64px);letter-spacing:-.03em;color:var(--ink)}
 .nf-main .lead{color:var(--ink-2)}
 .nf-main .btn-row{display:flex;gap:10px}
+
+/* v20: check-up scope cards */
+.areas2{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.area{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 18px;box-shadow:0 6px 18px rgba(14,26,43,.05);display:flex;flex-direction:column;gap:8px;transition:transform .2s,box-shadow .2s,border-color .2s}
+.area:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(14,26,43,.09);border-color:var(--amber-soft)}
+.area-ic{width:40px;height:40px;border-radius:10px;background:var(--amber-tint);color:var(--amber-text);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+.area-ic svg{width:22px;height:22px}
+.area h3{font-family:var(--head);font-size:18px;line-height:1.2}
+.area p{font-size:15px;color:var(--ink-2);line-height:1.45}
+.notes{background:var(--navy);color:#fff}
+.notes p{display:flex;gap:12px;align-items:flex-start;color:var(--on-dark)}
+.note-ic{flex:none;width:30px;height:30px;border-radius:8px;background:rgba(245,158,11,.15);color:var(--amber);display:flex;align-items:center;justify-content:center}
+.note-ic svg{width:17px;height:17px}
+@media (max-width:860px){.areas2{grid-template-columns:1fr 1fr;gap:10px}.areas2 .area:last-child{grid-column:1/-1}.area{padding:16px 14px}.area h3{font-size:16px}.area p{font-size:14px}.area-ic{width:36px;height:36px}}

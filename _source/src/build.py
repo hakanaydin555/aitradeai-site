@@ -453,6 +453,17 @@ def flows_section(h):
 </section>
 """
 
+_A = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">{}</svg>'
+AREA_ICONS = [_A.format(p) for p in [
+    '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+    '<path d="M4 10v4h3l6 4V6L7 10H4zM16.5 9a4 4 0 0 1 0 6"/>',
+    '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+    '<path d="M9 7H5V3M5.5 7A8 8 0 1 1 4 12"/>',
+    '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M15 11l2 2 4-4"/>',
+]]
+NOTE_ICONS = [_A.format('<path d="M4 20h16M7 16V9M12 16V5M17 16v-4"/>'), _A.format('<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>')]
+
+
 def checkup(lang):
     c = T[lang]["cu"]
     privacy = rel(lang, lang, "privacy")
@@ -521,8 +532,8 @@ def checkup(lang):
 </div>
 <main>
 """)
-    areas = "".join(f'<div><h3>{e(a)}</h3><p>{e(b)}</p></div>' for a, b in c["areas"])
-    notes = "".join(f"<p>{e(n)}</p>" for n in c["notes"])
+    areas = "".join(f'<div class="area"><span class="area-ic">{AREA_ICONS[i]}</span><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i, (a, b) in enumerate(c["areas"]))
+    notes = "".join(f'<p><span class="note-ic">{NOTE_ICONS[i % 2]}</span>{e(n)}</p>' for i, n in enumerate(c["notes"]))
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in c["faq"])
     r = c["r"]
     prof = "".join(f'<div><p class="rk">{e(k)}</p><p class="rv">' + (f'<span class="blur" aria-hidden="true">{e(v)}</span><span class="sr-only">{e(r["hidden"])}</span>' if b else e(v)) + '</p></div>' for k, v, b in r["profile"])
@@ -542,8 +553,8 @@ def checkup(lang):
 """)
     out.append(f"""<section class="section">
 <div class="wrap">
-<h2 class="h2-left">{e(c['a_h'])}</h2>
-<div class="areas stagger">{areas}</div>
+<div class="sec-head reveal"><p class="ex-k">{e(c['a_k'])}</p><h2>{e(c['a_h'])}</h2><p>{e(c['a_p'])}</p></div>
+<div class="areas2 stagger">{areas}</div>
 <div class="notes">{notes}</div>
 </div>
 </section>

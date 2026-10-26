@@ -521,3 +521,6 @@ T["en"]["home"].update({"how_h": "Eight weeks, a clear finish line.", "c_h": "Se
 T["tr"]["home"].update({"how_h": "Sekiz hafta, net bir bitiş.", "c_h": "Önce nerede durduğunuzu görün."})
 T["en"]["cu"].update({"next_h": "What happens next", "next": ["We reply within one business day.", "A 30-minute call on your numbers.", "A one-page assessment, with an honest view."], "est_try": "Meanwhile, try the loss estimator", "est_btn": "Loss estimator"})
 T["tr"]["cu"].update({"next_h": "Sonraki adımlar", "next": ["Bir iş günü içinde dönüş yaparız.", "Rakamlarınız üzerine 30 dakikalık görüşme.", "Dürüst bir görüşle tek sayfalık değerlendirme."], "est_try": "Bu arada zarar hesaplayıcıyı deneyin", "est_btn": "Zarar hesaplayıcı"})
+
+T["en"]["cu"].update({"a_k": "Check-up scope", "a_p": "Five areas, one short conversation. We only ask for summary figures."})
+T["tr"]["cu"].update({"a_k": "Check-up kapsamı", "a_p": "Beş alan, tek kısa görüşme. Sadece özet rakamlar istiyoruz."})
