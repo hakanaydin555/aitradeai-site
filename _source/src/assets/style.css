@@ -1064,3 +1064,11 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 /* v21: short card name on top, one line under the visual */
 .flow-top h3{min-height:0;display:block;margin:0 0 12px;font-size:20px}
 .flow-top .fl-line{margin:14px 0 0;font-size:16px;font-weight:600;color:var(--ink);line-height:1.4}
+/* v22: smaller card names, related ideas */
+.flow-top h3{font-size:17px;margin:0 0 10px}
+.flow-top .fl-line{font-size:15px;margin:12px 0 0}
+.fl-alt{margin-top:14px;padding-top:12px;border-top:1px solid var(--line,#E2E6EC)}
+.fl-alt p{margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
+.fl-alt ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.fl-alt li{position:relative;padding-left:14px;font-size:14px;line-height:1.35;color:var(--ink-2)}
+.fl-alt li::before{content:"";position:absolute;left:0;top:.5em;width:6px;height:6px;border-radius:50%;background:var(--amber)}

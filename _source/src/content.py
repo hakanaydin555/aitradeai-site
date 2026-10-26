@@ -535,3 +535,25 @@ _FN = {
 for _l in ("en", "tr"):
     for _f in T[_l]["home"]["flows"]:
         _f["n"] = _FN[_l][_f["t"]]
+
+# --- v22: related ideas under each card ---
+_ALT = {
+    "tr": {"stock": ["Fiyat, rakip fiyatına göre güncellenir", "Tükenen ürün yerine benzeri öne çıkar", "Tedarikçiye otomatik sipariş taslağı"],
+           "alert": ["Pazar yeri puanı düşünce uyarı", "Ödeme hatası artınca uyarı", "Kargo gecikmesi büyüyünce uyarı"],
+           "report": ["Günlük nakit ve tahsilat özeti", "Pazar yeri komisyon kontrolü", "Yönetime aylık kâr sunumu"],
+           "camp": ["İndirim öncesi kâr simülasyonu", "Kupon kötüye kullanımı tespiti", "Kârsız reklam kelimelerinin ayıklanması"],
+           "carrier": ["Kargo faturası kontrolü", "Hatalı desi tespiti", "Teslimat sözü sayfada gösterilir"],
+           "returns": ["Ürün sayfası metni yeniden yazılır", "Beden önerisi", "Yorumlardan ürün fikri çıkarılır"],
+           "reply": ["Pazar yeri sorularına yanıt taslağı", "Yorum yanıtları", "Toptan teklif taslakları"]},
+    "en": {"stock": ["Prices follow competitor prices", "A similar product steps in when one sells out", "Draft purchase orders to suppliers"],
+           "alert": ["Alert when marketplace rating drops", "Alert when payment errors rise", "Alert when delivery delays grow"],
+           "report": ["Daily cash and collections summary", "Marketplace commission checks", "Monthly profit pack for management"],
+           "camp": ["Profit simulation before a discount", "Coupon abuse detection", "Cutting unprofitable ad keywords"],
+           "carrier": ["Carrier invoice checks", "Wrong parcel size detection", "Delivery promise shown on the page"],
+           "returns": ["Product page copy rewritten", "Size recommendations", "Product ideas from reviews"],
+           "reply": ["Draft replies to marketplace questions", "Review replies", "Wholesale quote drafts"]},
+}
+for _l in ("en", "tr"):
+    T[_l]["home"]["fl_alt"] = "Benzer örnekler" if _l == "tr" else "Similar ideas"
+    for _f in T[_l]["home"]["flows"]:
+        _f["alt"] = _ALT[_l].get(_f["t"], [])

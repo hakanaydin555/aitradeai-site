@@ -436,7 +436,7 @@ def flows_section(h):
         if f["t"] == "more":
             items = "".join(f'<li><i>{MORE_ICONS[k]}</i>{e(x)}</li>' for k, x in enumerate(f["tags"]))
             return f'<article class="flow flow-more flow-top"><h3>{e(f["n"])}</h3><ul class="more-list">{items}</ul></article>'
-        return f'<article class="flow flow-top"><h3>{e(f["n"])}</h3><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="fl-line">{e(f["h"])}.</p></article>'
+        return f'<article class="flow flow-top"><h3>{e(f["n"])}</h3><div class="fviz-wrap" aria-hidden="true">{flow_viz(f)}</div><p class="fl-line">{e(f["h"])}.</p><div class="fl-alt"><p>{e(h["fl_alt"])}</p><ul>{"".join(f"<li>{e(x)}</li>" for x in f["alt"])}</ul></div></article>'
     cards = "".join(card(f) for f in h["flows"])
     dots = "".join(f'<button type="button" aria-label="{i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["flows"])))
     return f"""<section class="section grey" id="flows">
