@@ -1143,3 +1143,6 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 @media (max-width:640px){.leak-cta2 .btn-row .btn,.more-cta .btn,#contact .cbox>.btn-row .btn{width:100%}}
 @media (max-width:640px){.leak-cta2 .btn-row,.more-cta,#contact .cbox>.btn-row{display:flex!important;width:100%}.leak-cta2 .btn-row .btn,.more-cta .btn,#contact .cbox>.btn-row .btn{flex:1 1 100%!important;width:100%!important}.hero-fit span:first-child{display:block}}
 .hero-fit i{font-style:normal}@media (max-width:640px){.hero-fit i{display:none}}
+.hero-fit{font-size:13.5px;margin-top:10px}
+@media (max-width:640px){.leak-cta2 .btn-row.two .btn{flex:1 1 0!important;width:auto!important}}
+@media (max-width:640px){.hero-fit span:first-child{display:inline}.hero-fit i{display:inline}}

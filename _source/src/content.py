@@ -584,3 +584,9 @@ T["tr"]["home"]["fit"] = "Aylık 1.000+ siparişli e-ticaret ekipleri için · �
 T["en"]["home"]["fit"] = "For e-commerce teams with 1,000+ orders a month · Free · No commitment"
 T["tr"]["cu"]["e_email"] = "Lütfen geçerli bir e-posta adresi yazın"
 T["en"]["cu"]["e_email"] = "Please enter a valid email address"
+
+# --- v26: fit line without threshold; calculator in nav ---
+T["tr"]["home"]["fit"] = "Büyüyen e-ticaret ekipleri için · Ücretsiz · Taahhüt yok"
+T["en"]["home"]["fit"] = "For growing e-commerce teams · Free · No commitment"
+T["tr"]["nav"]["calc"] = "Zarar hesaplayıcı"
+T["en"]["nav"]["calc"] = "Loss estimator"

@@ -136,6 +136,7 @@ def header(lang, key, on_home):
 <nav class="nav" aria-label="Main">
 <a class="navlink" href="{home}#how">{n['how']}</a>
 <a class="navlink" href="{home}#work">{n['results']}</a>
+<a class="navlink" href="{home}#estimate">{n['calc']}</a>
 <a class="navlink" href="{home}#about">{n['about']}</a>
 <a class="navlink" href="{home}#contact">{n['contact']}</a>
 <div class="lang" role="group" aria-label="{n['lang_label']}">
@@ -209,7 +210,7 @@ def home(lang):
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
 </div>
-<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></div></div>
+<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row two"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div></div>
 </div>
 </section>
 """)
