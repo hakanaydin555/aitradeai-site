@@ -561,16 +561,16 @@ for _l in ("en", "tr"):
 # --- v23: short FAQ on home ---
 T["tr"]["home"].update({"sss_k": "SSS", "sss_h": "Kısa cevaplar.", "sss_more": "Daha fazlası için", "sss_more_l": "Kaynaklar", "sss": [
     ("Check-up gerçekten ücretsiz mi?", "Evet. Ücret ve yükümlülük yok. Bir proje sizin için ekonomik olarak anlamlı değilse bunu açıkça söyleriz."),
-    ("Proje ne kadar sürer, ücret nasıl belirlenir?", "Proje sekiz hafta sürer. Ücret check-up'tan sonra, kapsama göre sabit olarak belirlenir; süreç içinde sürpriz ek ücret çıkmaz."),
+    ("Proje ne kadar sürer, ücret nasıl belirlenir?", "Proje sekiz hafta sürer. Ücret check-up'tan sonra kapsama göre belirlenir ve işe başlamadan önce yazılı olarak netleşir."),
     ("Hangi verileri paylaşmamız gerekiyor?", "Check-up için son üç ayın özet rakamları yeter; sistem erişimi gerekmez. İsterseniz veri paylaşımından önce gizlilik sözleşmesi (NDA) imzalarız."),
     ("Yeni yazılım almamız gerekiyor mu?", "Gerekmeyebilir. Yazılım satmıyoruz; önce mevcut araçlarınızla çalışırız. Yeni bir araç gerekirse sorununuza göre birlikte seçer, maliyetini önceden gösteririz."),
-    ("Proje bitince ne oluyor?", "Kurulan sistem, nasıl kullanılacağı ve ekip eğitimiyle birlikte size devredilir; sistem sizin olur. İsterseniz sonraki ay takip desteği veririz."),
+    ("Proje bitince ne oluyor?", "Kurulan sistem, nasıl kullanılacağı ve ekip eğitimiyle birlikte size devredilir; sistem sizin olur. Devirden sonraki ilk ay sonuçları birlikte izleriz; daha uzun destek isterseniz ayrıca planlarız."),
 ]})
 T["en"]["home"].update({"sss_k": "FAQ", "sss_h": "Short answers.", "sss_more": "", "sss_more_l": "", "sss": [
     ("Is the check-up really free?", "Yes. No fee and no obligation. If a project doesn't make economic sense for you, we say so plainly."),
-    ("How long is a project, and how is the fee set?", "A project runs for eight weeks. The fee is fixed after the check-up, based on scope; no surprise extras along the way."),
+    ("How long is a project, and how is the fee set?", "A project runs for eight weeks. The fee is set after the check-up, based on scope, and agreed in writing before work starts."),
     ("What data do we need to share?", "For the check-up, summary figures for the last three months are enough; no system access needed. We can sign an NDA before you share any data."),
     ("Do we need to buy new software?", "Probably not. We don't sell software; we start with the tools you already use. If a new tool is needed, we choose it together for your problem and show the cost up front."),
-    ("What happens when the project ends?", "The system we built is handed to your team with documentation and training; it is yours. Follow-up support for the next month is available if you want it."),
+    ("What happens when the project ends?", "The system we built is handed to your team with documentation and training; it is yours. We track the results with you for the first month after handover; longer support can be planned separately."),
 ]})
 T["tr"]["footer"]["kb"] = "Kaynaklar"
