@@ -1134,3 +1134,4 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .work-dots button{box-sizing:content-box;padding:7px;background-clip:content-box}
 .work-dots button,.work-dots button[aria-current="true"]{background-clip:content-box!important}
 .notes a{color:var(--amber);font-weight:600}
+.note-tx{min-width:0;overflow-wrap:anywhere}
