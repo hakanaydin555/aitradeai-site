@@ -574,3 +574,7 @@ T["en"]["home"].update({"sss_k": "FAQ", "sss_h": "Short answers.", "sss_more": "
     ("What happens when the project ends?", "The system we built is handed to your team with documentation and training; it is yours. We track the results with you for the first month after handover; longer support can be planned separately."),
 ]})
 T["tr"]["footer"]["kb"] = "Kaynaklar"
+
+# --- v24: downloadable NDA on check-up ---
+T["tr"]["cu"]["nda"] = ("Veri paylaşmadan önce gizlilik sözleşmesi imzalayabiliriz: ", "standart NDA'mızı indirin", ", imzalayıp hakan.aydin@aitradeai.net adresine gönderin.", "nda-tr.pdf")
+T["en"]["cu"]["nda"] = ("We can sign an NDA before you share any data: ", "download our standard NDA", ", sign it and send it to hakan.aydin@aitradeai.net.", "nda-en.pdf")

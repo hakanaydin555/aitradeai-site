@@ -540,7 +540,12 @@ def checkup(lang):
 <main>
 """)
     areas = "".join(f'<div class="area"><span class="area-ic">{AREA_ICONS[i]}</span><h3>{e(a)}</h3><p>{e(b)}</p></div>' for i, (a, b) in enumerate(c["areas"]))
-    notes = "".join(f'<p><span class="note-ic">{NOTE_ICONS[i % 2]}</span>{e(n)}</p>' for i, n in enumerate(c["notes"]))
+    nd = c.get("nda")
+    pre = "../" if lang == "tr" else ""
+    nl = [e(n) for n in c["notes"]]
+    if nd:
+        nl[1] = f'{e(nd[0])}<a href="{pre}assets/{nd[3]}" download>{e(nd[1])}</a>{e(nd[2])}'
+    notes = "".join(f'<p><span class="note-ic">{NOTE_ICONS[i % 2]}</span>{n}</p>' for i, n in enumerate(nl))
     faq = "".join(f"<details><summary>{e(q)}</summary><p>{e(a)}</p></details>" for q, a in c["faq"])
     r = c["r"]
     prof = "".join(f'<div><p class="rk">{e(k)}</p><p class="rv">' + (f'<span class="blur" aria-hidden="true">{e(v)}</span><span class="sr-only">{e(r["hidden"])}</span>' if b else e(v)) + '</p></div>' for k, v, b in r["profile"])
