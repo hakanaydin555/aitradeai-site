@@ -20,6 +20,14 @@ Results are measured as contribution profit, cash savings and team hours, not re
 - [Ücretsiz check-up (Türkçe)](https://aitradeai.net/tr/check-up)
 - [Privacy & KVKK](https://aitradeai.net/privacy)
 
+## Kaynaklar (Turkish guides)
+- [Kaynaklar](https://aitradeai.net/tr/kaynaklar/): Kampanya kârı, stok, iptal, iade, kargo ve rapor otomasyonu için hesap örnekleri ve kontrol listeleri.
+- [Pazar yerinde kampanya kârlı mı? Katkı kârı nasıl hesaplanır?](https://aitradeai.net/tr/kaynaklar/kampanya-karliligi): %20 indirim sipariş başına kârı %78 azaltabilir. Komisyon, kargo, reklam ve iade dahil katkı kârını ve gereken ek satışı hesaplayın.
+- [Stokta olmayan ürüne reklam harcaması nasıl bulunur ve durdurulur?](https://aitradeai.net/tr/kaynaklar/stoksuz-urune-reklam): Stok bittiği halde reklamı süren ürünler bütçeyi sessizce eritir. 30 dakikada kaybı bulmanın adımları ve otomatik durdurma kuralı.
+- [Stok kaynaklı iptal e-ticarette gerçekte kaça mal olur?](https://aitradeai.net/tr/kaynaklar/stok-kaynakli-iptal): Stok kaynaklı bir iptal üç kez ödetir: kaybedilen kâr, boşa giden reklam ve düşen mağaza puanı. Maliyeti hesaplayın, oranı düşürün.
+- [E-ticarette iade ve kargo maliyeti nasıl hesaplanır ve düşürülür?](https://aitradeai.net/tr/kaynaklar/iade-ve-kargo-maliyeti): Bir iade, kaybı iki yönlü kargo, işleme ve satılamayan ürünle büyütür. İade başına maliyeti hesaplayın, kargo faturasındaki farkları bulun.
+- [E-ticaret ekibinde hangi raporlar otomatikleşmeli?](https://aitradeai.net/tr/kaynaklar/rapor-otomasyonu): Pazar yeri panellerinden veri indirip birleştirmek haftada saatler alır. E-ticaret ekibinde otomatikleşmesi gereken 6 rapor ve başlama sırası.
+
 ## Contact
 - Email: hakan.aydin@aitradeai.net
 - Check-up request: https://aitradeai.net/check-up

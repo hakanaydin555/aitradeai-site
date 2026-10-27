@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Builds the static site into ../dist. Run: python3 build.py"""
 import os, shutil, html, urllib.parse, json, datetime
+import kaynaklar as KB
 from content import T, SITE, CAL, WA_NUMBER, LINKEDIN, LINKEDIN_CO, EMAIL, GSC_VERIFY, BING_VERIFY, CF_BEACON
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -51,6 +52,9 @@ def schema(lang, key, page, canon):
                "description": page["desc"], "inLanguage": lang, "isPartOf": {"@id": SITE + "/#website"},
                "about": {"@id": ORG_ID}}
     graph = [org, site, webpage]
+    if key == "home":
+        graph.append({"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": lang, "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in T[lang]["home"]["sss"]]})
     if key == "cu":
         c = T[lang]["cu"]
         graph.append({"@type": "Service", "@id": canon + "#service", "name": c["h1"], "description": page["desc"],
@@ -153,6 +157,7 @@ def footer(lang, on_home):
 <nav aria-label="Footer">
 <a href="{home}#contact">{f['contact']}</a>
 <a href="{rel(lang, lang, 'privacy')}">{f['privacy']}</a>
+{'<a href="%skaynaklar/">%s</a>' % ("" if on_home else "../tr/", f['kb']) if lang == "tr" else ""}
 <a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{f['li']}</a>
 </nav>
 </div>
@@ -254,6 +259,7 @@ def home(lang):
 </div>
 </div>
 </section>
+{sss_section(lang, h)}
 </main>
 """)
     out.append(footer(lang, True))
@@ -582,6 +588,7 @@ def llms_txt():
     """Plain summary for AI assistants and crawlers (llms.txt convention)."""
     en, tr = T["en"], T["tr"]
     plan = "\n".join("- %s (%s): %s" % (t, w, d) for w, t, d in en["home"]["plan"])
+    kb_lines = "\n".join("- [%s](%s/tr/kaynaklar/%s): %s" % (p["h1"], SITE, p["slug"], p["desc"]) for p in KB.PAGES)
     return f"""# AI Trade
 
 > {en['home']['desc']}
@@ -600,10 +607,184 @@ Results are measured as contribution profit, cash savings and team hours, not re
 - [Ücretsiz check-up (Türkçe)]({SITE}/tr/check-up)
 - [Privacy & KVKK]({SITE}/privacy)
 
+## Kaynaklar (Turkish guides)
+- [Kaynaklar]({SITE}/tr/kaynaklar/): {KB.INDEX['desc']}
+{kb_lines}
+
 ## Contact
 - Email: {EMAIL}
 - Check-up request: {SITE}/check-up
 """
+
+
+
+def sss_section(lang, h):
+    items = "".join(f'<details class="sss-i"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in h["sss"])
+    more = ""
+    if h.get("sss_more_l"):
+        more = f'<p class="sss-more">{e(h["sss_more"])} <a href="kaynaklar/">{e(h["sss_more_l"])} →</a></p>'
+    return f"""<section class="section grey" id="faq">
+<div class="wrap sss">
+<div class="sec-head reveal"><p class="ex-k">{e(h['sss_k'])}</p><h2>{e(h['sss_h'])}</h2></div>
+<div class="sss-list">{items}</div>
+{more}
+</div>
+</section>"""
+
+
+# ---------- Kaynaklar (TR answer pages) ----------
+import re as _re
+
+
+def _inline(t):
+    t = e(t)
+    return _re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
+
+
+def kb_body(src):
+    out, mode, rows = [], None, []
+
+    def flush():
+        nonlocal mode, rows
+        if mode == "ul":
+            out.append("<ul>" + "".join(f"<li>{x}</li>" for x in rows) + "</ul>")
+        elif mode == "ol":
+            out.append("<ol>" + "".join(f"<li>{x}</li>" for x in rows) + "</ol>")
+        elif mode == "table":
+            hd, *bd = rows
+            th = "".join(f"<th>{c}</th>" for c in hd)
+            tb = "".join("<tr>" + "".join(f"<td>{c}</td>" for c in r) + "</tr>" for r in bd)
+            out.append(f'<div class="kb-table"><table><thead><tr>{th}</tr></thead><tbody>{tb}</tbody></table></div>')
+        mode, rows = None, []
+
+    for line in src.split("\n"):
+        line = line.rstrip()
+        if not line:
+            continue
+        kind = "ul" if line.startswith("- ") else "ol" if line.startswith("1. ") else "table" if line.startswith("| ") else None
+        if kind != mode:
+            flush()
+        if kind == "ul":
+            mode = "ul"; rows.append(_inline(line[2:]))
+        elif kind == "ol":
+            mode = "ol"; rows.append(_inline(line[3:]))
+        elif kind == "table":
+            mode = "table"; rows.append([_inline(c.strip()) for c in line[2:].split("|")])
+        elif line.startswith("## "):
+            out.append(f"<h2>{_inline(line[3:])}</h2>")
+        elif line.startswith("= "):
+            out.append(f'<p class="kb-formula">{_inline(line[2:])}</p>')
+        elif line.startswith("> "):
+            out.append(f'<p class="kb-note">{_inline(line[2:])}</p>')
+        else:
+            out.append(f"<p>{_inline(line)}</p>")
+    flush()
+    return "".join(out)
+
+
+def kb_head(title, desc, canon, graph):
+    og = SITE + "/assets/og-tr.png"
+    data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
+    return f"""<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{e(title)}</title>
+<meta name="description" content="{e(desc)}">
+<link rel="canonical" href="{canon}">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="AI Trade">
+<meta property="og:title" content="{e(title)}">
+<meta property="og:description" content="{e(desc)}">
+<meta property="og:url" content="{canon}">
+<meta property="og:image" content="{og}">
+<meta property="og:locale" content="tr_TR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+{verify_tags()}<script type="application/ld+json">{data}</script>
+<meta name="theme-color" content="#0E1A2B">
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../../assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="../../assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
+<link rel="stylesheet" href="../../assets/style.css">
+<script src="../../assets/config.js"></script>
+<script src="../../assets/main.js" defer></script>
+</head>
+<body class="hero-light kb-page">
+"""
+
+
+def _deep(html_):
+    """TR header/footer markup is written for /tr/x; kaynak pages sit one level deeper."""
+    return html_.replace('href="../', 'href="../../')
+
+
+def _crumbs(items):
+    return {"@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(items)]}
+
+
+KB_BASE = SITE + "/tr/kaynaklar/"
+
+
+def kb_page(p):
+    by = {x["slug"]: x for x in KB.PAGES}
+    canon = KB_BASE + p["slug"]
+    org = {"@type": "Organization", "@id": ORG_ID, "name": "AI Trade", "url": SITE + "/"}
+    graph = [
+        org,
+        {"@type": "Article", "@id": canon + "#article", "headline": p["h1"], "description": p["desc"], "inLanguage": "tr",
+         "datePublished": KB.UPDATED, "dateModified": KB.UPDATED, "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID},
+         "mainEntityOfPage": canon, "image": SITE + "/assets/og-tr.png"},
+        {"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": "tr", "mainEntity": [
+            {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p["faq"]]},
+        _crumbs([("Ana sayfa", SITE + "/tr/"), ("Kaynaklar", KB_BASE), (p["card"], canon)]),
+    ]
+    faq = "".join(f'<details class="sss-i"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in p["faq"])
+    rel_ = "".join(f'<li><a href="{r}">{e(by[r]["card"])}</a><span>{e(by[r]["q"])}</span></li>' for r in p["related"])
+    hdr = _deep('<div class="dark">' + header("tr", "home", False) + "</div>")
+    body = f"""<main class="kb">
+<div class="wrap kb-wrap">
+<nav class="kb-crumb" aria-label="Konum"><a href="../">Ana sayfa</a><span>›</span><a href="./">Kaynaklar</a></nav>
+<article>
+<h1>{e(p['h1'])}</h1>
+<p class="kb-meta">Hazırlayan: AI Trade · Son güncelleme: <time datetime="{KB.UPDATED}">{KB.UPDATED_TR}</time></p>
+<p class="kb-answer">{_inline(p['answer'])}</p>
+{kb_body(p['body'])}
+<h2>Sık sorulanlar</h2>
+<div class="sss-list">{faq}</div>
+</article>
+<aside class="kb-cta"><p>{e(p['cta'])}</p><a class="btn btn-amber" href="../check-up">Ücretsiz check-up</a></aside>
+<section class="kb-rel"><h2>İlgili rehberler</h2><ul>{rel_}</ul></section>
+</div>
+</main>
+"""
+    return kb_head(p["title"], p["desc"], canon, graph) + hdr + body + _deep(footer("tr", False))
+
+
+def kb_index():
+    i = KB.INDEX
+    graph = [
+        {"@type": "Organization", "@id": ORG_ID, "name": "AI Trade", "url": SITE + "/"},
+        {"@type": "CollectionPage", "@id": KB_BASE + "#page", "url": KB_BASE, "name": i["title"], "description": i["desc"],
+         "inLanguage": "tr", "publisher": {"@id": ORG_ID},
+         "hasPart": [{"@type": "Article", "headline": p["h1"], "url": KB_BASE + p["slug"]} for p in KB.PAGES]},
+        _crumbs([("Ana sayfa", SITE + "/tr/"), ("Kaynaklar", KB_BASE)]),
+    ]
+    cards = "".join(f'<a class="kb-card" href="{p["slug"]}"><span class="kb-n">{n + 1:02d}</span><h2>{e(p["card"])}</h2><p>{e(p["q"])}</p><span class="kb-go">Oku →</span></a>' for n, p in enumerate(KB.PAGES))
+    hdr = _deep('<div class="dark">' + header("tr", "home", False) + "</div>")
+    body = f"""<main class="kb">
+<div class="wrap kb-wrap kb-wide">
+<nav class="kb-crumb" aria-label="Konum"><a href="../">Ana sayfa</a></nav>
+<h1>{e(i['h1'])}</h1>
+<p class="kb-lead">{e(i['lead'])}</p>
+<div class="kb-grid">{cards}</div>
+<aside class="kb-cta"><p>Kendi rakamlarınızla görmek isterseniz, kayıpları birlikte çıkaralım.</p><a class="btn btn-amber" href="../check-up">Ücretsiz check-up</a></aside>
+</div>
+</main>
+"""
+    return kb_head(i["title"], i["desc"], KB_BASE, graph) + hdr + body + _deep(footer("tr", False))
 
 
 def main():
@@ -616,6 +797,12 @@ def main():
             path = PAGES[key][0 if lang == "en" else 1]
             with open(os.path.join(OUT, path), "w", encoding="utf-8") as f:
                 f.write(fn(lang))
+    os.makedirs(os.path.join(OUT, "tr", "kaynaklar"))
+    with open(os.path.join(OUT, "tr", "kaynaklar", "index.html"), "w", encoding="utf-8") as f:
+        f.write(kb_index())
+    for p in KB.PAGES:
+        with open(os.path.join(OUT, "tr", "kaynaklar", p["slug"] + ".html"), "w", encoding="utf-8") as f:
+            f.write(kb_page(p))
     with open(os.path.join(OUT, "CNAME"), "w") as f:
         f.write("aitradeai.net")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
@@ -628,6 +815,8 @@ def main():
                 '<xhtml:link rel="alternate" hreflang="x-default" href="%s"/>') % (en_c, tr_c, en_c)
         for loc in (en_c, tr_c):
             urls.append("<url><loc>%s</loc><lastmod>%s</lastmod>%s</url>" % (loc, today, alts))
+    for u in [KB_BASE] + [KB_BASE + p["slug"] for p in KB.PAGES]:
+        urls.append("<url><loc>%s</loc><lastmod>%s</lastmod></url>" % (u, KB.UPDATED))
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
                 'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s\n</urlset>\n' % "\n".join(urls))
