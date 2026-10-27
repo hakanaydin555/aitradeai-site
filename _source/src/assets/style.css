@@ -1132,3 +1132,4 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .btn-wa,.ccard .btn-wa{background:#15803D}.btn-wa:hover,.ccard .btn-wa:hover{background:#166534}
 .work-dots{gap:0;margin-left:-7px}
 .work-dots button{box-sizing:content-box;padding:7px;background-clip:content-box}
+.work-dots button,.work-dots button[aria-current="true"]{background-clip:content-box!important}
