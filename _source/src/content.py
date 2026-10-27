@@ -590,3 +590,4 @@ T["tr"]["home"]["fit"] = "Büyüyen e-ticaret ekipleri için · Ücretsiz · Taa
 T["en"]["home"]["fit"] = "For growing e-commerce teams · Free · No commitment"
 T["tr"]["nav"]["calc"] = "Zarar hesaplayıcı"
 T["en"]["nav"]["calc"] = "Loss estimator"
+INDEXNOW_KEY = "483eea2aee8f3895838792c85163733f"

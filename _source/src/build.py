@@ -2,6 +2,7 @@
 """Builds the static site into ../dist. Run: python3 build.py"""
 import os, shutil, html, urllib.parse, json, datetime
 import kaynaklar as KB
+from content import INDEXNOW_KEY
 from content import T, SITE, CAL, WA_NUMBER, LINKEDIN, LINKEDIN_CO, EMAIL, GSC_VERIFY, BING_VERIFY, CF_BEACON
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -815,6 +816,8 @@ def main():
     for p in KB.PAGES:
         with open(os.path.join(OUT, "tr", "kaynaklar", p["slug"] + ".html"), "w", encoding="utf-8") as f:
             f.write(kb_page(p))
+    with open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w") as f:
+        f.write(INDEXNOW_KEY)
     with open(os.path.join(OUT, "CNAME"), "w") as f:
         f.write("aitradeai.net")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
