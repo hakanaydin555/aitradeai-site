@@ -227,7 +227,7 @@
   var label = form.querySelector('[data-steplabel]');
   var labelTpl = label ? label.getAttribute('data-steplabel') : 'Step {n} of {t}';
   var total = steps.length - 1; /* question + contact steps; last step is the thank-you screen */
-  var backBtn = form.querySelector('.back');
+  var backBtn = form.querySelector('.back:not(.restart)');
   var head = form.querySelector('.progress-wrap');
   var answers = {};
   var current = 0;
