@@ -44,7 +44,8 @@ def schema(lang, key, page, canon):
         "knowsAbout": ["E-commerce profitability", "Marketplace operations", "Performance marketing", "CRM",
                        "Demand forecasting", "Pricing and promotions", "AI automation", "Cross-border e-commerce"],
         "founder": {"@type": "Person", "name": "Hakan Aydın", "sameAs": [LINKEDIN]},
-        "sameAs": [LINKEDIN_CO],
+        "sameAs": [LINKEDIN_CO], "logo": SITE + "/assets/logo-512.png",
+        "alternateName": "AI Trade e-commerce profitability consulting",
     }
     site = {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "AI Trade",
             "inLanguage": ["en", "tr"], "publisher": {"@id": ORG_ID}}
@@ -85,9 +86,10 @@ def head(lang, key, page):
     prefix = "../" if lang == "tr" else ""
     og = SITE + "/assets/og-%s.png" % lang
     return f"""<!doctype html>
-<html lang="{lang}">
+<html lang="{lang}" class="no-js">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className="js"</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(page['title'])}</title>
 <meta name="description" content="{e(page['desc'])}">
@@ -115,7 +117,7 @@ def head(lang, key, page):
 <link rel="preload" href="{prefix}assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="{prefix}assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="{prefix}assets/style.css">
-<script src="{prefix}assets/config.js"></script>
+<script src="{prefix}assets/config.js" defer></script>
 <script src="{prefix}assets/main.js" defer></script>
 </head>
 <body class="hero-light">
@@ -191,6 +193,7 @@ def home(lang):
 <a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a>
 <a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a>
 </div>
+<p class="hero-fit rise d3"><span>{e(h['fit'].split(" · ")[0])}</span><span><i> · </i>{e(" · ".join(h['fit'].split(" · ")[1:]))}</span></p>
 </div>
 {feed_panel(h)}
 </div>
@@ -206,7 +209,7 @@ def home(lang):
 <div class="leakline" aria-hidden="true"></div>
 <ol class="nodes">{nodes}</ol>
 </div>
-<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div></div>
+<div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></div></div>
 </div>
 </section>
 """)
@@ -239,7 +242,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['w_k'])}</p><h2>{e(h['w_h'])}</h2><p>{e(h['w_p'])}</p></div>
 <div class="work-grid stagger">{"".join(cards)}</div>
-<div class="btn-row two more-cta"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div>
+<div class="btn-row more-cta"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></div>
 </div>
 </section>
 """)
@@ -254,7 +257,7 @@ def home(lang):
 <div class="wrap">
 <div class="sec-head reveal"><p class="ex-k">{e(h['c_k'])}</p><h2>{e(h['c_h'])}</h2><p>{e(h['c_p'])}</p></div>
 <div class="cbox">
-<div class="btn-row two"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div>
+<div class="btn-row"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a></div>
 {team_block(lang, h)}
 </div>
 </div>
@@ -610,7 +613,9 @@ Results are measured as contribution profit, cash savings and team hours, not re
 - [Free check-up (English)]({SITE}/check-up): short form and call to find profit leaks
 - [Ana sayfa (Türkçe)]({SITE}/tr/): {tr['home']['desc']}
 - [Ücretsiz check-up (Türkçe)]({SITE}/tr/check-up)
-- [Privacy & KVKK]({SITE}/privacy)
+- [Privacy & KVKK]({SITE}/privacy) · [Gizlilik ve KVKK]({SITE}/tr/privacy)
+
+Note: AI Trade is an e-commerce profitability consultancy run by Hakan Aydın in Istanbul. It is not a crypto or trading bot, and not related to other products named "AI Trade".
 
 ## Kaynaklar (Turkish guides)
 - [Kaynaklar]({SITE}/tr/kaynaklar/): {KB.INDEX['desc']}
@@ -687,18 +692,19 @@ def kb_body(src):
     return "".join(out)
 
 
-def kb_head(title, desc, canon, graph):
+def kb_head(title, desc, canon, graph, ogtype="article"):
     og = SITE + "/assets/og-tr.png"
     data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     return f"""<!doctype html>
-<html lang="tr">
+<html lang="tr" class="no-js">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.className="js"</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <link rel="canonical" href="{canon}">
-<meta property="og:type" content="article">
+<meta property="og:type" content="{ogtype}">
 <meta property="og:site_name" content="AI Trade">
 <meta property="og:title" content="{e(title)}">
 <meta property="og:description" content="{e(desc)}">
@@ -713,7 +719,7 @@ def kb_head(title, desc, canon, graph):
 <link rel="preload" href="../../assets/libre-franklin.woff" as="font" type="font/woff" crossorigin>
 <link rel="preload" href="../../assets/source-sans-3.woff" as="font" type="font/woff" crossorigin>
 <link rel="stylesheet" href="../../assets/style.css">
-<script src="../../assets/config.js"></script>
+<script src="../../assets/config.js" defer></script>
 <script src="../../assets/main.js" defer></script>
 </head>
 <body class="hero-light kb-page">
@@ -789,7 +795,7 @@ def kb_index():
 </div>
 </main>
 """
-    return kb_head(i["title"], i["desc"], KB_BASE, graph) + hdr + body + _deep(footer("tr", False))
+    return kb_head(i["title"], i["desc"], KB_BASE, graph, "website") + hdr + body + _deep(footer("tr", False))
 
 
 def main():

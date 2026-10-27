@@ -578,3 +578,9 @@ T["tr"]["footer"]["kb"] = "Kaynaklar"
 # --- v24: downloadable NDA on check-up ---
 T["tr"]["cu"]["nda"] = ("Veri paylaşmadan önce gizlilik sözleşmesi imzalayabiliriz: ", "standart NDA'mızı indirin", ", imzalayıp hakan.aydin@aitradeai.net adresine gönderin.", "nda-tr.pdf")
 T["en"]["cu"]["nda"] = ("We can sign an NDA before you share any data: ", "download our standard NDA", ", sign it and send it to hakan.aydin@aitradeai.net.", "nda-en.pdf")
+
+# --- v25: hero fit line, softer email rule ---
+T["tr"]["home"]["fit"] = "Aylık 1.000+ siparişli e-ticaret ekipleri için · Ücretsiz · Taahhüt yok"
+T["en"]["home"]["fit"] = "For e-commerce teams with 1,000+ orders a month · Free · No commitment"
+T["tr"]["cu"]["e_email"] = "Lütfen geçerli bir e-posta adresi yazın"
+T["en"]["cu"]["e_email"] = "Please enter a valid email address"

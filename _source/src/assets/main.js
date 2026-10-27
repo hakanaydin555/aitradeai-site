@@ -212,13 +212,6 @@
     calc();
   });
 
-  /* 3e. Hero fact counter */
-  document.querySelectorAll('.facts [data-to]').forEach(function (el) {
-    var to = parseInt(el.getAttribute('data-to'), 10); if (reduce || !to) return;
-    var n = 1; el.textContent = n;
-    var t = setInterval(function () { n++; el.textContent = n; if (n >= to) clearInterval(t); }, 110);
-  });
-
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;
@@ -279,8 +272,7 @@
     e.preventDefault();
     var okName = val('name').length > 1;
     var mail = val('email').toLowerCase();
-    var free = /@(gmail|googlemail|hotmail|outlook|live|msn|yahoo|ymail|yandex|icloud|me|mac|aol|gmx|mail|protonmail|proton|mynet|windowslive)\.[a-z.]+$/;
-    var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail) && !free.test(mail);
+    var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
     var okWeb = /^[^\s]+\.[a-z]{2,}([\/?#][^\s]*)?$/i.test(val('website').replace(/^https?:\/\//i, ''));
     var okCompany = val('company').length > 1;
     var consent = form.elements.consent && form.elements.consent.checked;
