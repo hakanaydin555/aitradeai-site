@@ -1173,3 +1173,5 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .wc-reg .flag{width:17px;height:11px}
 .wc-reg .flag-af{width:16px;height:16px}
 .wc-reg .flag+.flag,.flag-arrow+.flag{margin-left:-1px}
+#flows .flow .fviz-wrap{padding-top:22px}
+#flows .flow .fviz-wrap::before,#flows .flow .fviz-wrap::after{content:none}

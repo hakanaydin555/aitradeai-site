@@ -652,3 +652,5 @@ T["en"]["home"]["work"][3].update({
     "tags": ["AI-assisted campaign", "Mobile application page", "Measurement dashboard"]})
 for _l, _r in (("tr", "BDT · Körfez"), ("en", "CIS · Gulf")):
     T[_l]["home"]["work"][0].update({"reg": _r, "flags": ["tr", "arrow", "ru", "ae", "sa"]})
+T["tr"]["home"]["work"][3]["res"] = [["2M+", "başvuru işlemi"], ["Rekor", "Afrika'da talep toplama rekoru"]]
+T["en"]["home"]["work"][3]["res"] = [["2M+", "subscription transactions"], ["Record", "Africa's record for IPO demand"]]
