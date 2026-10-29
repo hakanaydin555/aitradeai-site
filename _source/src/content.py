@@ -602,3 +602,33 @@ for _l, _metas in (("tr", [("MENA", "5 ay", "Çok kanallı perakende platformu",
     for _w, (_r, _d, _s, _f) in zip(T[_l]["home"]["work"], _metas):
         _w.update({"reg": _r, "dur": _d, "sec": _s, "flags": _f})
     T[_l]["home"]["work"][2]["res"] = T[_l]["home"]["work"][2]["res"][:2]
+
+# --- v28: results order, flags, energy IPO case ---
+for _l in ("tr", "en"):
+    _wk = T[_l]["home"]["work"]
+    _wk[0]["flags"] = ["iq", "jo", "ae"]
+    _wk[2]["flags"] = ["tr", "arrow", "ru", "kz", "ae", "sa"]
+    _wk[2]["reg"] = "Türkiye →" if _l == "tr" else "Türkiye →"
+T["tr"]["home"]["work"].append({
+    "k": "", "reg": "Nijerya", "dur": "3 ay", "sec": "Enerji şirketi halka arzının dijital kampanyası", "flags": ["ng"],
+    "h": "Halka arz kampanyasında 1 milyonu aşkın site ziyareti",
+    "ctx": "Bireysel yatırımcıya açılan bir halka arz; başvurular bankalar ve aracı kurumlar üzerinden.",
+    "brief": "Halka arza katılımı artırmak için dijital kampanyayı yönetmek ve sonucu ölçülebilir kılmak.",
+    "built": "Düşük veri tüketen, mobil öncelikli açılış sayfası; ücretli medya yönetimi; ziyaretten başvuru kanalına geçişi izleyen ölçüm panosu.",
+    "res": [["1M+", "site ziyareti"], ["%19", "ziyaretten başvuru kanalına geçiş"]],
+    "tags": ["Mobil açılış sayfası", "Ücretli medya yönetimi", "Ölçüm panosu"]})
+T["en"]["home"]["work"].append({
+    "k": "", "reg": "Nigeria", "dur": "3 months", "sec": "Digital campaign for an energy company IPO", "flags": ["ng"],
+    "h": "More than one million site visits in an IPO campaign",
+    "ctx": "A public offering open to retail investors, with applications through banks and brokers.",
+    "brief": "Run the digital campaign to increase IPO participation and make the result measurable.",
+    "built": "A low-data, mobile-first landing page; paid media management; a dashboard tracking visits through to the application channel.",
+    "res": [["1M+", "site visits"], ["19%", "of visits went on to an application channel"]],
+    "tags": ["Mobile landing page", "Paid media management", "Measurement dashboard"]})
+for _l in ("tr", "en"):
+    _wk = T[_l]["home"]["work"]
+    T[_l]["home"]["work"] = [_wk[2], _wk[0], _wk[1], _wk[3]]
+T["tr"]["home"]["w_p"] = "Yürüttüğümüz projelerden dördü. Müşteri adları gizli tutulur."
+T["en"]["home"]["w_p"] = "Four projects we have run. Client names are kept confidential."
+T["tr"]["home"]["work"][0]["reg"] = "BDT ve Körfez"
+T["en"]["home"]["work"][0]["reg"] = "CIS & Gulf"

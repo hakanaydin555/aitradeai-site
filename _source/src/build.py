@@ -174,6 +174,14 @@ def footer(lang, on_home):
 
 
 FLAGS = {
+    "arrow": '<span class="flag-arrow" aria-hidden="true">→</span>',
+    "ru": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.67" fill="#0039A6"/><rect y="13.33" width="30" height="6.67" fill="#D52B1E"/></svg>',
+    "kz": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#00AFCA"/><circle cx="15" cy="9" r="3.6" fill="#FEC50C"/><path d="M11 14.5c2.6 1.4 5.4 1.4 8 0" stroke="#FEC50C" stroke-width="1.2" fill="none"/></svg>',
+    "ae": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#00732F"/><rect y="13.33" width="30" height="6.67" fill="#000"/><rect width="8" height="20" fill="#FF0000"/></svg>',
+    "sa": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#006C35"/><rect x="8" y="7" width="14" height="2.2" rx="1" fill="#fff"/><rect x="9" y="12" width="12" height="1.4" fill="#fff"/></svg>',
+    "iq": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#CE1126"/><rect y="13.33" width="30" height="6.67" fill="#000"/><rect x="9" y="9" width="12" height="2" rx="1" fill="#007A3D"/></svg>',
+    "jo": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="30" height="6.67" fill="#000"/><rect y="13.33" width="30" height="6.67" fill="#007A3D"/><path d="M0 0 13 10 0 20z" fill="#CE1126"/><circle cx="4.5" cy="10" r="1.3" fill="#fff"/></svg>',
+    "ng": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect width="10" height="20" fill="#008751"/><rect x="20" width="10" height="20" fill="#008751"/></svg>',
     "tr": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11" cy="10" r="5" fill="#fff"/><circle cx="12.3" cy="10" r="4" fill="#E30A17"/><path d="M17.2 10l4.6-1.5-2.8 3.9V7.6l2.8 3.9z" fill="#fff"/></svg>',
 }
 
@@ -346,8 +354,18 @@ def timeline(h):
 
 
 
+_S = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">{}</svg>'
+STEP_ICONS = [_S.format(p) for p in [
+    '<rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 4h6v3H9zM9 12l2 2 4-4"/>',
+    '<circle cx="11" cy="11" r="6"/><path d="M20 20l-4.3-4.3"/>',
+    '<path d="M10 3h4M11 3v6L6 18a2 2 0 0 0 1.7 3h8.6A2 2 0 0 0 18 18l-5-9V3"/><path d="M8.5 14h7"/>',
+    '<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M2 12h3M19 12h3M4.9 19.1 7 17M17 7l2.1-2.1"/>',
+    '<path d="M3 12l4-4 4 3 3-3 7 7"/><path d="M14 8l2-2 5 5M3 12l5 5c1 1 2.5 1 3.5 0"/>',
+]]
+
+
 def steps(h):
-    rows = "".join(f'<li><span class="st-w">{e(w)}</span><div><p class="st-t">{e(t)}</p><p class="st-d">{e(d)}</p></div></li>' for w, t, d in h["plan"])
+    rows = "".join(f'<li><span class="st-w">{e(w)}</span><div><p class="st-t"><i class="st-ic">{STEP_ICONS[i]}</i>{e(t)}</p><p class="st-d">{e(d)}</p></div></li>' for i, (w, t, d) in enumerate(h["plan"]))
     return f'<ol class="steps2 stagger">{rows}</ol>'
 
 

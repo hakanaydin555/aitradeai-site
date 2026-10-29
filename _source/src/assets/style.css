@@ -1156,3 +1156,16 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .wc2 h3.wc-t{font-size:19px;margin:10px 0 0;color:#fff}
 .wmore .wc-h{color:#fff;font-weight:600}
 .work-grid .wc2 .wstats{margin-top:4px}
+/* v28: method step icons */
+.st-t{display:flex;align-items:center;gap:9px}
+.st-ic{flex:none;width:30px;height:30px;border-radius:8px;background:var(--amber-tint);color:var(--amber-text);display:inline-flex;align-items:center;justify-content:center}
+.st-ic svg{width:17px;height:17px}
+/* v28: flow card "screen" stands out */
+#flows .flow .fviz-wrap{background:#E9EDF3;border:1px solid #D3DAE4;box-shadow:inset 0 1px 3px rgba(14,26,43,.08);position:relative;padding-top:34px}
+#flows .flow .fviz-wrap::before{content:"";position:absolute;left:0;right:0;top:0;height:24px;background:#DCE2EA;border-bottom:1px solid #D3DAE4;border-radius:12px 12px 0 0}
+#flows .flow .fviz-wrap::after{content:"";position:absolute;left:12px;top:9px;width:6px;height:6px;border-radius:50%;background:#F59E0B;box-shadow:10px 0 0 #B8C0CC,20px 0 0 #B8C0CC}
+.wc-reg .flag{width:18px;height:12px}.flag-arrow{color:var(--amber);font-weight:700;margin:0 1px}
+.wc-reg{flex-wrap:wrap;row-gap:4px}
+.steps2 .st-t{justify-content:flex-start!important;text-align:left}
+.steps2 .st-t{display:flex!important;align-items:center;gap:9px}
+.st-ic{font-style:normal}
