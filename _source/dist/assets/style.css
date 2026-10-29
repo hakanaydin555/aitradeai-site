@@ -1175,3 +1175,5 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .wc-reg .flag+.flag,.flag-arrow+.flag{margin-left:-1px}
 #flows .flow .fviz-wrap{padding-top:22px}
 #flows .flow .fviz-wrap::before,#flows .flow .fviz-wrap::after{content:none}
+/* v30: even faster — first change almost immediate, 4s loop */
+.flow.play .fviz *{animation-duration:4s!important;animation-delay:calc(var(--d,0s) - 1.1s)!important}

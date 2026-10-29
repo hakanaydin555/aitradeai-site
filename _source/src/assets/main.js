@@ -133,7 +133,7 @@
   if (flowCards.length && 'IntersectionObserver' in window) {
     var fio = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { en.target.classList.toggle('play', en.isIntersecting); });
-    }, { threshold: 0.55 });
+    }, { threshold: 0.3 });
     flowCards.forEach(function (c) { fio.observe(c); });
   } else { flowCards.forEach(function (c) { c.classList.add('play'); }); }
 
