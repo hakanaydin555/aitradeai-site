@@ -174,6 +174,7 @@ def footer(lang, on_home):
 
 
 FLAGS = {
+    "africa": '<svg class="flag flag-af" viewBox="0 0 24 24" aria-hidden="true"><path fill="#F59E0B" d="M8.2 2.6 11 2.2l1.6 1.2 2.6-.3 1.8 1.6.6 2.4 2 2.2-.4 1.4 1.8 1-1.4 2.2-1.6 1.2-.4 2.4-1.8 1.6-.8 2.4-1.8 1.2h-1.4l-1-2.2.4-2.6-1.2-2.4.2-2.2-1.6-.6-2.2.6-2.4-1-1.6-2 .2-2.6 1.6-2.4 1.8-1.2z"/></svg>',
     "arrow": '<span class="flag-arrow" aria-hidden="true">→</span>',
     "ru": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#fff"/><rect y="6.67" width="30" height="6.67" fill="#0039A6"/><rect y="13.33" width="30" height="6.67" fill="#D52B1E"/></svg>',
     "kz": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#00AFCA"/><circle cx="15" cy="9" r="3.6" fill="#FEC50C"/><path d="M11 14.5c2.6 1.4 5.4 1.4 8 0" stroke="#FEC50C" stroke-width="1.2" fill="none"/></svg>',

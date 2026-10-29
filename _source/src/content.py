@@ -632,3 +632,23 @@ T["tr"]["home"]["w_p"] = "Yürüttüğümüz projelerden dördü. Müşteri adla
 T["en"]["home"]["w_p"] = "Four projects we have run. Client names are kept confidential."
 T["tr"]["home"]["work"][0]["reg"] = "BDT ve Körfez"
 T["en"]["home"]["work"][0]["reg"] = "CIS & Gulf"
+
+# --- v29: IPO card wording (Hakan), Africa marker, compact cross-border chip ---
+T["tr"]["home"]["work"][3].update({
+    "reg": "Afrika", "flags": ["africa"], "sec": "Büyük ölçekli halka arz kampanyası",
+    "h": "Yeni AI ve pazarlama teknolojileriyle dijital halka arz; rekor talep",
+    "ctx": "Afrika'nın tüm ülkelerinden yatırımcıya açılan bir halka arz; başvurular bankalar ve aracı kurumlar üzerinden.",
+    "brief": "Halka arzı dijitalde yürütmek, katılımı artırmak ve sonucu ölçülebilir kılmak.",
+    "built": "AI destekli kampanya yönetimi, düşük veri tüketen mobil öncelikli başvuru sayfası, ziyaretten başvuru kanalına geçişi izleyen ölçüm panosu.",
+    "res": [["2M+", "yatırımcı başvurusu"], ["Rekor", "talep toplama"]],
+    "tags": ["AI destekli kampanya", "Mobil başvuru sayfası", "Ölçüm panosu"]})
+T["en"]["home"]["work"][3].update({
+    "reg": "Africa", "flags": ["africa"], "sec": "Large-scale IPO campaign",
+    "h": "A digital IPO run with new AI and marketing technology; record demand",
+    "ctx": "A public offering open to investors from every African country, with applications through banks and brokers.",
+    "brief": "Run the IPO digitally, increase participation and make the result measurable.",
+    "built": "AI-assisted campaign management, a low-data mobile-first application page, and a dashboard tracking visits through to the application channel.",
+    "res": [["2M+", "investor subscriptions"], ["Record", "demand"]],
+    "tags": ["AI-assisted campaign", "Mobile application page", "Measurement dashboard"]})
+for _l, _r in (("tr", "BDT · Körfez"), ("en", "CIS · Gulf")):
+    T[_l]["home"]["work"][0].update({"reg": _r, "flags": ["tr", "arrow", "ru", "ae", "sa"]})

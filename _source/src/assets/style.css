@@ -1169,3 +1169,7 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .steps2 .st-t{justify-content:flex-start!important;text-align:left}
 .steps2 .st-t{display:flex!important;align-items:center;gap:9px}
 .st-ic{font-style:normal}
+.wc-reg{flex-wrap:nowrap;gap:5px;padding:5px 10px}
+.wc-reg .flag{width:17px;height:11px}
+.wc-reg .flag-af{width:16px;height:16px}
+.wc-reg .flag+.flag,.flag-arrow+.flag{margin-left:-1px}
