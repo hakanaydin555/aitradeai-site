@@ -553,16 +553,16 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fv-tr.hit b{color:inherit}
 .fv-fix{align-self:flex-end;background:var(--amber);color:var(--navy);font-weight:600;font-size:12px;border-radius:20px;padding:5px 11px;opacity:0;transform:scale(.9)}
 /* loops start once the cards are on screen */
-.flows.in .fv1 .fv-swap .a{animation:fvA 7s infinite}
-.flows.in .fv1 .fv-swap .b{animation:fvB 7s infinite}
-.flows.in .fv1 .fv-swap.r .a{animation-name:fvA2}.flows.in .fv1 .fv-swap.r .b{animation-name:fvB2}
-.flows.in .fv1 .fv-tg{animation:fvTg 7s infinite}.flows.in .fv1 .fv-tg i{animation:fvKnob 7s infinite}
-.flows.in .fv1 .fv-toast{animation:fvToast 7s infinite}
-.flows.in .fv2 .fv-mail{animation:fvMail 7s infinite}
-.flows.in .fv2 .fv-bars i{animation:fvBar 7s infinite;animation-delay:var(--d)}
-.flows.in .fv3 .fv-tr.hit{animation:fvHit 7s infinite}
-.flows.in .fv3 .fv-tr.hit b{animation:fvHitB 7s infinite}
-.flows.in .fv3 .fv-fix{animation:fvFix 7s infinite}
+.flow.play .fv1 .fv-swap .a{animation:fvA 7s infinite}
+.flow.play .fv1 .fv-swap .b{animation:fvB 7s infinite}
+.flow.play .fv1 .fv-swap.r .a{animation-name:fvA2}.flow.play .fv1 .fv-swap.r .b{animation-name:fvB2}
+.flow.play .fv1 .fv-tg{animation:fvTg 7s infinite}.flow.play .fv1 .fv-tg i{animation:fvKnob 7s infinite}
+.flow.play .fv1 .fv-toast{animation:fvToast 7s infinite}
+.flow.play .fv2 .fv-mail{animation:fvMail 7s infinite}
+.flow.play .fv2 .fv-bars i{animation:fvBar 7s infinite;animation-delay:var(--d)}
+.flow.play .fv3 .fv-tr.hit{animation:fvHit 7s infinite}
+.flow.play .fv3 .fv-tr.hit b{animation:fvHitB 7s infinite}
+.flow.play .fv3 .fv-fix{animation:fvFix 7s infinite}
 @keyframes fvA{0%,25%{opacity:1}30%,92%{opacity:0}100%{opacity:1}}
 @keyframes fvB{0%,25%{opacity:0}30%,92%{opacity:1}100%{opacity:0}}
 @keyframes fvA2{0%,40%{opacity:1}45%,92%{opacity:0}100%{opacity:1}}
@@ -589,17 +589,17 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fv-line .ok{stroke:var(--navy)}.fv-line .drop{stroke:#D92D20;stroke-dashoffset:1}
 .fv-alarm{background:#FEF3F2;border:1px solid #FDA29B;border-radius:8px;padding:9px 12px;opacity:0;transform:translateY(8px)}
 .fv-alarm b{display:block;font-size:13px;color:#B42318}.fv-alarm small{display:block;font-size:12px;color:var(--ink-2)}
-.flows.in .fv-al .drop{animation:fvDrop 7s infinite}
-.flows.in .fv-al .fv-alarm{animation:fvToast 7s infinite}
+.flow.play .fv-al .drop{animation:fvDrop 7s infinite}
+.flow.play .fv-al .fv-alarm{animation:fvToast 7s infinite}
 @keyframes fvDrop{0%,20%{stroke-dashoffset:1}38%,92%{stroke-dashoffset:0}100%{stroke-dashoffset:1}}
 .fv-cr{grid-template-columns:1fr auto auto auto;align-items:center}
 .fv-cr b{color:var(--ink);min-width:44px}
 .fv-cr em{font-style:normal;font-size:11px;font-weight:700;background:var(--amber);color:var(--navy);border-radius:20px;padding:2px 8px;opacity:0}
 .fv-cr:not(.pick) em{display:none}
 .fv-cr.slow span:nth-child(2){color:#B42318}
-.flows.in .fv-ca .pick{animation:fvPick 7s infinite}
-.flows.in .fv-ca .pick em{animation:fvPickE 7s infinite}
-.flows.in .fv-ca .slow{animation:fvSlow 7s infinite}
+.flow.play .fv-ca .pick{animation:fvPick 7s infinite}
+.flow.play .fv-ca .pick em{animation:fvPickE 7s infinite}
+.flow.play .fv-ca .slow{animation:fvSlow 7s infinite}
 @keyframes fvPick{0%,30%{border-color:var(--line);background:#fff}38%,92%{border-color:var(--amber);background:var(--amber-tint)}100%{border-color:var(--line);background:#fff}}
 @keyframes fvPickE{0%,34%{opacity:0}42%,92%{opacity:1}100%{opacity:0}}
 @keyframes fvSlow{0%,22%{opacity:1}28%,92%{opacity:.45}100%{opacity:1}}
@@ -608,8 +608,8 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fv-rb{height:10px;border-radius:5px;background:#E4E7EC;overflow:hidden}
 .fv-rb i{display:block;height:100%;width:var(--w);background:var(--navy);border-radius:5px;transform:scaleX(0);transform-origin:left}
 .fv-rr:first-child .fv-rb i{background:var(--amber)}
-.flows.in .fv-re .fv-rb i{animation:fvGrow 7s infinite;animation-delay:var(--d)}
-.flows.in .fv-re .fv-fix{animation:fvFix 7s infinite}
+.flow.play .fv-re .fv-rb i{animation:fvGrow 7s infinite;animation-delay:var(--d)}
+.flow.play .fv-re .fv-fix{animation:fvFix 7s infinite}
 @keyframes fvGrow{0%,10%{transform:scaleX(0)}30%,92%{transform:scaleX(1)}100%{transform:scaleX(0)}}
 .fv-q{align-self:flex-start;background:#fff;border:1px solid var(--line);border-radius:12px 12px 12px 4px;padding:8px 12px;font-size:13px}
 .fv-a{align-self:flex-end;max-width:88%;background:var(--navy);color:#fff;border-radius:12px 12px 4px 12px;padding:9px 12px;font-size:13px;display:grid}
@@ -617,15 +617,15 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fv-dots{display:flex;gap:4px;align-items:center}.fv-dots i{width:6px;height:6px;border-radius:50%;background:var(--on-dark)}
 .fv-at{opacity:0}
 .fv-ok{align-self:flex-end;font-size:12px;font-weight:600;background:var(--amber);color:var(--navy);border-radius:6px;padding:5px 10px;opacity:0}
-.flows.in .fv-rp .fv-dots{animation:fvDots 7s infinite}
-.flows.in .fv-rp .fv-at{animation:fvAt 7s infinite}
-.flows.in .fv-rp .fv-ok{animation:fvFix 7s infinite}
+.flow.play .fv-rp .fv-dots{animation:fvDots 7s infinite}
+.flow.play .fv-rp .fv-at{animation:fvAt 7s infinite}
+.flow.play .fv-rp .fv-ok{animation:fvFix 7s infinite}
 @keyframes fvDots{0%,30%{opacity:1}34%,100%{opacity:0}}
 @keyframes fvAt{0%,32%{opacity:0}38%,92%{opacity:1}100%{opacity:0}}
 .fv-tags{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
 .fv-tags span{background:#fff;border:1px solid var(--line);border-radius:20px;padding:6px 12px;font-size:13px;font-weight:600}
-.flows.in .fv-tags span{animation:fvTag 7s infinite}
-.flows.in .fv-tags span:nth-child(2){animation-delay:.3s}.flows.in .fv-tags span:nth-child(3){animation-delay:.6s}.flows.in .fv-tags span:nth-child(4){animation-delay:.9s}.flows.in .fv-tags span:nth-child(5){animation-delay:1.2s}.flows.in .fv-tags span:nth-child(6){animation-delay:1.5s}
+.flow.play .fv-tags span{animation:fvTag 7s infinite}
+.flow.play .fv-tags span:nth-child(2){animation-delay:.3s}.flow.play .fv-tags span:nth-child(3){animation-delay:.6s}.flow.play .fv-tags span:nth-child(4){animation-delay:.9s}.flow.play .fv-tags span:nth-child(5){animation-delay:1.2s}.flow.play .fv-tags span:nth-child(6){animation-delay:1.5s}
 @keyframes fvTag{0%,6%{border-color:var(--line);background:#fff}12%,22%{border-color:var(--amber);background:var(--amber-tint)}30%,100%{border-color:var(--line);background:#fff}}
 @media (prefers-reduced-motion:reduce){
   .fv-line .drop{stroke-dashoffset:0}.fv-alarm,.fv-ok,.fv-at{opacity:1;transform:none}.fv-dots{display:none}
@@ -862,8 +862,8 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .fv-emo{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
 .fv-emo span{display:flex;align-items:center;gap:7px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:7px 9px;font-size:12px;font-weight:600;line-height:1.25}
 .fv-emo i{font-style:normal;font-size:18px;line-height:1}
-.flows.in .fv-emo span{animation:fvTag 7s infinite}
-.flows.in .fv-emo span:nth-child(2){animation-delay:.3s}.flows.in .fv-emo span:nth-child(3){animation-delay:.6s}.flows.in .fv-emo span:nth-child(4){animation-delay:.9s}.flows.in .fv-emo span:nth-child(5){animation-delay:1.2s}.flows.in .fv-emo span:nth-child(6){animation-delay:1.5s}
+.flow.play .fv-emo span{animation:fvTag 7s infinite}
+.flow.play .fv-emo span:nth-child(2){animation-delay:.3s}.flow.play .fv-emo span:nth-child(3){animation-delay:.6s}.flow.play .fv-emo span:nth-child(4){animation-delay:.9s}.flow.play .fv-emo span:nth-child(5){animation-delay:1.2s}.flow.play .fv-emo span:nth-child(6){animation-delay:1.5s}
 @media (max-width:720px){
   .plist{gap:10px}
   .prow{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"w t" "d d";align-items:center;column-gap:10px;row-gap:6px;background:#fff;border:1px solid var(--line);border-left:4px solid var(--amber);border-radius:12px;padding:14px 16px;box-shadow:0 4px 14px rgba(14,26,43,.05)}
@@ -1146,3 +1146,13 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .hero-fit{font-size:13.5px;margin-top:10px}
 @media (max-width:640px){.leak-cta2 .btn-row.two .btn{flex:1 1 0!important;width:auto!important}}
 @media (max-width:640px){.hero-fit span:first-child{display:inline}.hero-fit i{display:inline}}
+/* v27: flow cards animate when the card itself is in view, first change within ~0.5s */
+.flow.play .fviz *{animation-duration:5s!important;animation-delay:calc(var(--d,0s) - 1s)!important}
+/* v27: results cards — clear header, fewer words */
+.wc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wc-reg{display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,.08);border:1px solid var(--line-dark);border-radius:999px;padding:5px 11px}
+.wc-reg .flag{width:20px;height:13px;border-radius:2px;flex:none}
+.wc-dur{font-size:13px;color:var(--muted-dark);white-space:nowrap}
+.wc2 h3.wc-t{font-size:19px;margin:10px 0 0;color:#fff}
+.wmore .wc-h{color:#fff;font-weight:600}
+.work-grid .wc2 .wstats{margin-top:4px}

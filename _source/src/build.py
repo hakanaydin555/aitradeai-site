@@ -173,6 +173,10 @@ def footer(lang, on_home):
 
 
 
+FLAGS = {
+    "tr": '<svg class="flag" viewBox="0 0 30 20" aria-hidden="true"><rect width="30" height="20" fill="#E30A17"/><circle cx="11" cy="10" r="5" fill="#fff"/><circle cx="12.3" cy="10" r="4" fill="#E30A17"/><path d="M17.2 10l4.6-1.5-2.8 3.9V7.6l2.8 3.9z" fill="#fff"/></svg>',
+}
+
 LEAK_ICONS = [
     '<svg viewBox="0 0 24 24"><path d="M4 10v4h3l6 4V6L7 10H4z M16.5 9a4 4 0 0 1 0 6 M19 6.5a7.5 7.5 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
     '<svg viewBox="0 0 24 24"><path d="M3 4h2.5l2.2 10.5h10.6L20.5 7H7 M9 19.5a1 1 0 1 0 0 .01 M17 19.5a1 1 0 1 0 0 .01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round"/></svg>',
@@ -233,11 +237,10 @@ def home(lang):
         stats = "".join(f'<div><p class="wn">{e(n)}</p><p class="wl">{e(l)}</p></div>' for n, l in w["res"])
         tags = "".join(f"<span>{e(t)}</span>" for t in w["tags"])
         cards.append(f'''<article class="work-card wc2" aria-label="{e(h['case_l'])} {i + 1}">
-<p class="ex-k">{e(w['k'])}</p>
+<div class="wc-top"><span class="wc-reg">{"".join(FLAGS[x] for x in w.get('flags', []))}{e(w['reg'])}</span><span class="wc-dur">{e(w['dur'])}</span></div>
+<h3 class="wc-t">{e(w['sec'])}</h3>
 <div class="wstats">{stats}</div>
-<h3>{e(w['h'])}</h3>
-<p class="wt wdid">{e(h['did_l'])}</p><p class="wtags">{tags}</p>
-<details class="wmore"><summary>{e(h['more_l'])}</summary><p class="wtags wtags-m">{tags}</p><p>{e(w['ctx'])}</p><p>{e(w['brief'])}</p><p>{e(w['built'])}</p></details>
+<details class="wmore"><summary>{e(h['more_l'])}</summary><p class="wc-h">{e(w['h'])}</p><p class="wtags wtags-m">{tags}</p><p>{e(w['ctx'])}</p><p>{e(w['brief'])}</p><p>{e(w['built'])}</p></details>
 </article>''')
     dots = "".join(f'<button type="button" aria-label="{e(h["case_l"])} {i + 1}"{" aria-current=\"true\"" if i == 0 else ""}></button>' for i in range(len(h["work"])))
     out.append(f"""<section class="section dark results" id="work">

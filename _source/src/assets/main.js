@@ -128,6 +128,15 @@
   });
 
 
+  /* 3c2. Flow cards: play each card's animation only while it is visible */
+  var flowCards = document.querySelectorAll('.flows .flow');
+  if (flowCards.length && 'IntersectionObserver' in window) {
+    var fio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('play', en.isIntersecting); });
+    }, { threshold: 0.55 });
+    flowCards.forEach(function (c) { fio.observe(c); });
+  } else { flowCards.forEach(function (c) { c.classList.add('play'); }); }
+
   /* 3d. Profit-leak estimator (all assumptions visible on the page) */
   document.querySelectorAll('[data-calc]').forEach(function (box) {
     var lang = box.getAttribute('data-lang');

@@ -591,3 +591,14 @@ T["en"]["home"]["fit"] = "For growing e-commerce teams · Free · No commitment"
 T["tr"]["nav"]["calc"] = "Zarar hesaplayıcı"
 T["en"]["nav"]["calc"] = "Loss estimator"
 INDEXNOW_KEY = "483eea2aee8f3895838792c85163733f"
+
+# --- v27: results card header (region / duration / sector), flags ---
+for _l, _metas in (("tr", [("MENA", "5 ay", "Çok kanallı perakende platformu", []),
+                             ("Türkiye", "2 ay", "Global tüketici markası üreticisi", ["tr"]),
+                             ("Türkiye → BDT, Körfez", "2022–2024", "Sınır ötesi ticaret danışmanlığı", ["tr"])]),
+                   ("en", [("MENA", "5 months", "Omnichannel retail platform", []),
+                           ("Türkiye", "2 months", "Global consumer-brand manufacturer", ["tr"]),
+                           ("Türkiye → CIS, Gulf", "2022–2024", "Cross-border commerce advisory", ["tr"])])):
+    for _w, (_r, _d, _s, _f) in zip(T[_l]["home"]["work"], _metas):
+        _w.update({"reg": _r, "dur": _d, "sec": _s, "flags": _f})
+    T[_l]["home"]["work"][2]["res"] = T[_l]["home"]["work"][2]["res"][:2]
