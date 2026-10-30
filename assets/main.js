@@ -221,6 +221,46 @@
     calc();
   });
 
+  /* 3f. Ad click IDs: read from the URL into hidden form fields only (no cookies, no storage) */
+  (function () {
+    var q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+    document.querySelectorAll('input[data-track]').forEach(function (el) {
+      var v = q.get(el.name); if (v) el.value = v.slice(0, 200);
+    });
+  })();
+
+  /* 3g. Ad review form (/tr/reklam-degerlendirmesi) */
+  (function () {
+    var f = document.getElementById('adreview'); if (!f) return;
+    function v(n) { var el = f.elements[n]; return el ? String(el.value || '').trim() : ''; }
+    function bad(n, b) { var el = f.elements[n]; if (el) el.closest('.field').classList.toggle('invalid', b); }
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var okWeb = /^[^\s]+\.[a-z]{2,}([\/?#][^\s]*)?$/i.test(v('website').replace(/^https?:\/\//i, ''));
+      var okName = v('name').length > 1;
+      var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'));
+      var okRole = !!v('role'), okOrders = !!v('orders');
+      var consent = f.elements.consent && f.elements.consent.checked;
+      bad('website', !okWeb); bad('name', !okName); bad('email', !okMail); bad('role', !okRole); bad('orders', !okOrders);
+      var cb = f.querySelector('.consent'); if (cb) cb.classList.toggle('invalid', !consent);
+      if (!(okWeb && okName && okMail && okRole && okOrders && consent)) { var b = f.querySelector('.field.invalid input, .field.invalid select'); if (b) b.focus(); return; }
+      function done() { f.querySelector('.adr-step').hidden = true; f.querySelector('.adr-done').hidden = false; }
+      if (v('website2')) { done(); return; }
+      var d = new URLSearchParams();
+      d.append('form', 'ad_review'); d.append('lang', pageLang); d.append('page', location.pathname);
+      ['website', 'name', 'email', 'role', 'orders', 'gclid', 'utm_source', 'utm_campaign'].forEach(function (n) { d.append(n, v(n)); });
+      ['role', 'orders'].forEach(function (n) { var o = f.elements[n].selectedOptions[0]; d.append(n + '_i', o ? (o.getAttribute('data-i') || '') : ''); });
+      var btn = f.querySelector('button[type="submit"]'), err = f.querySelector('.form-error');
+      if (err) err.style.display = 'none'; btn.disabled = true;
+      var endpoint = window.AT_FORM_ENDPOINT;
+      if (!endpoint) { btn.disabled = false; done(); return; } /* preview mode */
+      fetch(endpoint, { method: 'POST', mode: 'no-cors', body: d })
+        .then(done)
+        .catch(function () { if (err) err.style.display = 'block'; })
+        .then(function () { btn.disabled = false; });
+    });
+  })();
+
   /* 4. Check-up form */
   var form = document.getElementById('checkup');
   if (!form) return;
@@ -297,7 +337,8 @@
     data.append('lang', pageLang);
     data.append('page', location.pathname);
     Object.keys(answers).forEach(function (k) { data.append(answers[k].key, answers[k].a); data.append(answers[k].key + '_i', answers[k].i); });
-    ['name', 'email', 'company', 'phone', 'website'].forEach(function (f) { data.append(f, val(f)); });
+    data.append('form', 'checkup');
+    ['name', 'email', 'company', 'phone', 'website', 'gclid', 'utm_source', 'utm_campaign'].forEach(function (f) { data.append(f, val(f)); });
     data.append('note', val('note') + (calcNote ? (val('note') ? '\n\n' : '') + '[' + (pageLang === 'tr' ? 'Hesaplayıcı' : 'Calculator') + '] ' + calcNote : ''));
 
     var btn = form.querySelector('button[type="submit"]');

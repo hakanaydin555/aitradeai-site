@@ -18,6 +18,7 @@ Results are measured as contribution profit, cash savings and team hours, not re
 - [Free check-up (English)](https://aitradeai.net/check-up): short form and call to find profit leaks
 - [Ana sayfa (Türkçe)](https://aitradeai.net/tr/): E-ticaretinizde para ve zaman kaybını buluyor, en önemlisini çözüyor, çalışan sistemi sekiz haftada ekibinize devrediyoruz. Ücretsiz check-up.
 - [Ücretsiz check-up (Türkçe)](https://aitradeai.net/tr/check-up)
+- [Ücretsiz reklam değerlendirmesi (Türkçe)](https://aitradeai.net/tr/reklam-degerlendirmesi): aktif reklamların dışarıdan incelenmesi, 1 iş gününde tek sayfalık not
 - [Privacy & KVKK](https://aitradeai.net/privacy) · [Gizlilik ve KVKK](https://aitradeai.net/tr/privacy)
 
 Note: AI Trade is an e-commerce profitability consultancy run by Hakan Aydın in Istanbul. It is not a crypto or trading bot, and not related to other products named "AI Trade".

@@ -654,3 +654,43 @@ for _l, _r in (("tr", "BDT · Körfez"), ("en", "CIS · Gulf")):
     T[_l]["home"]["work"][0].update({"reg": _r, "flags": ["tr", "arrow", "ru", "ae", "sa"]})
 T["tr"]["home"]["work"][3]["res"] = [["2M+", "başvuru işlemi"], ["Rekor", "Afrika'da talep toplama rekoru"]]
 T["en"]["home"]["work"][3]["res"] = [["2M+", "subscription transactions"], ["Record", "Africa's record for IPO demand"]]
+
+# --- v31: ad review page (TR), ad-measurement privacy sentence ---
+T["tr"]["ad"] = {
+    "title": "Ücretsiz reklam değerlendirmesi — AI Trade",
+    "desc": "Aktif reklamlarınızı dışarıdan inceleyip 1 iş günü içinde tek sayfalık değerlendirme notunu gönderiyoruz. Ücretsiz, taahhütsüz.",
+    "eyebrow": "Ücretsiz reklam değerlendirmesi",
+    "h1": "Reklamlarınız satın alınabilir bir sayfaya mı gidiyor?",
+    "lead": "Aktif reklamlarınızı dışarıdan inceleyip 1 iş günü içinde tek sayfalık değerlendirme notunu e-postanıza gönderiyoruz. Ücretsiz, taahhütsüz.",
+    "need": "Sizden yalnızca web sitenizi istiyoruz. Hesap erişimi ya da firma verisi gerekmez.",
+    "k": "Notta neye bakıyoruz",
+    "checks": [
+        ("Reklam ve sayfa uyumu", "Tükenmiş ürün, kırık link, fiyat ya da ürün uyumsuzluğu."),
+        ("Reklam yaşı", "Uzun süredir değişmeden yayında olan reklamlar, kreatif çeşitliliği."),
+        ("Teklif ve ürün seçimi", "Reklam verilen ürünler ve kampanya dili tutarlı mı."),
+        ("Ölçüm altyapısı", "Meta pikseli ve Google etiketi sitede görünüyor mu."),
+        ("Açılış sayfası", "Mobil hız ve sepete eklemeyi zorlaştıran bir şey var mı."),
+        ("Özet ve sonraki adım", "En önemli 1–2 gözlem, tek sayfada. Tutar iddiası yok."),
+    ],
+    "src": "Kaynaklar: Meta Reklam Kütüphanesi, Google Reklam Şeffaflık Merkezi, web siteniz ve PageSpeed.",
+    "f_h": "Değerlendirme notu isteyin",
+    "f_web": "Web siteniz", "e_web": "Lütfen web sitenizi yazın",
+    "f_name": "Ad soyad", "e_name": "Lütfen adınızı yazın",
+    "f_email": "E-posta", "e_email": "Lütfen geçerli bir e-posta adresi yazın",
+    "f_role": "Rolünüz", "roles": ["Firma sahibi / Genel müdür", "E-ticaret yöneticisi", "Pazarlama / reklam sorumlusu", "Ajans", "Diğer"],
+    "f_orders": "Aylık sipariş sayınız", "orders": ["1.000'den az", "1.000–5.000", "5.000–20.000", "20.000+"],
+    "pick": "Seçin", "e_pick": "Lütfen bir seçenek seçin",
+    "consent": "Bilgilerimin değerlendirme notunun hazırlanması ve benimle iletişim kurulması amacıyla, <a href=\"{privacy}\">aydınlatma metninde</a> açıklandığı şekilde işlenmesini kabul ediyorum.",
+    "submit": "Notu isteyin", "send_err": "Gönderilemedi. Lütfen tekrar deneyin ya da hakan.aydin@aitradeai.net adresine yazın.",
+    "d_h": "Teşekkürler.", "d_p": "Değerlendirme notunuz 1 iş günü içinde e-postanıza gelecek.",
+    "d_k": "Beklemek istemezseniz", "d_btn": "Check-up görüşmesi için saat seçin",
+    "d_more": "Notu aldıktan sonra, gözlemlerin kârınıza etkisini 30 dakikalık check-up görüşmesinde birlikte ölçebiliriz.",
+    "cu_link": "Daha kapsamlı bakmak isterseniz: ücretsiz check-up",
+}
+T["tr"]["privacy"]["body"].insert(-2, ("Reklam ölçümü", "Reklamlarımıza tıklayarak gelen ziyaretçilerin form başvurularında, reklam platformunun tıklamaya verdiği kimlik numarası (ör. Google gclid) kaydedilir ve yalnızca reklamın başvuruya dönüşüp dönüşmediğini ölçmek amacıyla ilgili platforma bildirilir. Bu işlem için çerez kullanılmaz."))
+T["en"]["privacy"]["body"].insert(-2, ("Ad measurement", "When a visitor arrives by clicking one of our ads and submits a form, the click ID the ad platform assigns to that click (e.g. Google's gclid) is recorded and reported only to that platform, solely to measure whether the ad led to an enquiry. No cookies are used for this."))
+T["tr"]["footer"]["ad"] = "Reklam değerlendirmesi"
+for _l, _add in (("tr", " Reklam değerlendirmesi talebinde: web siteniz, adınız, e-postanız, rolünüz ve aylık sipariş aralığınız."),
+                 ("en", " When you request an ad review: your website, name, email, role and monthly order range.")):
+    _b = T[_l]["privacy"]["body"]
+    _b[1] = (_b[1][0], _b[1][1] + _add)

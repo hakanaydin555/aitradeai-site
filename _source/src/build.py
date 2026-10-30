@@ -12,6 +12,7 @@ PAGES = {  # key: (en path, tr path, canonical en, canonical tr)
     "home": ("index.html", "tr/index.html", "/", "/tr/"),
     "cu": ("check-up.html", "tr/check-up.html", "/check-up", "/tr/check-up"),
     "privacy": ("privacy.html", "tr/privacy.html", "/privacy", "/tr/privacy"),
+    "ad": ("tr/reklam-degerlendirmesi.html", "tr/reklam-degerlendirmesi.html", "/tr/reklam-degerlendirmesi", "/tr/reklam-degerlendirmesi"),
 }
 
 e = html.escape
@@ -95,9 +96,7 @@ def head(lang, key, page):
 <title>{e(page['title'])}</title>
 <meta name="description" content="{e(page['desc'])}">
 <link rel="canonical" href="{canon}">
-<link rel="alternate" hreflang="en" href="{en_c}">
-<link rel="alternate" hreflang="tr" href="{tr_c}">
-<link rel="alternate" hreflang="x-default" href="{en_c}">
+{"" if en_c == tr_c else f'<link rel="alternate" hreflang="en" href="{en_c}">' + chr(10) + f'<link rel="alternate" hreflang="tr" href="{tr_c}">' + chr(10) + f'<link rel="alternate" hreflang="x-default" href="{en_c}">'}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="AI Trade">
 <meta property="og:title" content="{e(page['title'])}">
@@ -129,7 +128,7 @@ def header(lang, key, on_home):
     n = T[lang]["nav"]
     home = "" if on_home else rel(lang, lang, "home")
     other = "tr" if lang == "en" else "en"
-    l_en = rel(lang, "en", key)
+    l_en = rel(lang, "en", "home" if key == "ad" else key)
     l_tr = rel(lang, "tr", key)
     return f"""<header class="site-header">
 <div class="wrap">
@@ -162,6 +161,7 @@ def footer(lang, on_home):
 <a href="{home}#contact">{f['contact']}</a>
 <a href="{rel(lang, lang, 'privacy')}">{f['privacy']}</a>
 {'<a href="%skaynaklar/">%s</a>' % ("" if on_home else "../tr/", f['kb']) if lang == "tr" else ""}
+{'<a href="%sreklam-degerlendirmesi">%s</a>' % ("" if on_home else "../tr/", f['ad']) if lang == "tr" else ""}
 <a href="{LINKEDIN_CO}" target="_blank" rel="noopener">{f['li']}</a>
 </nav>
 </div>
@@ -541,6 +541,7 @@ def checkup(lang):
 <div class="field"><label for="f-website">{e(c['f_web'])}</label><input id="f-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required><span class="err">{e(c['e_web'])}</span></div>
 <div class="field"><label for="f-note">{e(c['f_note'])}</label><textarea id="f-note" name="note" rows="3" placeholder="{e(c['f_note_ph'])}"></textarea></div>
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
+{TRACK_FIELDS}
 <label class="consent"><input type="checkbox" name="consent"><span>{c['consent'].format(privacy=privacy)}</span></label>
 <p class="form-error" role="alert">{e(c['send_err'])}</p>
 <button class="btn btn-amber" type="submit" style="width:100%">{e(c['submit'])}</button>
@@ -606,6 +607,76 @@ def checkup(lang):
     return "".join(out)
 
 
+
+TRACK_FIELDS = '<input type="hidden" name="gclid" data-track><input type="hidden" name="utm_source" data-track><input type="hidden" name="utm_campaign" data-track>'
+AD_ICONS = [_A.format(p) for p in [
+    '<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
+    '<circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/>',
+    '<path d="M20 12l-8 8-8-8 8-8h6a2 2 0 0 1 2 2z"/><circle cx="15.5" cy="8.5" r="1.2"/>',
+    '<path d="M4 20h16M7 16V9M12 16V5M17 16v-4"/>',
+    '<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M11 18.5h2"/>',
+    '<path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5M9 13h7M9 17h5"/>',
+]]
+
+
+def ad_review(lang):
+    a = T[lang]["ad"]
+    privacy = rel(lang, lang, "privacy")
+    page = {"title": a["title"], "desc": a["desc"]}
+    checks = "".join(f'<div class="area"><span class="area-ic">{AD_ICONS[i]}</span><h3>{e(t)}</h3><p>{e(d)}</p></div>' for i, (t, d) in enumerate(a["checks"]))
+    def sel(name, label, opts):
+        o = "".join(f'<option value="{e(x)}" data-i="{i}">{e(x)}</option>' for i, x in enumerate(opts))
+        return f'<div class="field"><label for="a-{name}">{e(label)}</label><select id="a-{name}" name="{name}" required><option value="">{e(a["pick"])}</option>{o}</select><span class="err">{e(a["e_pick"])}</span></div>'
+    out = [head(lang, "ad", page), '<div class="dark">', header(lang, "ad", False), "</div>\n<main>"]
+    out.append(f"""<section class="cu adr">
+<div class="wrap">
+<div class="cu-copy">
+<p class="eyebrow">{e(a['eyebrow'])}</p>
+<h1>{e(a['h1'])}</h1>
+<p class="lead">{e(a['lead'])}</p>
+</div>
+<div class="cu-form-col">
+<form class="formcard" id="adreview" novalidate>
+<div class="adr-step">
+<h2>{e(a['f_h'])}</h2>
+<p class="adr-need">{e(a['need'])}</p>
+<div style="display:flex;flex-direction:column;gap:14px;margin-top:16px">
+<div class="field"><label for="a-website">{e(a['f_web'])}</label><input id="a-website" name="website" type="text" inputmode="url" autocomplete="url" placeholder="example.com" required><span class="err">{e(a['e_web'])}</span></div>
+<div class="field"><label for="a-name">{e(a['f_name'])}</label><input id="a-name" name="name" type="text" autocomplete="name" required><span class="err">{e(a['e_name'])}</span></div>
+<div class="field"><label for="a-email">{e(a['f_email'])}</label><input id="a-email" name="email" type="email" autocomplete="email" required><span class="err">{e(a['e_email'])}</span></div>
+<div class="row2">{sel('role', a['f_role'], a['roles'])}{sel('orders', a['f_orders'], a['orders'])}</div>
+<div style="position:absolute;left:-9999px" aria-hidden="true"><label for="a-web2">Website</label><input id="a-web2" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
+{TRACK_FIELDS}
+<label class="consent"><input type="checkbox" name="consent"><span>{a['consent'].format(privacy=privacy)}</span></label>
+<p class="form-error" role="alert">{e(a['send_err'])}</p>
+<button class="btn btn-amber" type="submit" style="width:100%">{e(a['submit'])}</button>
+</div>
+</div>
+<div class="adr-done" hidden>
+<svg class="done-icon" viewBox="0 0 44 44" aria-hidden="true"><circle cx="22" cy="22" r="21" fill="#FFF4E0"/><path d="M13 22.5l6 6 12-13" fill="none" stroke="#B45309" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<h2 style="margin-top:16px" role="status">{e(a['d_h'])}</h2>
+<p style="font-size:16px;color:var(--muted);margin:10px 0 14px">{e(a['d_p'])}</p>
+<p style="font-size:15px;color:var(--ink-2);margin:0 0 14px">{e(a['d_more'])}</p>
+<a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener" style="width:100%">{e(a['d_btn'])}</a>
+</div>
+</form>
+<p class="form-alt"><a href="{rel(lang, lang, 'cu')}">{e(a['cu_link'])} →</a></p>
+</div>
+</div>
+</section>
+<section class="section" id="checks">
+<div class="wrap">
+<h2 class="adr-k">{e(a['k'])}</h2>
+<div class="areas2">{checks}</div>
+<p class="adr-src">{e(a['src'])}</p>
+</div>
+</section>
+</main>
+""")
+    out.append(footer(lang, False))
+    return "".join(out)
+
+
 def privacy(lang):
     p = T[lang]["privacy"]
     out = [head(lang, "privacy", p), '<div class="dark">', header(lang, "privacy", False), "</div>\n<main>"]
@@ -637,6 +708,7 @@ Results are measured as contribution profit, cash savings and team hours, not re
 - [Free check-up (English)]({SITE}/check-up): short form and call to find profit leaks
 - [Ana sayfa (Türkçe)]({SITE}/tr/): {tr['home']['desc']}
 - [Ücretsiz check-up (Türkçe)]({SITE}/tr/check-up)
+- [Ücretsiz reklam değerlendirmesi (Türkçe)]({SITE}/tr/reklam-degerlendirmesi): aktif reklamların dışarıdan incelenmesi, 1 iş gününde tek sayfalık not
 - [Privacy & KVKK]({SITE}/privacy) · [Gizlilik ve KVKK]({SITE}/tr/privacy)
 
 Note: AI Trade is an e-commerce profitability consultancy run by Hakan Aydın in Istanbul. It is not a crypto or trading bot, and not related to other products named "AI Trade".
@@ -816,6 +888,7 @@ def kb_index():
 <p class="kb-lead">{e(i['lead'])}</p>
 <div class="kb-grid">{cards}</div>
 <aside class="kb-cta"><p>Kendi rakamlarınızla görmek isterseniz, kayıpları birlikte çıkaralım.</p><a class="btn btn-amber" href="../check-up">Ücretsiz check-up</a></aside>
+<p class="kb-adr">Aktif reklamlarınıza dışarıdan bakalım: <a href="../reklam-degerlendirmesi">ücretsiz reklam değerlendirmesi →</a></p>
 </div>
 </main>
 """
@@ -832,6 +905,8 @@ def main():
             path = PAGES[key][0 if lang == "en" else 1]
             with open(os.path.join(OUT, path), "w", encoding="utf-8") as f:
                 f.write(fn(lang))
+    with open(os.path.join(OUT, PAGES["ad"][1]), "w", encoding="utf-8") as f:
+        f.write(ad_review("tr"))
     os.makedirs(os.path.join(OUT, "tr", "kaynaklar"))
     with open(os.path.join(OUT, "tr", "kaynaklar", "index.html"), "w", encoding="utf-8") as f:
         f.write(kb_index())
@@ -846,7 +921,8 @@ def main():
         f.write("User-agent: *\nAllow: /\nSitemap: %s/sitemap.xml\n" % SITE)
     today = datetime.date.today().isoformat()
     urls = []
-    for key in PAGES:
+    urls.append("<url><loc>%s</loc><lastmod>%s</lastmod></url>" % (SITE + PAGES["ad"][3], today))
+    for key in [k for k in PAGES if k != "ad"]:
         en_c, tr_c = SITE + PAGES[key][2], SITE + PAGES[key][3]
         alts = ('<xhtml:link rel="alternate" hreflang="en" href="%s"/><xhtml:link rel="alternate" hreflang="tr" href="%s"/>'
                 '<xhtml:link rel="alternate" hreflang="x-default" href="%s"/>') % (en_c, tr_c, en_c)
