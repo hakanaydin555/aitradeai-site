@@ -9,9 +9,9 @@ var CAL_URL = 'https://calendar.app.google/qvtHpnCi4qVszRdK8';
 var SHEET_NAME = 'Başvurular';
 // v3 adds the last 8 columns; existing rows keep their place, headers are added to the right automatically.
 var COLUMNS = ['Tarih', 'Etiket', 'Puan', 'Ad soyad', 'Şirket', 'E-posta', 'Telefon', 'Web sitesi', 'Satış kanalı', 'Aylık sipariş', 'Ana sorun', 'Başlama zamanı', 'Rol', 'Not', 'Dil', 'Sayfa',
-               'Form', 'Kaynak', 'gclid', 'utm_campaign', 'Uygun mu', 'Not gönderildi', 'Check-up yapıldı'];
+               'Form', 'Kaynak', 'gclid', 'utm_campaign', 'Uygun mu', 'Not gönderildi', 'Check-up yapıldı', 'Müşteri (silme)'];
 var FIELDS  = ['_date', '_label', '_score', 'name',   'company', 'email',  'phone',  'website',   'channel',      'orders',        'concern',   'timing',          'role', 'note', 'lang', 'page',
-               '_form', '_source', 'gclid', 'utm_campaign', '', '', ''];
+               '_form', '_source', 'gclid', 'utm_campaign', '', '', '', ''];
 var FORM_NAMES = { checkup: 'Check-up', ad_review: 'Reklam değerlendirmesi' };
 
 // Points per answer, by option position in the form (same order in EN and TR).
@@ -160,4 +160,40 @@ function testSubmit() {
     channel: 'İkisi de', channel_i: '2', orders: '5.000–20.000', orders_i: '2', concern: 'Reklam verimliliği', concern_i: '1',
     timing: 'Bu ay', timing_i: '0', role: 'Şirket sahibi / Genel müdür', role_i: '0', note: 'Deneme'
   } });
+}
+
+
+/* ---------- KVKK: 12-month retention (aydınlatma metni §5) ---------- */
+var RETAIN_MONTHS = 12;
+
+/**
+ * Deletes enquiries older than 12 months from the "Başvurular" tab, unless the
+ * "Müşteri (silme)" column has any value (became a client → statutory retention applies),
+ * and moves the matching form notification emails older than 12 months to Gmail trash.
+ * Runs monthly once setupRetention() has been run.
+ */
+function purgeOldEnquiries() {
+  var sheet = getSheet_();
+  var data = sheet.getDataRange().getValues();
+  var head = data[0];
+  var cDate = head.indexOf('Tarih'), cKeep = head.indexOf('Müşteri (silme)');
+  var cut = new Date(); cut.setMonth(cut.getMonth() - RETAIN_MONTHS);
+  var removed = 0;
+  for (var r = data.length - 1; r >= 1; r--) {
+    var d = data[r][cDate];
+    var keep = cKeep >= 0 && String(data[r][cKeep] || '').trim() !== '';
+    if (d instanceof Date && d < cut && !keep) { sheet.deleteRow(r + 1); removed++; }
+  }
+  var threads = GmailApp.search('to:' + NOTIFY_TO + ' (subject:"Check-up talebi" OR subject:"Reklam değerlendirmesi") older_than:' + RETAIN_MONTHS + 'm', 0, 200);
+  threads.forEach(function (t) { t.moveToTrash(); });
+  console.log('KVKK temizlik: ' + removed + ' satır silindi, ' + threads.length + ' e-posta çöp kutusuna taşındı.');
+}
+
+/** Run once from the editor: schedules purgeOldEnquiries on the 1st of every month (~03:00). */
+function setupRetention() {
+  ScriptApp.getProjectTriggers().forEach(function (t) {
+    if (t.getHandlerFunction() === 'purgeOldEnquiries') ScriptApp.deleteTrigger(t);
+  });
+  ScriptApp.newTrigger('purgeOldEnquiries').timeBased().onMonthDay(1).atHour(3).create();
+  purgeOldEnquiries();
 }
