@@ -694,3 +694,15 @@ for _l, _add in (("tr", " Reklam değerlendirmesi talebinde: web siteniz, adın�
                  ("en", " When you request an ad review: your website, name, email, role and monthly order range.")):
     _b = T[_l]["privacy"]["body"]
     _b[1] = (_b[1][0], _b[1][1] + _add)
+
+# --- v32: KVKK aydınlatma metni v2, consent checkbox removed (Hakan, 1 Kasım 2026 incelemesi) ---
+import kvkk as _K
+for _l, _src in (("tr", _K.TR), ("en", _K.EN)):
+    T[_l]["privacy"].update({k: _src[k] for k in ("title", "desc", "h1", "body", "updated")})
+    T[_l]["privacy"]["draft"] = ""
+T["tr"]["cu"]["consent"] = _K.FORM_NOTE["cu_tr"]
+T["en"]["cu"]["consent"] = _K.FORM_NOTE["cu_en"]
+T["tr"]["ad"]["consent"] = _K.FORM_NOTE["ad_tr"]
+T["tr"]["cu"]["notes"] = ["Özet rakamlar yeterli; müşterilerinize ait kişisel veri istemiyoruz.", T["tr"]["cu"]["notes"][1]]
+T["en"]["cu"]["notes"] = ["Summary figures are enough; we don't need your customers' personal data.", T["en"]["cu"]["notes"][1]]
+T["tr"]["footer"]["privacy"] = "KVKK Aydınlatma Metni"

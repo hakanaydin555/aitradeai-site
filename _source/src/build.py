@@ -542,7 +542,7 @@ def checkup(lang):
 <div class="field"><label for="f-note">{e(c['f_note'])}</label><textarea id="f-note" name="note" rows="3" placeholder="{e(c['f_note_ph'])}"></textarea></div>
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="f-web">Website</label><input id="f-web" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
 {TRACK_FIELDS}
-<label class="consent"><input type="checkbox" name="consent"><span>{c['consent'].format(privacy=privacy)}</span></label>
+<p class="form-note">{c['consent'].format(privacy=privacy)}</p>
 <p class="form-error" role="alert">{e(c['send_err'])}</p>
 <button class="btn btn-amber" type="submit" style="width:100%">{e(c['submit'])}</button>
 </div>
@@ -647,7 +647,7 @@ def ad_review(lang):
 <div class="row2">{sel('role', a['f_role'], a['roles'])}{sel('orders', a['f_orders'], a['orders'])}</div>
 <div style="position:absolute;left:-9999px" aria-hidden="true"><label for="a-web2">Website</label><input id="a-web2" name="website2" type="text" tabindex="-1" autocomplete="off"></div>
 {TRACK_FIELDS}
-<label class="consent"><input type="checkbox" name="consent"><span>{a['consent'].format(privacy=privacy)}</span></label>
+<p class="form-note">{a['consent'].format(privacy=privacy)}</p>
 <p class="form-error" role="alert">{e(a['send_err'])}</p>
 <button class="btn btn-amber" type="submit" style="width:100%">{e(a['submit'])}</button>
 </div>
@@ -680,7 +680,19 @@ def ad_review(lang):
 def privacy(lang):
     p = T[lang]["privacy"]
     out = [head(lang, "privacy", p), '<div class="dark">', header(lang, "privacy", False), "</div>\n<main>"]
-    body = "".join(f"<h2>{e(h)}</h2><p>{e(t)}</p>" for h, t in p["body"])
+    def para(t):
+        out, items = [], []
+        for ln in t.split("\n"):
+            if ln.startswith("- "):
+                items.append(f"<li>{e(ln[2:])}</li>")
+            else:
+                if items:
+                    out.append("<ul>" + "".join(items) + "</ul>"); items = []
+                out.append(f"<p>{e(ln)}</p>")
+        if items:
+            out.append("<ul>" + "".join(items) + "</ul>")
+        return "".join(out)
+    body = (f'<p class="legal-upd">{e(p["updated"])}</p>' if p.get("updated") else "") + "".join(f"<h2>{e(h)}</h2>{para(t)}" for h, t in p["body"])
     draft = f'<p class="draft">{e(p["draft"])}</p>' if p["draft"] else ""
     out.append(f'<article class="legal">{draft}<h1>{e(p["h1"])}</h1>{body}</article>\n</main>\n')
     out.append(footer(lang, False))

@@ -1,14 +1,13 @@
-/* AI Trade — site script (no cookies, no trackers) */
+/* AI Trade — site script (no cookies, no browser storage) */
 (function () {
   'use strict';
   var doc = document.documentElement;
   var pageLang = doc.getAttribute('lang') || 'en';
 
-  function store(key, val) { try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; } }
 
   /* 1. Language: English for everyone; the TR link switches manually */
   document.querySelectorAll('[data-setlang]').forEach(function (a) {
-    a.addEventListener('click', function () { store('at-lang', a.getAttribute('data-setlang')); });
+    /* no storage: language is chosen by URL only */
   });
 
   /* 2. Mobile menu */
@@ -240,10 +239,8 @@
       var okName = v('name').length > 1;
       var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'));
       var okRole = !!v('role'), okOrders = !!v('orders');
-      var consent = f.elements.consent && f.elements.consent.checked;
       bad('website', !okWeb); bad('name', !okName); bad('email', !okMail); bad('role', !okRole); bad('orders', !okOrders);
-      var cb = f.querySelector('.consent'); if (cb) cb.classList.toggle('invalid', !consent);
-      if (!(okWeb && okName && okMail && okRole && okOrders && consent)) { var b = f.querySelector('.field.invalid input, .field.invalid select'); if (b) b.focus(); return; }
+      if (!(okWeb && okName && okMail && okRole && okOrders)) { var b = f.querySelector('.field.invalid input, .field.invalid select'); if (b) b.focus(); return; }
       function done() { f.querySelector('.adr-step').hidden = true; f.querySelector('.adr-done').hidden = false; }
       if (v('website2')) { done(); return; }
       var d = new URLSearchParams();
@@ -324,10 +321,8 @@
     var okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail);
     var okWeb = /^[^\s]+\.[a-z]{2,}([\/?#][^\s]*)?$/i.test(val('website').replace(/^https?:\/\//i, ''));
     var okCompany = val('company').length > 1;
-    var consent = form.elements.consent && form.elements.consent.checked;
     mark('name', !okName); mark('email', !okMail); mark('company', !okCompany); mark('website', !okWeb);
-    var cbox = form.querySelector('.consent'); if (cbox) cbox.classList.toggle('invalid', !consent);
-    if (!(okName && okMail && okCompany && okWeb && consent)) {
+    if (!(okName && okMail && okCompany && okWeb)) {
       var bad = form.querySelector('.field.invalid input'); if (bad) bad.focus();
       return;
     }

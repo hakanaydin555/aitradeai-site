@@ -1190,3 +1190,8 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 #checks{padding-top:48px}
 @media (max-width:860px){#checks{padding-top:8px}}
 .kb-adr{margin:16px 0 0;font-size:16px;color:var(--ink-2)}.kb-adr a{color:var(--amber-text);font-weight:600;text-decoration:none}
+/* v32: KVKK */
+.form-note{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:var(--muted)}
+.form-note a{color:var(--amber-text)}
+.legal-upd{font-size:14px;color:var(--muted);margin:-4px 0 18px}
+.legal ul{padding-left:20px;margin:6px 0 10px}.legal li{margin:5px 0}
