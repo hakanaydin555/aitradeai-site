@@ -941,8 +941,9 @@ def main():
                 '<xhtml:link rel="alternate" hreflang="x-default" href="%s"/>') % (en_c, tr_c, en_c)
         for loc in (en_c, tr_c):
             urls.append("<url><loc>%s</loc><lastmod>%s</lastmod>%s</url>" % (loc, today, alts))
-    for u in [KB_BASE] + [KB_BASE + p["slug"] for p in KB.PAGES]:
-        urls.append("<url><loc>%s</loc><lastmod>%s</lastmod></url>" % (u, KB.UPDATED))
+    kb_latest = max([KB.UPDATED] + [p.get("updated", KB.UPDATED) for p in KB.PAGES])
+    for u, d in [(KB_BASE, kb_latest)] + [(KB_BASE + p["slug"], p.get("updated", KB.UPDATED)) for p in KB.PAGES]:
+        urls.append("<url><loc>%s</loc><lastmod>%s</lastmod></url>" % (u, d))
     with open(os.path.join(OUT, "sitemap.xml"), "w") as f:
         f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
                 'xmlns:xhtml="http://www.w3.org/1999/xhtml">\n%s\n</urlset>\n' % "\n".join(urls))
