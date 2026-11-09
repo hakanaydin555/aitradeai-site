@@ -15,6 +15,58 @@ INDEX = {
 
 PAGES = [
 {
+"slug": "reklam-saglik-endeksi",
+"updated": "2026-11-09",
+"updated_tr": "9 Kasım 2026",
+"title": "Reklam Sağlık Endeksi, Kasım 2026: reklamların üçte biri boşa gidiyor — AI Trade",
+"desc": "Meta'da yayında olan 65 e-ticaret reklamını tıkladık: %34'ü satın alınamayan bir sayfaya gidiyor. Bir hafta sonra 22 sorunlu sayfanın 21'i aynıydı.",
+"card": "Reklam Sağlık Endeksi · Kasım 2026",
+"q": "Aktif reklamların kaçı satın alınamayan sayfaya gidiyor?",
+"h1": "Reklam Sağlık Endeksi, Kasım 2026: aktif e-ticaret reklamlarının kaçı satın alınamayan bir sayfaya gidiyor?",
+"answer": "Meta'da yayında olan Türk e-ticaret reklamlarının hedef sayfalarını tek tek açtık. **65 sayfanın %34'ü satın alınamıyordu:** ürün tükenmişti ya da link 404'e veya ürün yerine kategori sayfasına gidiyordu. Bir hafta sonra yeniden baktık; 22 sorunlu sayfanın 21'i aynı durumdaydı. Moda ve ayakkabıda oran %50'ye çıkıyor.",
+"body": """## Kasım sonuçları
+| Reklam tıklanınca açılan sayfa | Sayfa | Oran
+| Ürün sayfası çalışıyor, satın alınabiliyor | 38 | %58
+| Bazı beden veya renkler tükenmiş | 5 | %8
+| Ürün tükenmiş | 10 | %15
+| Kırık link: 404 ya da ürün yerine kategori sayfası | 12 | %18
+| **Satın alınamıyor (tükenmiş + kırık link)** | **22** | **%34**
+> 65 benzersiz sayfa, 50 marka. Ölçüm tarihi: 5 Kasım 2026.
+Markaların %36'sının (50 markadan 18'i) en az bir reklamı satın alınamayan bir sayfaya gidiyor.
+## Bir hafta sonra ne değişti?
+Aynı sayfaları 28–29 Ekim ve 5 Kasım'da iki kez açtık. Oran iki ölçümde de %34 çıktı. İlk ölçümde sorunlu olan 22 sayfanın 21'i bir hafta sonra hâlâ satın alınamıyordu: kırık linklerin hiçbiri düzeltilmemişti, tükenmiş 10 üründen 9'u hâlâ tükenmişti.
+## Hangi kategorilerde daha sık?
+| Kategori | Sayfa | Satın alınamıyor
+| Moda ve ayakkabı | 32 | %50
+| Diğer kategoriler | 33 | %18
+> Diğer: takı ve saat, elektronik, ev ve gıda, hırdavat ve oto bakım, parfüm, spor. Kategori başına sayfa sayısı küçük; oranları yön göstergesi olarak okuyun.
+Beden ve renk çeşidi fazla olan ürünlerde tek bir varyant bitince reklam açık kalıyor; ziyaretçi aradığını bulamıyor.
+## Bütçeye etkisi ne olabilir?
+> Örnek hesap, varsayım: harcama reklamlar arasında eşit dağılıyor.
+Aylık 100.000 TL reklam bütçesinin yaklaşık 34.000 TL'si satın alınamayan sayfalara giden tıklamalara harcanır. Reklam başına harcama Reklam Kütüphanesi'nde görünmediği için gerçek etki sizin hesabınızda daha yüksek ya da düşük olabilir.
+## Kendi reklamlarınızı nasıl kontrol edersiniz?
+1. Meta Reklam Kütüphanesi'nde markanızı açın ve aktif reklamların hedef linklerini listeleyin.
+1. Her linki telefondan açın: ürün mü, kategori sayfası mı, 404 mü?
+1. Stoku beden ve renk düzeyinde kontrol edin: reklamdaki varyant satın alınabiliyor mu?
+1. Fiyatı ve ürün bilgisini (gramaj, renk, model) reklamla karşılaştırın.
+1. Stok bitince reklamı durduran ya da başka ürüne yönlendiren bir kural kurun. Ayrıntılar: [Stokta olmayan ürüne reklam rehberi](stoksuz-urune-reklam).
+## Nasıl ölçtük?
+- **Kaynak:** Meta Reklam Kütüphanesi, Türkiye, aktif reklamlar. Anahtar kelime aramalarıyla 197 hedef adres toplandı; uygulama, pazar yeri ve sosyal medya linkleri çıkarıldı.
+- **Örneklem:** 50 marka, 65 benzersiz ürün veya kampanya sayfası; markalar listeden sıralı ve sistematik seçildi.
+- **Kontrol:** Her sayfa tarayıcıda açıldı; 404 ve yönlendirme, sayfadaki stok verisi, beden ve renk bazında stok ve "Tükendi", "Gelince haber ver" gibi ifadeler kontrol edildi.
+- **Sınırlar:** "Aktif" reklam, harcama yapıldığını göstermez; uzun süredir açık reklamlar fazla temsil edilmiş olabilir. Örneklem küçük: gerçek oran %23–46 aralığında olabilir (%95 güven). Marka adı yayımlanmaz.
+Endeksi her ay aynı yöntemle tekrarlıyoruz. Bir sonraki sayı: Aralık 2026. Alıntılarken kaynak gösterin: "AI Trade Reklam Sağlık Endeksi, Kasım 2026".""",
+"faq": [
+("Hangi markaların reklamları sorunlu?", "Marka adı yayımlamıyoruz. Amaç bir markayı göstermek değil, sorunun ne kadar yaygın olduğunu ölçmek."),
+("Oran neden iki ölçümde de aynı çıktı?", "Sorunlu sayfalar bir hafta içinde neredeyse hiç düzeltilmedi. Reklam paneli tıklamayı ve harcamayı gösterir, hedef sayfanın satın alınabilir olup olmadığını göstermez; bu yüzden sorun fark edilmeden sürer."),
+("Kendi reklamlarımın durumunu nasıl öğrenirim?", "Yukarıdaki 5 adımı kendiniz uygulayabilirsiniz. İsterseniz web sitenizi yazın; aktif reklamlarınızı tek tek açıp 1 iş günü içinde tek sayfalık not gönderelim."),
+],
+"related": ["stoksuz-urune-reklam", "stok-kaynakli-iptal"],
+"cta": "Sizin reklamlarınız nereye gidiyor? Web sitenizi yazın, aktif reklamlarınızı tek tek açıp 1 iş günü içinde tek sayfalık not gönderelim. Ücretsiz, taahhütsüz.",
+"cta_href": "../reklam-degerlendirmesi",
+"cta_btn": "Ücretsiz reklam değerlendirmesi",
+},
+{
 "slug": "kampanya-karliligi",
 "title": "Kampanya kârlı mı? Katkı kârı hesabı — AI Trade",
 "desc": "%20 indirim sipariş başına kârı %78 azaltabilir. Komisyon, kargo, reklam ve iade dahil katkı kârını ve gereken ek satışı hesaplayın.",
@@ -64,7 +116,8 @@ Başabaş indirimi, katkı kârını sıfıra indiren fiyattır. Örnekte deği�
 "q": "Stok bitince reklam neden durmalı?",
 "h1": "Stokta olmayan ürüne reklam harcaması nasıl bulunur ve durdurulur?",
 "answer": "Stokta olmayan ürüne harcanan reklam bütçesini bulmak için son 30 günün ürün bazında reklam harcamasını, aynı günlerin stok durumuyla eşleştirin: stok sıfırken harcanan tutar boşa giden bütçedir. Kalıcı çözüm, stok sıfıra indiğinde reklamı otomatik durduran bir kuraldır.",
-"body": """## Bu kayıp neden fark edilmez?
+"body": """> Kasım 2026 ölçümümüzde Meta'da yayında olan e-ticaret reklamlarının %34'ü satın alınamayan bir sayfaya gidiyordu. Ayrıntılar: [Reklam Sağlık Endeksi](reklam-saglik-endeksi).
+## Bu kayıp neden fark edilmez?
 Reklam paneli harcamayı ve tıklamayı gösterir, stok durumunu göstermez. Stok ekibi ile reklam ekibi farklı ekranlara bakar; ürün tükendiğinde kimse reklamı kapatmayı kendi işi olarak görmez. Sonuç: tıklama gelir, satış gelmez ve reklam algoritması o ürünün "dönüşmediğini" öğrenir.
 ## Hangi durumlarda olur?
 - **Ürün katalogları seyrek güncelleniyorsa:** katalog reklamları stok durumunu katalogdaki alandan okur. Katalog günde bir ya da daha seyrek güncelleniyorsa, tükenen ürün saatlerce reklamda kalır.
@@ -90,7 +143,7 @@ Aylık reklam harcaması 200.000 TL; eşleştirmede stok sıfırken harcanan tut
 ("Kayıp oranı ne kadar olursa sorun sayılır?", "Sabit bir eşik yok; ama bütçenin birkaç yüzdesi bile yıllıkta büyük bir tutardır. Asıl gösterge, kayıp oranının ay ay düşüp düşmediğidir."),
 ("Bu kontrolü her ay elle mi yapmalıyım?", "İlk sefer elle yapılır; sonra stok ve reklam verisini her gün eşleştiren otomatik bir rapor kurulur."),
 ],
-"related": ["stok-kaynakli-iptal", "rapor-otomasyonu"],
+"related": ["reklam-saglik-endeksi", "stok-kaynakli-iptal"],
 "cta": "Reklam ve stok verinizi birlikte eşleştirip kaybı çıkaralım.",
 },
 {

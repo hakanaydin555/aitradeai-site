@@ -756,6 +756,7 @@ import re as _re
 
 def _inline(t):
     t = e(t)
+    t = _re.sub(r"\[([^\]]+)\]\(([a-z0-9/#:.\-]+)\)", r'<a href="\2">\1</a>', t)
     return _re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
 
 
@@ -854,7 +855,7 @@ def kb_page(p):
     graph = [
         org,
         {"@type": "Article", "@id": canon + "#article", "headline": p["h1"], "description": p["desc"], "inLanguage": "tr",
-         "datePublished": KB.UPDATED, "dateModified": KB.UPDATED, "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID},
+         "datePublished": p.get("updated", KB.UPDATED), "dateModified": p.get("updated", KB.UPDATED), "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID},
          "mainEntityOfPage": canon, "image": SITE + "/assets/og-tr.png"},
         {"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": "tr", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p["faq"]]},
@@ -868,13 +869,13 @@ def kb_page(p):
 <nav class="kb-crumb" aria-label="Konum"><a href="../">Ana sayfa</a><span>›</span><a href="./">Kaynaklar</a></nav>
 <article>
 <h1>{e(p['h1'])}</h1>
-<p class="kb-meta">Hazırlayan: AI Trade · Son güncelleme: <time datetime="{KB.UPDATED}">{KB.UPDATED_TR}</time></p>
+<p class="kb-meta">Hazırlayan: AI Trade · Son güncelleme: <time datetime="{p.get('updated', KB.UPDATED)}">{p.get('updated_tr', KB.UPDATED_TR)}</time></p>
 <p class="kb-answer">{_inline(p['answer'])}</p>
 {kb_body(p['body'])}
 <h2>Sık sorulanlar</h2>
 <div class="sss-list">{faq}</div>
 </article>
-<aside class="kb-cta"><p>{e(p['cta'])}</p><a class="btn btn-amber" href="../check-up">Ücretsiz check-up</a></aside>
+<aside class="kb-cta"><p>{e(p['cta'])}</p><a class="btn btn-amber" href="{p.get('cta_href', '../check-up')}">{e(p.get('cta_btn', 'Ücretsiz check-up'))}</a></aside>
 <section class="kb-rel"><h2>İlgili rehberler</h2><ul>{rel_}</ul></section>
 </div>
 </main>
