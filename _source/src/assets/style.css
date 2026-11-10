@@ -1195,3 +1195,13 @@ h1,h2,h3,.brand,.panel-title,.prow .t,.measure-grid .k,.case .big,.btn,.eyebrow,
 .form-note a{color:var(--amber-text)}
 .legal-upd{font-size:14px;color:var(--muted);margin:-4px 0 18px}
 .legal ul{padding-left:20px;margin:6px 0 10px}.legal li{margin:5px 0}
+
+/* v16: dar telefonlarda (≤380px) başlık tek satırda kalsın */
+.brand,.nav .btn{white-space:nowrap}
+@media (max-width:380px){
+  .site-header .wrap{gap:8px;padding:0 16px}
+  .nav{gap:6px}
+  .lang a{padding:0 10px}
+  .nav .btn{padding:8px 14px}
+  .menu-btn{width:40px}
+}
