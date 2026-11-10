@@ -60,10 +60,12 @@ def schema(lang, key, page, canon):
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in T[lang]["home"]["sss"]]})
     if key == "cu":
         c = T[lang]["cu"]
-        graph.append({"@type": "Service", "@id": canon + "#service", "name": c["h1"], "description": page["desc"],
+        graph.append({"@type": "Service", "@id": canon + "#service",
+                      "name": "Ücretsiz e-ticaret kârlılık check-up'ı" if lang == "tr" else "Free e-commerce profitability check-up",
+                      "description": page["desc"],
                       "serviceType": "E-commerce profitability check-up", "provider": {"@id": ORG_ID},
-                      "areaServed": "TR", "url": canon,
-                      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD", "url": canon}})
+                      "areaServed": [{"@type": "Country", "name": "Türkiye"}, "MENA", "CIS"], "url": canon,
+                      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "TRY" if lang == "tr" else "USD", "url": canon}})
         graph.append({"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": lang, "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in c["faq"]]})
     data = json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False, separators=(",", ":"))
@@ -225,6 +227,7 @@ def home(lang):
 <ol class="nodes">{nodes}</ol>
 </div>
 <div class="leak-cta2"><p>{e(h['leak_q'])}</p><div class="btn-row two"><a class="btn btn-amber" href="{rel(lang, lang, 'cu')}">{e(h['btn_cu'])}</a><a class="btn btn-est" href="#estimate">{e(h['btn_est'])}</a></div></div>
+{LEAK_INDEX if lang == "tr" else ""}
 </div>
 </section>
 """)
@@ -554,7 +557,6 @@ def checkup(lang):
 <a class="btn btn-amber" href="{CAL}" target="_blank" rel="noopener" style="width:100%">{e(c['d_btn'])}</a>
 <div class="next-steps"><strong>{e(c['next_h'])}</strong><ol>{"".join(f"<li>{e(x)}</li>" for x in c['next'])}</ol></div>
 <div class="summary" style="margin-top:18px"><strong>{e(c['d_sum'])}</strong><div class="summary-list"></div></div>
-<p class="est-try">{e(c['est_try'])} <a class="btn btn-est" href="{rel(lang, lang, 'home')}#estimate">{e(c['est_btn'])}</a></p>
 <button type="button" class="back restart" style="color:var(--amber-text);font-weight:600">{e(c['restart'])}</button>
 </div>
 <button type="button" class="back" hidden>{e(c['back'])}</button>
@@ -661,6 +663,7 @@ def ad_review(lang):
 </div>
 </form>
 <p class="form-alt"><a href="{rel(lang, lang, 'cu')}">{e(a['cu_link'])} →</a></p>
+<p class="adr-index">Neden önemli? <a href="kaynaklar/reklam-saglik-endeksi">Reklam Sağlık Endeksi, Kasım 2026</a>: incelediğimiz aktif e-ticaret reklamlarının %34'ü satın alınamayan bir sayfaya gidiyordu.</p>
 </div>
 </div>
 </section>
@@ -703,7 +706,9 @@ def llms_txt():
     """Plain summary for AI assistants and crawlers (llms.txt convention)."""
     en, tr = T["en"], T["tr"]
     plan = "\n".join("- %s (%s): %s" % (t, w, d) for w, t, d in en["home"]["plan"])
-    kb_lines = "\n".join("- [%s](%s/tr/kaynaklar/%s): %s" % (p["h1"], SITE, p["slug"], p["desc"]) for p in KB.PAGES)
+    kb_lines = "\n".join("- [%s](%s/tr/kaynaklar/%s): %s%s" % (p["h1"], SITE, p["slug"], p["desc"],
+                         (" Kalıcı adres (%s sayısı): %s/tr/kaynaklar/%s" % (p["issue_tr"], SITE, kb_archive_slug(p))) if p.get("issue") else "")
+                         for p in KB.PAGES)
     return f"""# AI Trade
 
 > {en['home']['desc']}
@@ -846,17 +851,45 @@ def _crumbs(items):
 
 
 KB_BASE = SITE + "/tr/kaynaklar/"
+LEAK_INDEX = ('<a class="leak-index" href="kaynaklar/reklam-saglik-endeksi">'
+              '<span class="li-n">%34</span>'
+              '<span class="li-t"><span class="li-k">Araştırma · Reklam Sağlık Endeksi</span>'
+              '<span class="li-p">Aktif e-ticaret reklamlarının %34\'ü satın alınamayan bir sayfaya gidiyor.</span>'
+              '<span class="li-m">65 reklam sayfası · 50 marka · Kasım 2026 · Kaynak: Meta Reklam Kütüphanesi</span>'
+              '<span class="li-go">Yöntem ve sonuçlar →</span></span></a>')
 
 
-def kb_page(p):
+KB_MID_DEFAULT = ("Bu hesabı kendi rakamlarınızla görmek ister misiniz? Kayıpları birlikte çıkaralım.", "../check-up", "Ücretsiz check-up")
+
+
+def _with_mid(body_text, mid):
+    """Insert a compact CTA before the second '## ' heading of the article body."""
+    lines = body_text.split("\n")
+    heads = [i for i, ln in enumerate(lines) if ln.startswith("## ")]
+    html_mid = (f'<aside class="kb-mid"><p>{e(mid[0])}</p><a href="{mid[1]}">{e(mid[2])} →</a></aside>')
+    if len(heads) < 2:
+        return kb_body(body_text) + html_mid
+    cut = heads[1]
+    return kb_body("\n".join(lines[:cut])) + html_mid + kb_body("\n".join(lines[cut:]))
+
+
+def kb_archive_slug(p):
+    return p["slug"] + "-" + p["issue"]
+
+
+def kb_page(p, archive=False):
     by = {x["slug"]: x for x in KB.PAGES}
     canon = KB_BASE + p["slug"]
+    self_url = KB_BASE + kb_archive_slug(p) if archive else canon
+    if archive:
+        # While the archived issue is also the latest issue, point search engines to the main URL (no duplicate).
+        canon = canon if p.get("issue_is_latest", True) else self_url
     org = {"@type": "Organization", "@id": ORG_ID, "name": "AI Trade", "url": SITE + "/"}
     graph = [
         org,
         {"@type": "Article", "@id": canon + "#article", "headline": p["h1"], "description": p["desc"], "inLanguage": "tr",
          "datePublished": p.get("updated", KB.UPDATED), "dateModified": p.get("updated", KB.UPDATED), "author": {"@id": ORG_ID}, "publisher": {"@id": ORG_ID},
-         "mainEntityOfPage": canon, "image": SITE + "/assets/og-tr.png"},
+         "mainEntityOfPage": canon, "url": self_url, "image": SITE + "/assets/og-tr.png"},
         {"@type": "FAQPage", "@id": canon + "#faq", "inLanguage": "tr", "mainEntity": [
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in p["faq"]]},
         _crumbs([("Ana sayfa", SITE + "/tr/"), ("Kaynaklar", KB_BASE), (p["card"], canon)]),
@@ -864,14 +897,22 @@ def kb_page(p):
     faq = "".join(f'<details class="sss-i"><summary>{e(q)}</summary><p>{e(a)}</p></details>' for q, a in p["faq"])
     rel_ = "".join(f'<li><a href="{r}">{e(by[r]["card"])}</a><span>{e(by[r]["q"])}</span></li>' for r in p["related"])
     hdr = _deep('<div class="dark">' + header("tr", "home", False) + "</div>")
+    issue_box = ""
+    if p.get("issue"):
+        if archive:
+            issue_box = (f'<p class="kb-issue">{e(p["issue_tr"])} sayısının kalıcı adresi. '
+                         f'<a href="{p["slug"]}">En güncel sayı →</a></p>')
+        else:
+            issue_box = (f'<p class="kb-issue">Bu sayı: {e(p["issue_tr"])} · Alıntı için kalıcı adres: '
+                         f'<a href="{kb_archive_slug(p)}">aitradeai.net/tr/kaynaklar/{kb_archive_slug(p)}</a></p>')
     body = f"""<main class="kb">
 <div class="wrap kb-wrap">
 <nav class="kb-crumb" aria-label="Konum"><a href="../">Ana sayfa</a><span>›</span><a href="./">Kaynaklar</a></nav>
 <article>
 <h1>{e(p['h1'])}</h1>
 <p class="kb-meta">Hazırlayan: AI Trade · Son güncelleme: <time datetime="{p.get('updated', KB.UPDATED)}">{p.get('updated_tr', KB.UPDATED_TR)}</time></p>
-<p class="kb-answer">{_inline(p['answer'])}</p>
-{kb_body(p['body'])}
+{issue_box}<p class="kb-answer">{_inline(p['answer'])}</p>
+{_with_mid(p['body'], p.get('mid', KB_MID_DEFAULT))}
 <h2>Sık sorulanlar</h2>
 <div class="sss-list">{faq}</div>
 </article>
@@ -880,7 +921,8 @@ def kb_page(p):
 </div>
 </main>
 """
-    return kb_head(p["title"], p["desc"], canon, graph) + hdr + body + _deep(footer("tr", False))
+    title = p["title"] + (" (arşiv)" if archive else "")
+    return kb_head(title, p["desc"], canon, graph) + hdr + body + _deep(footer("tr", False))
 
 
 def kb_index():
@@ -926,6 +968,9 @@ def main():
     for p in KB.PAGES:
         with open(os.path.join(OUT, "tr", "kaynaklar", p["slug"] + ".html"), "w", encoding="utf-8") as f:
             f.write(kb_page(p))
+        if p.get("issue"):
+            with open(os.path.join(OUT, "tr", "kaynaklar", kb_archive_slug(p) + ".html"), "w", encoding="utf-8") as f:
+                f.write(kb_page(p, archive=True))
     with open(os.path.join(OUT, INDEXNOW_KEY + ".txt"), "w") as f:
         f.write(INDEXNOW_KEY)
     with open(os.path.join(OUT, "CNAME"), "w") as f:

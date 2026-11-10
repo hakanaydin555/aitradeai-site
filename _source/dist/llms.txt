@@ -25,7 +25,7 @@ Note: AI Trade is an e-commerce profitability consultancy run by Hakan Aydın in
 
 ## Kaynaklar (Turkish guides)
 - [Kaynaklar](https://aitradeai.net/tr/kaynaklar/): Kampanya kârı, stok, iptal, iade, kargo ve rapor otomasyonu için hesap örnekleri ve kontrol listeleri.
-- [Reklam Sağlık Endeksi, Kasım 2026: aktif e-ticaret reklamlarının kaçı satın alınamayan bir sayfaya gidiyor?](https://aitradeai.net/tr/kaynaklar/reklam-saglik-endeksi): Meta'da yayında olan 65 e-ticaret reklamını tıkladık: %34'ü satın alınamayan bir sayfaya gidiyor. Bir hafta sonra 22 sorunlu sayfanın 21'i aynıydı.
+- [Reklam Sağlık Endeksi, Kasım 2026: aktif e-ticaret reklamlarının kaçı satın alınamayan bir sayfaya gidiyor?](https://aitradeai.net/tr/kaynaklar/reklam-saglik-endeksi): Meta'da yayında olan 65 e-ticaret reklamını tıkladık: %34'ü satın alınamayan bir sayfaya gidiyor. Bir hafta sonra 22 sorunlu sayfanın 21'i aynıydı. Kalıcı adres (Kasım 2026 sayısı): https://aitradeai.net/tr/kaynaklar/reklam-saglik-endeksi-2026-11
 - [Pazar yerinde kampanya kârlı mı? Katkı kârı nasıl hesaplanır?](https://aitradeai.net/tr/kaynaklar/kampanya-karliligi): %20 indirim sipariş başına kârı %78 azaltabilir. Komisyon, kargo, reklam ve iade dahil katkı kârını ve gereken ek satışı hesaplayın.
 - [Stokta olmayan ürüne reklam harcaması nasıl bulunur ve durdurulur?](https://aitradeai.net/tr/kaynaklar/stoksuz-urune-reklam): Stok bittiği halde reklamı süren ürünler bütçeyi sessizce eritir. 30 dakikada kaybı bulmanın adımları ve otomatik durdurma kuralı.
 - [Stok kaynaklı iptal e-ticarette gerçekte kaça mal olur?](https://aitradeai.net/tr/kaynaklar/stok-kaynakli-iptal): Stok kaynaklı bir iptal üç kez ödetir: kaybedilen kâr, boşa giden reklam ve düşen mağaza puanı. Maliyeti hesaplayın, oranı düşürün.

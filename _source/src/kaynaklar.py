@@ -16,9 +16,12 @@ INDEX = {
 PAGES = [
 {
 "slug": "reklam-saglik-endeksi",
+"issue": "2026-11",
+"issue_tr": "Kasım 2026",
+"mid": ("Sizin reklamlarınız bu %34'te mi? Aktif reklamlarınızı tek tek açıp 1 iş günü içinde not gönderelim.", "../reklam-degerlendirmesi", "Ücretsiz değerlendirme"),
 "updated": "2026-11-09",
 "updated_tr": "9 Kasım 2026",
-"title": "Reklam Sağlık Endeksi, Kasım 2026: reklamların üçte biri boşa gidiyor — AI Trade",
+"title": "Reklam Sağlık Endeksi Kasım 2026: reklamların %34'ü boşa gidiyor olabilir",
 "desc": "Meta'da yayında olan 65 e-ticaret reklamını tıkladık: %34'ü satın alınamayan bir sayfaya gidiyor. Bir hafta sonra 22 sorunlu sayfanın 21'i aynıydı.",
 "card": "Reklam Sağlık Endeksi · Kasım 2026",
 "q": "Aktif reklamların kaçı satın alınamayan sayfaya gidiyor?",
@@ -144,7 +147,10 @@ Aylık reklam harcaması 200.000 TL; eşleştirmede stok sıfırken harcanan tut
 ("Bu kontrolü her ay elle mi yapmalıyım?", "İlk sefer elle yapılır; sonra stok ve reklam verisini her gün eşleştiren otomatik bir rapor kurulur."),
 ],
 "related": ["reklam-saglik-endeksi", "stok-kaynakli-iptal"],
-"cta": "Reklam ve stok verinizi birlikte eşleştirip kaybı çıkaralım.",
+"cta": "Reklam ve stok verinizi birlikte eşleştirip kaybı çıkaralım. İlk adım: aktif reklamlarınıza ücretsiz bakalım.",
+"cta_href": "../reklam-degerlendirmesi",
+"cta_btn": "Ücretsiz reklam değerlendirmesi",
+"mid": ("Aktif reklamlarınızdan kaçı tükenmiş ürüne gidiyor? Web sitenizi yazın, 1 iş günü içinde ücretsiz not gönderelim.", "../reklam-degerlendirmesi", "Ücretsiz değerlendirme"),
 },
 {
 "slug": "stok-kaynakli-iptal",

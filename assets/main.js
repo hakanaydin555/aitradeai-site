@@ -71,7 +71,7 @@
     });
     if (fab) {
       fab.classList.toggle('show', window.scrollY > vh * 0.6);
-      var hideOn = document.querySelectorAll('#estimate .calc, #contact');
+      var hideOn = document.querySelectorAll('#estimate .calc, #contact, #checkup, #adreview');
       var over = false;
       hideOn.forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > vh - 120) over = true; });
       fab.classList.toggle('hide', over);
@@ -190,7 +190,10 @@
       var sum = lang === 'tr'
         ? 'Ciro ' + money(rev) + '/ay, reklam ' + money(ads) + '/ay, indirimli pay %' + num('disc') + ', iade %' + num('ret') + ', kargo/elleçleme %' + num('logi') + ', manuel iş ' + hrs + ' saat/hafta → tahmini kâr ≈' + money(mid(tot), true) + '/yıl (' + range(tot[0], tot[1]) + '), ≈' + Math.round(wk) + ' saat/hafta'
         : 'Revenue ' + money(rev) + '/mo, ads ' + money(ads) + '/mo, discounted ' + num('disc') + '%, returns ' + num('ret') + '%, shipping/fulfilment ' + num('logi') + '%, manual work ' + hrs + ' h/week → est. profit ≈' + money(mid(tot), true) + '/yr (' + range(tot[0], tot[1]) + '), ≈' + Math.round(wk) + ' h/week';
-      if (cta) cta.href = cuUrl + '?calc=' + encodeURIComponent(sum);
+      if (cta) {
+        var tq = ''; try { var lq = new URLSearchParams(location.search); ['gclid', 'utm_source', 'utm_campaign'].forEach(function (k) { var v = lq.get(k); if (v) tq += '&' + k + '=' + encodeURIComponent(v.slice(0, 200)); }); } catch (e) {}
+        cta.href = cuUrl + '?calc=' + encodeURIComponent(sum) + tq;
+      }
     }
     box.querySelectorAll('input').forEach(function (el) {
       el.addEventListener('input', calc);
@@ -226,13 +229,36 @@
     document.querySelectorAll('input[data-track]').forEach(function (el) {
       var v = q.get(el.name); if (v) el.value = v.slice(0, 200);
     });
+    /* Carry gclid/utm onto internal links to the forms, so the source is not lost on the way (no cookies, no storage) */
+    var keep = new URLSearchParams();
+    ['gclid', 'utm_source', 'utm_campaign'].forEach(function (k) { var v = q.get(k); if (v) keep.set(k, v.slice(0, 200)); });
+    if (!keep.toString()) return;
+    document.querySelectorAll('a[href]').forEach(function (a) {
+      var h = a.getAttribute('href');
+      if (!/(^|\/)(check-up|reklam-degerlendirmesi)(\.html)?(\?|#|$)/.test(h) || /^https?:/i.test(h)) return;
+      var parts = h.split('#'), base = parts[0], hash = parts[1] ? '#' + parts[1] : '';
+      var u = new URLSearchParams(base.indexOf('?') > -1 ? base.split('?')[1] : '');
+      keep.forEach(function (v, k) { if (!u.has(k)) u.set(k, v); });
+      a.setAttribute('href', base.split('?')[0] + '?' + u.toString() + hash);
+    });
   })();
+
+  /* Form errors: tell screen readers which field is wrong and why */
+  function setInvalid(el, b) {
+    if (!el) return;
+    var field = el.closest('.field'); if (!field) return;
+    field.classList.toggle('invalid', b);
+    var msg = field.querySelector('.err');
+    if (msg && !msg.id) msg.id = 'err-' + (el.id || el.name);
+    if (b) { el.setAttribute('aria-invalid', 'true'); if (msg) el.setAttribute('aria-describedby', msg.id); }
+    else { el.removeAttribute('aria-invalid'); el.removeAttribute('aria-describedby'); }
+  }
 
   /* 3g. Ad review form (/tr/reklam-degerlendirmesi) */
   (function () {
     var f = document.getElementById('adreview'); if (!f) return;
     function v(n) { var el = f.elements[n]; return el ? String(el.value || '').trim() : ''; }
-    function bad(n, b) { var el = f.elements[n]; if (el) el.closest('.field').classList.toggle('invalid', b); }
+    function bad(n, b) { setInvalid(f.elements[n], b); }
     f.addEventListener('submit', function (e) {
       e.preventDefault();
       var okWeb = /^[^\s]+\.[a-z]{2,}([\/?#][^\s]*)?$/i.test(v('website').replace(/^https?:\/\//i, ''));
@@ -241,7 +267,7 @@
       var okRole = !!v('role'), okOrders = !!v('orders');
       bad('website', !okWeb); bad('name', !okName); bad('email', !okMail); bad('role', !okRole); bad('orders', !okOrders);
       if (!(okWeb && okName && okMail && okRole && okOrders)) { var b = f.querySelector('.field.invalid input, .field.invalid select'); if (b) b.focus(); return; }
-      function done() { f.querySelector('.adr-step').hidden = true; f.querySelector('.adr-done').hidden = false; }
+      function done() { f.querySelector('.adr-step').hidden = true; f.querySelector('.adr-done').hidden = false; var r = f.getBoundingClientRect(); if (r.top < 0) f.scrollIntoView({ block: 'start' }); }
       if (v('website2')) { done(); return; }
       var d = new URLSearchParams();
       d.append('form', 'ad_review'); d.append('lang', pageLang); d.append('page', location.pathname);
@@ -284,6 +310,7 @@
     if (backBtn) backBtn.hidden = !(i > 0 && i < total);
     var focusEl = steps[i] && steps[i].querySelector('h2');
     if (focusEl && i > 0) { focusEl.setAttribute('tabindex', '-1'); focusEl.focus({ preventScroll: true }); }
+    if (i >= total) { var r = form.getBoundingClientRect(); if (r.top < 0 || r.top > window.innerHeight * 0.5) form.scrollIntoView({ block: 'start' }); }
   }
 
   form.querySelectorAll('.opt').forEach(function (btn) {
@@ -312,7 +339,7 @@
   if (backBtn) backBtn.addEventListener('click', function () { show(Math.max(0, current - 1)); });
 
   function val(name) { var el = form.elements[name]; return el ? String(el.value || '').trim() : ''; }
-  function mark(name, bad) { var el = form.elements[name]; if (el) el.closest('.field').classList.toggle('invalid', bad); }
+  function mark(name, bad) { setInvalid(form.elements[name], bad); }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
